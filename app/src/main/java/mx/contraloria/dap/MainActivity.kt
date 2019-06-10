@@ -1,6 +1,8 @@
 package mx.contraloria.dap
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -16,9 +18,28 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+
+
         Handler().postDelayed({
-            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
-            finish()
+            //Verificamos si el usuario ya vio la intro
+            if(!restorePrefData()){
+                val intro_activity : Intent = Intent(applicationContext,IntroActivity::class.java)
+                startActivity(intro_activity)
+                finish()
+            }else{
+                startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+                finish()
+            }
+
         }, 1000)
+
+
+    }
+
+    private fun restorePrefData(): Boolean {
+
+        val pref: SharedPreferences = applicationContext.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val isIntroActivityOpenedBefore : Boolean = pref.getBoolean("isIntroOpened",false)
+        return isIntroActivityOpenedBefore
     }
 }

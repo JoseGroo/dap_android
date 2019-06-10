@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="5"
+        >
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:padding="16dp">
+
+        <ImageView android:layout_width="75dp"
+                   android:layout_height="75dp"
+                   android:src="@mipmap/ic_launcher"
+                   android:id="@+id/image"/>
+
+
+
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_weight="1">
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="DR. J dsad as"
+                      android:textColor="#000"
+                      android:textStyle="bold"
+                      android:layout_marginStart="10dp"
+                      android:textSize="20sp"
+                      android:id="@+id/txtnombre"
+            />
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="DIRECTOR"
+                      android:textColor="#4a4a4a"
+                      android:textStyle="bold"
+                      android:layout_marginStart="10dp"
+                      android:textSize="17sp"
+                      android:id="@+id/txtPuesto"
+            />
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="SERVICIOS DE SALUD DE SONOR"
+                      android:textColor="#6a6a6a"
+                      android:layout_marginStart="10dp"
+                      android:textSize="15sp"
+                      android:id="@+id/txtUA"/>
+
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="60dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1">
+            <ImageView android:layout_width="20dp"
+                       android:layout_height="75dp"
+                       android:gravity="right"
+                       android:src="@drawable/ic_chevronrighticon"
+                       android:id="@+id/imageDetalles"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</LinearLayout>
+
+

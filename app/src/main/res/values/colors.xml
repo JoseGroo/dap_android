@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <!--Colores para detalles-->
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorRed">#7F2A2A</color>
 
@@ -19,4 +21,25 @@
     <color name="grey">#E5E5E5</color>
 
     <color name="white">#FFFFFF</color>
+
+    <!--Colores  Lista y OnBoarding-->
+    <color name="backgroundColor">#E8E8E0</color>
+    <color name="backgroundColorPress">#DBDBD3</color>
+    <color name="red">#FF3B00</color>
+    <color name="red_press">#990000</color>
+    <color name="dark_gray">#4C535B</color>
+    <color name="dark_gray_press">#ff7e8a97</color>
+
+    <!-- COLORES PARA INTRO APP -->
+    <color name="colorPrimaryForIntro">#ffffff</color>
+    <color name="colorPrimaryDarkForIntro">#ffffff</color>
+    <color name="colorAccentForIntro">#ffffff</color>
+    <!-- COLRES PARA BOTONES INTRO  -->
+    <color name="colorGradientStart">#4c84ff</color>
+    <color name="colorGradientEnd">#18a3fe</color>
+    <!-- COLORES PARA TAB Y SCREEN TEXT  -->
+    <color name="colorTabIndicationGray">#c0c0c0</color>
+    <color name="colorIntroDescription">#656565</color>
+    <!--COLORES ARA INTRO-->
+    <color name="colorTitleIntro">#000000</color>
 </resources>

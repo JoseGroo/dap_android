@@ -16,38 +16,13 @@ import java.io.IOException
 
 class DetalleServidorActivity : MyToolBarActivity() {
 
-    var progressDialog = ProgressDialog(this@DetalleServidorActivity)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle_servidor)
 
-        progressDialog.setMessage(getString(R.string.str_cargando))
-        progressDialog.setCancelable(false)
 
-        var sId = "" //aqui va el id
-        val request = Request.Builder().url(getString(R.string.api_detalles_servidor_publico) + sId).build()
-
-
-        var client = OkHttpClient()
-        client.newCall(request).enqueue(object: Callback {
-
-            override fun onResponse(call: okhttp3.Call, response: Response) {
-
-                val body = response?.body()?.string()
-
-                val gson = Gson()
-                val listType = object : TypeToken<List<Dependencias>>() { }.type
-                val vDependenciasJson = gson.fromJson<List<Dependencias>>(body, listType)
-                runOnUiThread {
-                    progressDialog.dismiss()
-                }
-            }
-
-            override fun onFailure(call: okhttp3.Call, e: IOException) {
-                println("fallo peticion")
-            }
-        })
 
         tvNombreServidor.setText("José Manuel Guerrero Sánchez")
         tvPuestoOficial.setText("Jefe de departamento")

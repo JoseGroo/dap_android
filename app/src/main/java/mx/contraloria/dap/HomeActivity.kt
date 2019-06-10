@@ -58,7 +58,7 @@ class HomeActivity : MyToolBarActivity() {
 
                     override fun onResponse(call: okhttp3.Call, response: Response) {
 
-                        val body = response?.body()?.string()
+                        val body = response?.body?.string()
 
                         val gson = Gson()
                         val listType = object : TypeToken<List<Dependencias>>() { }.type
@@ -132,7 +132,7 @@ class HomeActivity : MyToolBarActivity() {
 
             override fun onResponse(call: okhttp3.Call, response: Response) {
 
-                val body = response?.body()?.string()
+                val body = response?.body?.string()
                 ///////cuando es solo un dato//////
                 //val model =  Gson().fromJson(json, mList::class.java)
 
@@ -151,8 +151,9 @@ class HomeActivity : MyToolBarActivity() {
             }
 
             override fun onFailure(call: okhttp3.Call, e: IOException) {
-                println("fallo peticion")
-                Toast.makeText(this@HomeActivity, "Fallo al recolectar la información" , Toast.LENGTH_SHORT).show()
+                println("fallo peticion ")
+                println(e)
+                //Toast.makeText(this@HomeActivity, "Fallo al recolectar la información" , Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -160,7 +161,7 @@ class HomeActivity : MyToolBarActivity() {
 
     fun BuscarServidores(view:View)
     {
-        startActivity(Intent(this@HomeActivity, DetalleServidorActivity::class.java))
+        startActivity(Intent(this@HomeActivity, ListaServidoresActivity::class.java))
     }
 
 }
