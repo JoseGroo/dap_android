@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">dap</string>
+    <string name="app_name">DAP</string>
+    <string name="str_bienvenido">Bienvenido</string>
+    <string name="str_cargando">Cargando...</string>
+    <string name="str_poderes_gobierno">Poderes de Gobierno</string>
+    <string name="str_dependencias_gobierno">Dependencias del Gobierno</string>
+    <string name="str_buscar_por_nombre">Buscar por nombre o puesto</string>
+    <string name="str_inicio">Inicio</string>
+    <string name="str_acerca_de">Acerca de</string>
+    <string name="str_buscar">Buscar</string>
+    <string name="str_limpiar">Limpiar</string>
+    <string name="str_buscar_por_nombre_o_puesto">Buscar por nombre o puesto</string>
+    <string name="str_fecha_alta">Fecha de alta</string>
+    <string name="str_nivel">Nivel</string>
+
+    <string name="api_poderes_gobierno">http://dap.sonora.gob.mx/api/v1/poderes</string>
+    <string name="api_dependencias_gobierno">http://dap.sonora.gob.mx/api/v1/dependencias/</string>
+    <string name="api_detalles_servidor_publico">https://next.json-generator.com/api/json/get/4JbRFdvRL/</string>
+
+    <string name="str_resena">Reseña</string>
+    <string name="str_dependencia">Dependencia</string>
+    <string name="str_unidad_administrativa">Unidad administrativa</string>
+    <string name="str_puesto_funcional">Puesto funcional</string>
+    <string name="str_salir">Salir</string>
 </resources>

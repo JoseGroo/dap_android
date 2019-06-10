@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+                android:id="@+id/nav_inicio"
+                android:icon="@drawable/logo_dap_sonora"
+                android:title="@string/str_inicio" />
+
+        <item
+                android:id="@+id/nav_acerca_de"
+                android:title="@string/str_acerca_de" />
+        <item
+                android:id="@+id/nav_salir"
+                android:title="@string/str_salir" />
+    </group>
+</menu>
