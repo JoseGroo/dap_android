@@ -21,28 +21,40 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.net.Uri
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.text.Layout
 import android.view.*
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.*
 import kotlinx.android.synthetic.main.dialog_email.*
 import mx.contraloria.dap.ListaServidoresActivity
+import mx.contraloria.dap.models.Favorites
 import java.security.Permission
 import java.util.jar.Manifest
 
 
 class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>)
     :ArrayAdapter<mList>(mCtx,resource,items){
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         //Infleate Layout
         val layoutInflater:LayoutInflater =  LayoutInflater.from(mCtx)
 
+
         val view: View = layoutInflater.inflate(resource,null)
+
+        /*animacion
+        val animacion: Animation = AnimationUtils.loadAnimation(mCtx,R.anim.button_animation_intro_comenzar)
+        view.animation = animacion*/
 
         val imageView:ImageView = view.findViewById(R.id.iImageR)
         val textView:TextView = view.findViewById(R.id.txtNombreR)
         val textView1:TextView = view.findViewById(R.id.txtPuestoR)
         val textView2:TextView = view.findViewById(R.id.txtUnidadR)
+        val imgFavorito:ImageView = view.findViewById(R.id.imageView3)
 
 
         var LayoutSwipe: SwipeLayout = view.findViewById(R.id.row_swipe_1)
@@ -51,8 +63,10 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
 
 
         //Evento Geolocalizacion
+
         LayoutSwipe.Geolocalizacion.setOnClickListener(View.OnClickListener {
             Toast.makeText(mCtx, "Click Geolocalizacion", Toast.LENGTH_SHORT).show()
+
         })
 
 
@@ -81,6 +95,13 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
         textView.text = mItems.employee_name
         textView1.text = "$"+mItems.employee_salary
         textView2.text = "Edad: "+mItems.employee_age
+
+
+        //verificar si es favorito
+        //
+        val favorites = Favorites(mCtx)
+        favorites.InitPreferentImage(mItems.id,imgFavorito)
+
 
 
         //Evento Telefonos
@@ -131,6 +152,11 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
             }
 
             emailDialog.show()
+        })
+
+        //Favoritos
+        LayoutSwipe.LayoutCFavoritos.setOnClickListener(View.OnClickListener {
+            favorites.AddDeleteFavoritos(view,mItems.id,mItems.employee_name,imgFavorito)
         })
 
         return view
@@ -238,5 +264,9 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
             false
         }
     }
+
+
+
+
 }
 

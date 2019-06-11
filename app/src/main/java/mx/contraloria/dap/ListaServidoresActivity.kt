@@ -7,14 +7,15 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.util.Log
 import android.view.View
-import android.widget.ListAdapter
-import android.widget.ListView
-import android.widget.Toast
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.*
 import com.daimajia.swipe.SwipeLayout
 import mx.contraloria.dap.models.mList
 import okhttp3.*
@@ -26,6 +27,7 @@ import java.net.URL
 import com.google.gson.GsonBuilder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.row_swipe.view.*
 import mx.contraloria.dap.Adapters.MyListAdapter2
 import java.util.jar.Manifest
 
@@ -35,6 +37,7 @@ class ListaServidoresActivity : MyToolBarActivity() {
 
     lateinit var listView: ListView
     val REQUEST_PHONE_CALL = 1
+    lateinit var btnAnimation : Animation
 
     private fun setupPermissions() {
         val permission = checkSelfPermission(this,
@@ -186,6 +189,12 @@ class ListaServidoresActivity : MyToolBarActivity() {
 
                 //////cuando es mas de un solo los pone en lista////////
                 val gson = Gson()
+
+                //example
+
+
+
+
                 val listType = object : TypeToken<List<mList>>() { }.type
                 val newList = gson.fromJson<List<mList>>(body, listType)
 
@@ -195,6 +204,7 @@ class ListaServidoresActivity : MyToolBarActivity() {
                     listView.setOnItemClickListener { parent, view, position, id ->
 
                         try{
+
                             startActivity(Intent(this@ListaServidoresActivity, DetalleServidorActivity::class.java))
 
                         }catch (e:Exception){
@@ -214,6 +224,12 @@ class ListaServidoresActivity : MyToolBarActivity() {
 
         })
     }
+
+    fun goIndex(view: View){
+        startActivity(Intent(this@ListaServidoresActivity, HomeActivity::class.java))
+    }
+
+
 
 }
 
