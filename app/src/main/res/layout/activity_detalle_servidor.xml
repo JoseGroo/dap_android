@@ -34,6 +34,32 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+                android:id="@+id/imgFavoritos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp">
+
+            <ImageView
+                    android:id="@+id/btnFavorito"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:adjustViewBounds="true"
+                    android:padding="3dp"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="3dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:onClick="PutFav"
+                    android:src="@android:drawable/btn_star_big_off" />
+
+
+
+        </RelativeLayout>
+
+
+
         <TextView
                 android:id="@+id/tvNombreServidor"
                 android:layout_width="wrap_content"
