@@ -173,7 +173,11 @@ class HomeTabActivity : MyToolBarActivity() {
 
     fun BuscarServidores(view:View)
     {
-        startActivity(Intent(this@HomeTabActivity, ListaServidoresActivity::class.java))
+        var intent = Intent(this@HomeTabActivity, ListaServidoresActivity::class.java)
+        intent.putExtra("filtro_dependencia_id",42)
+        intent.putExtra("filtro_nombre_servidor","José Manuel Guerrero")
+        intent.putExtra("filtro_poder_id",0)
+        startActivity(intent)
     }
 
 }

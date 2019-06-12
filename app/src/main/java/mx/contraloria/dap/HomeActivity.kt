@@ -166,6 +166,7 @@ class HomeActivity : MyToolBarActivity() {
         intent.putExtra("filtro_nombre_servidor","Manuel Contra")
         intent.putExtra("filtro_poder_id",0)
         startActivity(intent)
+        
     }
 
 }

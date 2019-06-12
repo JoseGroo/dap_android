@@ -1,5 +1,7 @@
 package mx.contraloria.dap.models
 
+import java.io.Serializable
+
 data class Servidores (val id: Int,
                        val nombre_completo: String,
                        val titulo: String,
@@ -13,4 +15,4 @@ data class Servidores (val id: Int,
                        val lada:String,
                        val telefono:String,
                        val correo_electronico:String,
-                       val reseña:String)
+                       val reseña:String) : Serializable
