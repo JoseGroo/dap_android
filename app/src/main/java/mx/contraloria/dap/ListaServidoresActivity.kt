@@ -44,9 +44,9 @@ class ListaServidoresActivity : MyToolBarActivity() {
     lateinit var listView: ListView
     val REQUEST_PHONE_CALL = 1
     lateinit var btnAnimation : Animation
-    var filtro_dependencia_id=0
-    var filtro_nombre_servidor=""
-    var filtro_poder_id=0
+    var filtro_dependencia_id=""
+    var filtro_nombre_servidor =""
+    var filtro_poder_id=""
     var clicks= 1
 
     private fun setupPermissions() {
@@ -61,9 +61,9 @@ class ListaServidoresActivity : MyToolBarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_servidores)
 
-        filtro_dependencia_id = intent.getIntExtra("filtro_dependencia_id",0)
+        filtro_dependencia_id = if(intent.getIntExtra("filtro_dependencia_id",0) == 0) "" else intent.getIntExtra("filtro_dependencia_id",0).toString()
         filtro_nombre_servidor = intent.getStringExtra("filtro_nombre_servidor")
-        filtro_poder_id = intent.getIntExtra("filtro_poder_id",0)
+        filtro_poder_id = if(intent.getIntExtra("filtro_poder_id",0) == 0) "" else intent.getIntExtra("filtro_poder_id",0).toString()
         setupPermissions()
 
         listView = findViewById(R.id.list)

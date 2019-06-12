@@ -6,10 +6,7 @@ import android.support.v7.app.AppCompatActivity
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -28,6 +25,9 @@ import java.util.ArrayList
 
 class HomeTabActivity : MyToolBarActivity() {
 
+    var poder_id = 0
+    var dependencia_id = 0
+    var nombre_servidor = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,6 +103,7 @@ class HomeTabActivity : MyToolBarActivity() {
 
                 val request = Request.Builder().url(getString(R.string.api_dependencias_gobierno) + iIdPoder).build()
 
+                poder_id = if (iIdPoder != "") iIdPoder.toInt() else 0
 
                 var client = OkHttpClient()
                 client.newCall(request).enqueue(object: Callback {
@@ -156,9 +157,10 @@ class HomeTabActivity : MyToolBarActivity() {
         spDependenciasGobierno.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 var iPosition: Int = if (position == 0)  position else position - 1
+                dependencia_id = 0
                 if(position > 0)
                 {
-                    Toast.makeText(this@HomeTabActivity, "Seleccionado: " + response_json.get(iPosition).nombre, Toast.LENGTH_SHORT).show()
+                    dependencia_id = response_json.get(iPosition).id.toInt()
                 }
             }
 
@@ -173,10 +175,11 @@ class HomeTabActivity : MyToolBarActivity() {
 
     fun BuscarServidores(view:View)
     {
+        var Filtro = if(findViewById<EditText>(R.id.etFiltroNombrePuesto).text != null) findViewById<EditText>(R.id.etFiltroNombrePuesto).text.toString() else ""
         var intent = Intent(this@HomeTabActivity, ListaServidoresActivity::class.java)
-        intent.putExtra("filtro_dependencia_id",42)
-        intent.putExtra("filtro_nombre_servidor","Pablo de Je")
-        intent.putExtra("filtro_poder_id",0)
+        intent.putExtra("filtro_dependencia_id",dependencia_id)
+        intent.putExtra("filtro_nombre_servidor", Filtro)
+        intent.putExtra("filtro_poder_id",poder_id)
         startActivity(intent)
     }
 
