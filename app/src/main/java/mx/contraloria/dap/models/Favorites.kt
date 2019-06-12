@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.view.View
 import android.view.Window
 import android.widget.ImageView
+import android.widget.TextView
 import mx.contraloria.dap.R
 import java.lang.Exception
 
@@ -34,6 +35,20 @@ class Favorites(cTx: Context) {
             }
         }
     }
+    fun AddDeleteFavoritosYext(view: View, id_servidor: String, nombre_servidor: String, text: TextView){
+        if(!checkInPrefrence(id_servidor)){
+            if(AddFavorite(id_servidor)){
+                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_yellow_24dp,0,0,0)
+                Snackbar.make(view, "Se añadio a favoritos a: "+ nombre_servidor, Snackbar.LENGTH_LONG).show()
+            }
+        }else{
+
+            if(deleteFromPreference(id_servidor)){
+                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_border_black_24dp,0,0,0)
+                Snackbar.make(view,  nombre_servidor+ " se elimino de favoritos.",Snackbar.LENGTH_LONG).show()
+            }
+        }
+    }
 
     fun InitPreferentImage(id: String,image: ImageView) {
         try{
@@ -41,6 +56,18 @@ class Favorites(cTx: Context) {
                 image.setImageResource(R.drawable.ic_star_yellow_24dp)
             }else{
                 image.setImageResource(R.drawable.ic_star_border_black_24dp)
+            }
+        }catch (e:Exception){
+
+        }
+
+    }
+    fun InitPreferentImageText(id: String,text: TextView) {
+        try{
+            if(checkInPrefrence(id)){
+                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_yellow_24dp,0,0,0)
+            }else{
+                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_border_black_24dp,0,0,0)
             }
         }catch (e:Exception){
 

@@ -55,7 +55,7 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
         val textView:TextView = view.findViewById(R.id.txtNombreR)
         val textView1:TextView = view.findViewById(R.id.txtPuestoR)
         val textView2:TextView = view.findViewById(R.id.txtUnidadR)
-        val imgFavorito:ImageView = view.findViewById(R.id.imageView3)
+        val imgFavorito:TextView = view.findViewById(R.id.btnFavorito)
 
 
         var LayoutSwipe: SwipeLayout = view.findViewById(R.id.row_swipe_1)
@@ -96,14 +96,15 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
 
 
         textView.text = mItems.titulo+" "+ mItems.nombre_completo
-        textView1.text = "$"+mItems.dependencia
-        textView2.text = "Edad: "+mItems.puesto_oficial
+        textView1.text = mItems.dependencia.substring(0,1).toUpperCase() + mItems.dependencia.substring(1).toLowerCase()
+
+        /*textView2.text = "Edad: "+mItems.puesto_oficial*/
 
 
         //verificar si es favorito
         //
         val favorites = Favorites(mCtx)
-        favorites.InitPreferentImage(mItems.id.toString(),imgFavorito)
+        favorites.InitPreferentImageText(mItems.id.toString(),imgFavorito)
 
 
 
@@ -158,8 +159,8 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
         })
 
         //Favoritos
-        LayoutSwipe.LayoutCFavoritos.setOnClickListener(View.OnClickListener {
-            favorites.AddDeleteFavoritos(view,mItems.id.toString(),mItems.nombre_completo,imgFavorito)
+        LayoutSwipe.btnFavorito.setOnClickListener(View.OnClickListener {
+            favorites.AddDeleteFavoritosYext(view,mItems.id.toString(),mItems.nombre_completo,imgFavorito)
         })
 
         return view

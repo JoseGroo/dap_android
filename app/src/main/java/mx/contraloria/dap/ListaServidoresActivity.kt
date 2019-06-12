@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.row.view.*
 import kotlinx.android.synthetic.main.row_swipe.view.*
 import mx.contraloria.dap.Adapters.MyListAdapter2
 import mx.contraloria.dap.models.Servidores
+import java.io.Serializable
 import java.util.jar.Manifest
 import android.util.Pair as UtilPair
 
@@ -46,6 +47,7 @@ class ListaServidoresActivity : MyToolBarActivity() {
     var filtro_dependencia_id=0
     var filtro_nombre_servidor=""
     var filtro_poder_id=0
+    var clicks= 1
 
     private fun setupPermissions() {
         val permission = checkSelfPermission(this,
@@ -58,6 +60,7 @@ class ListaServidoresActivity : MyToolBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_servidores)
+
         filtro_dependencia_id = intent.getIntExtra("filtro_dependencia_id",0)
         filtro_nombre_servidor = intent.getStringExtra("filtro_nombre_servidor")
         filtro_poder_id = intent.getIntExtra("filtro_poder_id",0)
@@ -109,6 +112,7 @@ class ListaServidoresActivity : MyToolBarActivity() {
                 val listType = object : TypeToken<List<Servidores>>() { }.type
                 val newList = gson.fromJson<List<Servidores>>(body, listType)
 
+
                 runOnUiThread {
                     listView.adapter = MyListAdapter2(this@ListaServidoresActivity, R.layout.row_swipe, newList)
 
@@ -116,18 +120,22 @@ class ListaServidoresActivity : MyToolBarActivity() {
 
                         try{
 
-                            // Check if we're running on Android 5.0 or higher
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            var intent = Intent(this@ListaServidoresActivity, DetalleServidorActivity::class.java)
+                            intent.putExtra("servidor", newList.get(position) as Serializable)
+                                // Check if we're running on Android 5.0 or higher
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-                                val options = ActivityOptions.makeSceneTransitionAnimation(this@ListaServidoresActivity,
-                                    UtilPair.create<View,String>(view.iImageR, "imageTransition"),
-                                    UtilPair.create<View,String>(view.txtNombreR, "nombreTransition"))
+                                    val options = ActivityOptions.makeSceneTransitionAnimation(this@ListaServidoresActivity,
+                                        UtilPair.create<View,String>(view.iImageR, "imageTransition"),
+                                        UtilPair.create<View,String>(view.txtNombreR, "nombreTransition"))
 
-                                startActivity(Intent(this@ListaServidoresActivity, DetalleServidorActivity::class.java),options.toBundle())
-                            } else {
-                                // Swap without transition
-                                startActivity(Intent(this@ListaServidoresActivity, DetalleServidorActivity::class.java))
-                            }
+                                    startActivity(intent,options.toBundle())
+                                } else {
+                                    // Swap without transition
+                                    startActivity(intent)
+                                }
+
+
 
 
                         }catch (e:Exception){
