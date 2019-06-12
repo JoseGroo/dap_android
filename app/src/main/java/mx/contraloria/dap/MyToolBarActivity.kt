@@ -1,5 +1,6 @@
 package mx.contraloria.dap
 
+import android.app.ActionBar
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -13,6 +14,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import android.widget.Toolbar
+
+
+
 
 
 abstract class MyToolBarActivity : AppCompatActivity() {
@@ -24,12 +29,20 @@ abstract class MyToolBarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_my_tool_bar)
 
         supportActionBar!!.title = getString(R.string.app_name)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        if(this !is HomeActivity)
+        {
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        }else if(this is HomeActivity)
+        {
+            //supportActionBar!!.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+            //supportActionBar!!.setCustomView(R.layout.my_toolbar)
+
+        }
 
 
 
     }
-
+/*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_view, menu)
@@ -58,7 +71,7 @@ abstract class MyToolBarActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
-
+*/
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
