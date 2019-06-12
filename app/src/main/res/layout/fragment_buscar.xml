@@ -64,24 +64,24 @@
             android:ems="10"
             android:id="@+id/etFiltroNombrePuesto"/>
 
-   <GridLayout
-           android:layout_marginLeft="10dp"
-           android:layout_marginRight="10dp"
-           android:layout_marginTop="20dp"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content">
-       <Button
-               style="@style/Widget.AppCompat.Button.Colored"
-               android:text="@string/str_buscar"
-               android:layout_width="wrap_content"
-               android:onClick="BuscarServidores"
-               android:layout_height="wrap_content"/>
+    <GridLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="@string/str_buscar"
+                android:layout_width="wrap_content"
+                android:onClick="BuscarServidores"
+                android:layout_height="wrap_content"/>
 
-       <Button
-               style="@style/Widget.AppCompat.Button.Borderless.Colored"
-               android:text="@string/str_limpiar"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"/>
-   </GridLayout>
+        <Button
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:text="@string/str_limpiar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </GridLayout>
 
 </LinearLayout>

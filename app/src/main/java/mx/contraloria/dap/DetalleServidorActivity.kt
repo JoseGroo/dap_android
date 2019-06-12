@@ -4,10 +4,6 @@ import android.app.ProgressDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_detalle_servidor.*
@@ -19,6 +15,10 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
+import android.support.v4.view.ViewCompat.canScrollVertically
+import android.support.v7.widget.RecyclerView
+import android.widget.*
+
 
 class DetalleServidorActivity : MyToolBarActivity() {
 
