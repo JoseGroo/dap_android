@@ -15,4 +15,5 @@ data class Servidores (val id: Int,
                        val lada:String,
                        val telefono:String,
                        val correo_electronico:String,
-                       val reseña:String) : Serializable
+                       val reseña:String,
+                       val foto: String) : Serializable

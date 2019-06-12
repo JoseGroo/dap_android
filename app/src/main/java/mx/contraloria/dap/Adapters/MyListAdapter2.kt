@@ -79,19 +79,19 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
 
 
         //Aqui deberia should ir la imagen
-        /*
-        if(mItems.profile_image != ""){
+
+        if(mItems.foto != ""){
             try{
                 val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
                 StrictMode.setThreadPolicy(policy)
                 var url:URL
-                url = URL(mItems.profile_image)
+                url = URL(mItems.foto)
                 var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
                 imageView.setImageBitmap(bmp)
             }catch (e: IOException){
                 print(e)
             }
-        }*/
+        }
 
 
 
@@ -163,7 +163,7 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
             favorites.AddDeleteFavoritosYext(view,mItems.id.toString(),mItems.nombre_completo,imgFavorito)
         })
         LayoutSwipe.btnCompartir.setOnClickListener(View.OnClickListener {
-            favorites.AddDeleteFavoritosYext(view,mItems.id.toString(),mItems.nombre_completo,imgFavorito)
+            var intent = Intent(Intent.ACTION_SEND)
         })
 
         return view

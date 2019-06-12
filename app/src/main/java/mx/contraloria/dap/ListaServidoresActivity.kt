@@ -76,9 +76,9 @@ class ListaServidoresActivity : MyToolBarActivity() {
     fun fetchJason(){
         //val url = "http://dummy.restapiexample.com/api/v1/employees"
         //http://dap.sonora.gob.mx/api/v1/servidores?filterrific[c%20on_dependencia_id]=0&filterrific[buscar_por_nombre]=jesus%20soto&page=1
-        val url = getString(R.string.api_lista_servidores) + "filterrific[con_dependencia_id]="+
-                filtro_dependencia_id+"&filterrific[buscar_por_nombre]="+
-                filtro_nombre_servidor+"&page=1"
+        val url = getString(R.string.api_lista_servidores) +
+                "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
+                "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+"&page=1"
 
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
