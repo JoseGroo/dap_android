@@ -30,7 +30,7 @@ class DetalleServidorActivity : MyToolBarActivity() {
         setContentView(R.layout.activity_detalle_servidor)
 
 
-        /*val vServidor = intent.extras.get("servidor") as Servidores
+        val vServidor = intent.extras.get("servidor") as Servidores
 
 
         tvNombreServidor.setText(vServidor.titulo + " " + vServidor.nombre_completo)
@@ -44,7 +44,7 @@ class DetalleServidorActivity : MyToolBarActivity() {
 
         var Favorito = Favorites(this@DetalleServidorActivity)
 
-        Favorito.InitPreferentImage(vServidor.id.toString(), btnFavorito)*/
+        Favorito.InitPreferentImage(vServidor.id.toString(), btnFavorito)
     }
 
     fun PutFav(view: View)

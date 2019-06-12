@@ -162,6 +162,9 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
         LayoutSwipe.btnFavorito.setOnClickListener(View.OnClickListener {
             favorites.AddDeleteFavoritosYext(view,mItems.id.toString(),mItems.nombre_completo,imgFavorito)
         })
+        LayoutSwipe.btnCompartir.setOnClickListener(View.OnClickListener {
+            favorites.AddDeleteFavoritosYext(view,mItems.id.toString(),mItems.nombre_completo,imgFavorito)
+        })
 
         return view
     }
