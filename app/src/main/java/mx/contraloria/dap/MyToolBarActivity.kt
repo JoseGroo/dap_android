@@ -38,9 +38,6 @@ abstract class MyToolBarActivity : AppCompatActivity() {
             //supportActionBar!!.setCustomView(R.layout.my_toolbar)
 
         }
-
-
-
     }
 /*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

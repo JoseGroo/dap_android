@@ -7,6 +7,10 @@
                 android:layout_height="match_parent"
                 tools:context=".DetalleServidorActivity">
 
+    <ScrollView
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent">
     <RelativeLayout
             android:id="@+id/rellay1"
             android:layout_width="match_parent"
@@ -175,11 +179,9 @@
     </LinearLayout>
 
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_below="@+id/linlay1"
-            android:layout_height="match_parent">
+
         <RelativeLayout
+                android:layout_below="@+id/linlay1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"

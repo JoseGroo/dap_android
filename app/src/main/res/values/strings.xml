@@ -23,4 +23,10 @@
     <string name="str_unidad_administrativa">Unidad administrativa</string>
     <string name="str_puesto_funcional">Puesto funcional</string>
     <string name="str_salir">Salir</string>
+    <string name="title_activity_home_tab">HomeTabActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="str_favoritos">Favoritos</string>
 </resources>
