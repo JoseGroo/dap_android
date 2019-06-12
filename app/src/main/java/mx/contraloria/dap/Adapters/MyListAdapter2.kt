@@ -32,12 +32,13 @@ import android.widget.*
 import kotlinx.android.synthetic.main.dialog_email.*
 import mx.contraloria.dap.ListaServidoresActivity
 import mx.contraloria.dap.models.Favorites
+import mx.contraloria.dap.models.Servidores
 import java.security.Permission
 import java.util.jar.Manifest
 
 
-class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>)
-    :ArrayAdapter<mList>(mCtx,resource,items){
+class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servidores>)
+    :ArrayAdapter<Servidores>(mCtx,resource,items){
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         //Infleate Layout
@@ -74,9 +75,11 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
         LayoutSwipe.Emails.setOnClickListener(View.OnClickListener {
             Toast.makeText(mCtx, "Emails", Toast.LENGTH_SHORT).show()
         })
-        var mItems:mList = items[position]
+        var mItems:Servidores = items[position]
 
 
+        //Aqui deberia should ir la imagen
+        /*
         if(mItems.profile_image != ""){
             try{
                 val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
@@ -88,19 +91,19 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
             }catch (e: IOException){
                 print(e)
             }
-        }
+        }*/
 
 
 
-        textView.text = mItems.employee_name
-        textView1.text = "$"+mItems.employee_salary
-        textView2.text = "Edad: "+mItems.employee_age
+        textView.text = mItems.titulo+" "+ mItems.nombre_completo
+        textView1.text = "$"+mItems.dependencia
+        textView2.text = "Edad: "+mItems.puesto_oficial
 
 
         //verificar si es favorito
         //
         val favorites = Favorites(mCtx)
-        favorites.InitPreferentImage(mItems.id,imgFavorito)
+        favorites.InitPreferentImage(mItems.id.toString(),imgFavorito)
 
 
 
@@ -121,7 +124,7 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
             val phoneDtxtName: TextView = phonesDialog.findViewById(R.id.txtDNombre)
             val phoneDiImage: ImageView = phonesDialog.findViewById(R.id.iDImage)
             try{
-                phoneDtxtName.text = mItems.employee_name
+                phoneDtxtName.text = mItems.nombre_completo
             }catch (e: IOException){
                 print(e)
             }
@@ -146,7 +149,7 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
             val emailDtxtName: TextView = emailDialog.findViewById(R.id.txtDNombre)
             val emailDiImage: ImageView = emailDialog.findViewById(R.id.iDImage)
             try{
-                emailDtxtName.text = mItems.employee_name
+                emailDtxtName.text = mItems.nombre_completo
             }catch (e: IOException){
                 print(e)
             }
@@ -156,7 +159,7 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
 
         //Favoritos
         LayoutSwipe.LayoutCFavoritos.setOnClickListener(View.OnClickListener {
-            favorites.AddDeleteFavoritos(view,mItems.id,mItems.employee_name,imgFavorito)
+            favorites.AddDeleteFavoritos(view,mItems.id.toString(),mItems.nombre_completo,imgFavorito)
         })
 
         return view
@@ -204,7 +207,7 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
 
         /**/
     }
-    fun CreateBtnEmails(dialog: Dialog, email: String,model: mList){
+    fun CreateBtnEmails(dialog: Dialog, email: String,model: Servidores){
         /* Aqui empieza el buttones dinaamoscs */
         val constraintLayout = dialog.findViewById(R.id.lyLstBtnEmails) as LinearLayout
 
@@ -234,7 +237,7 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<mList>
             intent.type= "text/html"
             intent.putExtra(Intent.EXTRA_EMAIL, arrayOf<String>(email))
             intent.putExtra(Intent.EXTRA_SUBJECT, "Enviado desde | DAP MOBIL ANDROID")
-            intent.putExtra(Intent.EXTRA_TEXT, "Hola "+model.employee_name )
+            intent.putExtra(Intent.EXTRA_TEXT, "Hola "+model.nombre_completo )
             startActivity(mCtx,intent,null)
         })
 
