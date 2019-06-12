@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.support.design.widget.Snackbar
 import android.view.View
+import android.view.Window
 import android.widget.ImageView
 import mx.contraloria.dap.R
 import java.lang.Exception
@@ -14,7 +15,9 @@ class Favorites(cTx: Context) {
     lateinit var sharedPreferences : SharedPreferences
     var MY_PREFS = "myPrefs"
     var V_KEY = "favorites"
+    lateinit var context: Context
     init {
+        this.context = cTx
        sharedPreferences = cTx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE)
     }
     fun AddDeleteFavoritos(view: View, id_servidor: String, nombre_servidor: String, image: ImageView){
@@ -24,6 +27,7 @@ class Favorites(cTx: Context) {
                 Snackbar.make(view, "Se añadio a favoritos a: "+ nombre_servidor, Snackbar.LENGTH_LONG).show()
             }
         }else{
+
             if(deleteFromPreference(id_servidor)){
                 image.setImageResource(R.drawable.ic_star_border_black_24dp)
                 Snackbar.make(view,  nombre_servidor+ " se elimino de favoritos.",Snackbar.LENGTH_LONG).show()

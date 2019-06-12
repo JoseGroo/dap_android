@@ -30,11 +30,13 @@
                     android:background="@drawable/circle"
                     android:padding="3dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_user" />
+                    android:src="@drawable/ic_user"
+                    android:transitionName="imageTransition"/>
 
         </RelativeLayout>
 
         <TextView
+                android:transitionName="nombreTransition"
                 android:id="@+id/tvNombreServidor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

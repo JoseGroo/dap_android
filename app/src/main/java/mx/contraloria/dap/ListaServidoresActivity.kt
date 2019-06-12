@@ -1,10 +1,12 @@
 package mx.contraloria.dap
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.AsyncTask
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -27,9 +29,11 @@ import java.net.URL
 import com.google.gson.GsonBuilder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.row.view.*
 import kotlinx.android.synthetic.main.row_swipe.view.*
 import mx.contraloria.dap.Adapters.MyListAdapter2
 import java.util.jar.Manifest
+import android.util.Pair as UtilPair
 
 
 class ListaServidoresActivity : MyToolBarActivity() {
@@ -205,7 +209,19 @@ class ListaServidoresActivity : MyToolBarActivity() {
 
                         try{
 
-                            startActivity(Intent(this@ListaServidoresActivity, DetalleServidorActivity::class.java))
+                            // Check if we're running on Android 5.0 or higher
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                                val options = ActivityOptions.makeSceneTransitionAnimation(this@ListaServidoresActivity,
+                                    UtilPair.create<View,String>(view.iImageR, "imageTransition"),
+                                    UtilPair.create<View,String>(view.txtNombreR, "nombreTransition"))
+
+                                startActivity(Intent(this@ListaServidoresActivity, DetalleServidorActivity::class.java),options.toBundle())
+                            } else {
+                                // Swap without transition
+                                startActivity(Intent(this@ListaServidoresActivity, DetalleServidorActivity::class.java))
+                            }
+
 
                         }catch (e:Exception){
                             Toast.makeText(
