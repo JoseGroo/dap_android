@@ -3,7 +3,8 @@
 <com.daimajia.swipe.SwipeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:clickToClose="true"
         android:id="@+id/row_swipe_1">
@@ -74,11 +75,9 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="wrap_content">
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <TextView
                 android:text="Contraloria"
@@ -124,6 +123,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4" android:layout_marginTop="5dp"/>-->
         <com.mikhaellopez.circularimageview.CircularImageView
+                android:transitionName="imageTransition"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@mipmap/ic_icon_perfil_round"
@@ -138,6 +138,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" android:layout_marginStart="8dp"/>
 
         <TextView
+                android:transitionName="nombreTransition"
                 android:text="Dr. Juan Lopez"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -145,6 +146,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 android:singleLine="false" android:textSize="17dp" android:textStyle="bold" android:textColor="#2C2B2B"
                 android:layout_marginTop="16dp" android:layout_marginEnd="8dp" android:layout_marginStart="8dp"/>
+
         <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -152,7 +154,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline"
                 app:layout_constraintBottom_toTopOf="@+id/guideline2"
                 app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/LayoutCFavoritos">
+                android:id="@+id/LayoutCFavoritos">
             <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -160,13 +162,61 @@
                     android:id="@+id/imageView3"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="12dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.16000003"/>
 
         </android.support.constraint.ConstraintLayout>
+        <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                              android:id="@+id/guideline6" app:layout_constraintGuide_begin="20dp"
+                                              android:orientation="horizontal"/>
+        <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                              android:id="@+id/guideline8" app:layout_constraintGuide_begin="149dp"
+                                              android:orientation="horizontal"/>
+        <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                              android:id="@+id/guideline11"
+                                              android:orientation="vertical"
+                                              app:layout_constraintGuide_percent="0.50121653"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                android:id="@+id/linearLayout">
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+            android:text="Favoritos"
+            android:gravity="center|left"
+                      android:drawablePadding="20dp"
+            android:drawableLeft="@drawable/ic_star_border_black_24dp"
+                      android:paddingLeft="20dp"
+            android:background="@drawable/white"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline11"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
+                app:layout_constraintBottom_toTopOf="@+id/guideline8">
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:text="Compartir"
+                      android:gravity="center|right"
+                      android:drawablePadding="20dp"
+                      android:drawableRight="@drawable/ic_menu_share"
+            android:paddingRight="20dp"
+                      android:background="@drawable/white"/>
+        </LinearLayout>
+
 
     </android.support.constraint.ConstraintLayout>
+
+    <!--button compartir-->
+
 
 </com.daimajia.swipe.SwipeLayout>
