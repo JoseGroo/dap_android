@@ -70,7 +70,7 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
                         .centerCrop()
                         .placeholder(R.drawable.spinner_progress_animation)
                         .error(R.mipmap.ic_icon_perfil_round)
-                        .into(viewHolder.imgPerfil);
+                        .into(viewHolder.imgPerfil)
                 }catch (e: IOException){
                     print(e)
                 }

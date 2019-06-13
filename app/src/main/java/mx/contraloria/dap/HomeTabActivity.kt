@@ -183,4 +183,16 @@ class HomeTabActivity : MyToolBarActivity() {
         startActivity(intent)
     }
 
+    fun LimpiarFiltros(view: View)
+    {
+        var etFiltroNombrePuesto = findViewById<EditText>(R.id.etFiltroNombrePuesto)
+        etFiltroNombrePuesto.setText("")
+
+        var sPoderesGobierno = findViewById<Spinner>(R.id.spPoderesGobierno)
+        sPoderesGobierno.setSelection(0, true)
+
+        var spDependenciasGobierno = findViewById<Spinner>(R.id.spDependenciasGobierno)
+        spDependenciasGobierno.setSelection(0, true)
+    }
+
 }
