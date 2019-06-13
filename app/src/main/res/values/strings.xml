@@ -34,4 +34,6 @@
     <string name="str_correo_electronico">Correo electrónico</string>
     <string name="str_compartir">Compartir</string>
     <string name="str_mapa">Mapa</string>
+    <string name="enviar_correo_a">Enviar correo a:</string>
+    <string name="llammar_a">Llammar a</string>
 </resources>

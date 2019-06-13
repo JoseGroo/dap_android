@@ -2,18 +2,19 @@ package mx.contraloria.dap.models
 
 import java.io.Serializable
 
-data class Servidores (val id: Int,
-                       val nombre_completo: String,
-                       val titulo: String,
-                       val dependencia: String,
-                       val unidad_administrativa:String,
-                       val fecha_de_alta:String,
-                       val puesto_funcional:String,
-                       val puesto_oficial:String,
-                       val nivel:String,
-                       val domicilio:String,
-                       val lada:String,
-                       val telefono:String,
-                       val correo_electronico:String,
-                       val reseña:String,
-                       val foto: String) : Serializable
+data class Servidores (var id: Int,
+                       var nombre_completo: String,
+                       var titulo: String,
+                       var dependencia: String,
+                       var unidad_administrativa:String,
+                       var fecha_de_alta:String,
+                       var puesto_funcional:String,
+                       var puesto_oficial:String,
+                       var nivel:String,
+                       var domicilio:String,
+                       var lada:String,
+                       var telefono:String,
+                       var correo_electronico:String,
+                       var reseña:String,
+                       var foto: String) : Serializable{
+}
