@@ -33,7 +33,7 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+       <!-- <RelativeLayout
                 android:id="@+id/imgFavoritos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
 
 
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
 
 
@@ -70,6 +70,7 @@
                 android:fontFamily="sans-serif-light"
                 android:textAlignment="center"
                 android:text=""
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -83,7 +84,6 @@
                 android:fontFamily="sans-serif"
                 android:textAlignment="center"
                 android:text=""
-                android:textAllCaps="true"
                 android:textColor="@color/colorWhite"
                 android:textSize="14sp" />
 
@@ -314,10 +314,172 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_domicilio"
+                            android:textColor="@color/headings"
+                            android:textSize="13sp" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text=""
+                            android:id="@+id/tvDomicilio"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/grey" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_telefonos"
+                            android:textColor="@color/headings"
+                            android:textSize="13sp" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text=""
+                            android:id="@+id/tvTelefonos"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/grey" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_correo_electronico"
+                            android:textColor="@color/headings"
+                            android:textSize="13sp" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text=""
+                            android:id="@+id/tvCorreoElectronico"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/grey" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
         </RelativeLayout>
     </ScrollView>
+
+
+
+    <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/menuOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            app:menu_labels_position="left"
+            app:menu_openDirection="down"
+            app:menu_icon="@drawable/ic_menu_white_24dp"
+            app:menu_fab_label="">
+
+        <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_mapa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location_on_white_24dp"
+                app:fab_size="mini"
+                android:onClick="Mapa"
+                app:fab_label="@string/str_mapa" />
+
+
+        <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_correos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_email_white_24dp"
+                app:fab_size="mini"
+                android:onClick="Correos"
+                app:fab_label="@string/str_correo_electronico" />
+
+
+
+        <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_telefonos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_local_phone_white_24dp"
+                app:fab_size="mini"
+                android:onClick="Telefonos"
+                app:fab_label="@string/str_telefonos" />
+
+        <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_favoritos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_star_border_black_24dp"
+                app:fab_size="mini"
+                android:onClick="PutFav"
+                app:fab_label="@string/str_favoritos" />
+
+
+        <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_compartir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_share_white_24dp"
+                app:fab_size="mini"
+                android:onClick="Compartir"
+                app:fab_label="@string/str_compartir" />
+
+        <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_buscar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search_white_24dp"
+                app:fab_size="mini"
+                app:fab_label="@string/str_buscar" />
+    </com.github.clans.fab.FloatingActionMenu>
+
 
 </RelativeLayout>

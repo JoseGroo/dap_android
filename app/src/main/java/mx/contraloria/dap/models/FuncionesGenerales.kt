@@ -21,12 +21,16 @@ import android.support.v4.content.ContextCompat.startActivity
 import java.net.URLConnection
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import mx.contraloria.dap.HomeTabActivity
 import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
 import java.net.URL
 
 
 class FuncionesGenerales(cTx: Context) {
+
+    val months = arrayOf("Ene.", "Feb.", "Mar.", "Abr.", "May.", "Jun.", "Jul.", "Ago.", "Sep.", "Oct.", "Nov.", "Dic.")
+
 
     var VCF_DIRECTORY: String  = "/vcf_demonuts"
     lateinit var vcfFile: File
@@ -35,6 +39,11 @@ class FuncionesGenerales(cTx: Context) {
         this.context = cTx
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
+    }
+
+    fun goIndex(view: View){
+        var intent = Intent(context, HomeTabActivity::class.java)
+        startActivity(context, intent, null)
     }
 
 
