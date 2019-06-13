@@ -2,6 +2,7 @@ package mx.contraloria.dap.Adapters
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +14,20 @@ import com.daimajia.swipe.SwipeLayout
 import java.io.IOException
 import java.net.URL
 import com.squareup.picasso.Picasso
-
-
+import kotlinx.android.synthetic.main.row_swipe.view.*
+import mx.contraloria.dap.models.Favorites
+import mx.contraloria.dap.models.FuncionesGenerales
+import java.io.ByteArrayOutputStream
+import java.lang.Exception
+import java.util.*
 
 
 class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapter() {
     private val layoutInflater = LayoutInflater.from(context)
+    private val favorites = Favorites(context)
+
     var mBusy: Boolean = false
+    var FuncionesGenerales = FuncionesGenerales(context)
     lateinit var context: Context
 
     init {
@@ -50,6 +58,7 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
         viewHolder.LayoutSwipe.addDrag(SwipeLayout.DragEdge.Right, viewHolder.LayoutSwipe.findViewById(R.id.bottom_wrapper_2))
 
 
+        //Cargamos la imagen si el scroll se detuvo
         if(!mBusy){
             //ponemos la imagen
             if(items[position].foto != ""){
@@ -70,8 +79,44 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
         }else{
             viewHolder.imgPerfil.setImageResource(R.drawable.spinner_progress_animation)
         }
-        viewHolder.nombre.text = items[position].titulo + items[position].nombre_completo
-        viewHolder.dependencia.text = items[position].dependencia.substring(0,1).toUpperCase() + items[position].dependencia.substring(1).toLowerCase()
+        viewHolder.nombre.text = FuncionesGenerales.NormalizerTextNames( items[position].titulo +" "+items[position].nombre_completo)
+        viewHolder.dependencia.text = FuncionesGenerales.NormalizerTextNames(items[position].dependencia)
+
+        //Creamos el evento de Favoritos
+        //Favoritos
+        favorites.InitPreferentImageText(items.get(position).id.toString(),viewHolder.imgFavoritos)
+        viewHolder.imgFavoritos.setOnClickListener(View.OnClickListener {
+            favorites.AddDeleteFavoritosYext(viewHolder.imgFavoritos,items[position].id.toString(),FuncionesGenerales.NormalizerTextNames( items[position].nombre_completo),viewHolder.imgFavoritos)
+        })
+
+        //Creamos el evento compartir
+        viewHolder.imgCompartir.setOnClickListener(View.OnClickListener {
+            try{
+                /*Get the bitmap that we stored in a File*/
+                val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+                StrictMode.setThreadPolicy(policy)
+                var url = URL(items.get(position).foto)
+                var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+
+                /*Convert bitmap to Base64*/
+                val baos = ByteArrayOutputStream()
+                bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val b = baos.toByteArray()
+                //val image_encoded = Base64.encodeToString(b, Base64.DEFAULT)
+                val data = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Base64.getEncoder().encodeToString(b)
+                } else {
+                    android.util.Base64.encodeToString(b, android.util.Base64.DEFAULT)
+                }
+                FuncionesGenerales.GenerarVcard(items.get(position),data)
+
+            }catch (e: Exception){
+                print(e.message)
+            }
+
+        })
+
+
 
         return rowView
     }
@@ -94,9 +139,12 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
         val dependencia = view?.findViewById(R.id.txtPuestoR) as TextView
         val puesto = view?.findViewById(R.id.txtUnidadR) as TextView
         val imgFavoritos = view?.findViewById(R.id.btnFavorito) as TextView
+        val imgCompartir = view?.findViewById(R.id.btnCompartir) as TextView
         val LayoutSwipe = view?.findViewById(R.id.row_swipe_1) as SwipeLayout
 
     }
+
+
 }
 
 
