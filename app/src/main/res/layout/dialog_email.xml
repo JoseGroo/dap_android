@@ -19,15 +19,18 @@
                   android:text="Dr. Juan Navarrete"
                   android:textColor="@color/backgroundColor"
                   android:textStyle="bold"
-                  android:textSize="24sp"
-                  android:layout_marginTop="90dp"/>
+                  android:textSize="20sp"
+                  android:layout_marginTop="90dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"/>
 
         <TextView
                 android:id="@+id/txtDSeleccioneOp"
                 android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textSize="18sp"
-                  android:text="Seleccione una de las opciones"
+                  android:text="@string/enviar_correo_a"
                   android:textColor="@color/backgroundColor"
                   android:layout_marginTop="5dp"
                   android:layout_marginBottom="10dp"

@@ -1,10 +1,20 @@
 package mx.contraloria.dap.Adapters
+import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.StrictMode
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import mx.contraloria.dap.R
@@ -57,6 +67,23 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
         viewHolder.LayoutSwipe.addDrag(SwipeLayout.DragEdge.Left, viewHolder.LayoutSwipe.findViewById(R.id.bottom_wrapper))
         viewHolder.LayoutSwipe.addDrag(SwipeLayout.DragEdge.Right, viewHolder.LayoutSwipe.findViewById(R.id.bottom_wrapper_2))
 
+        var item = items.get(position)
+        var snombre_completo = FuncionesGenerales.NormalizerTextNames( item.nombre_completo)
+        var sTitulo = FuncionesGenerales.NormalizerTextNames( item.titulo)
+        var sDependecia = FuncionesGenerales.NormalizerTextNames( item.dependencia)
+
+
+
+        /////////// Emails ****
+        viewHolder.btnEmails.setOnClickListener(View.OnClickListener {
+            FuncionesGenerales.GenerarviewCallEmail(snombre_completo,item.foto,item.correo_electronico)
+        })
+        ///////////telefonos ***
+        viewHolder.btnPhones.setOnClickListener(View.OnClickListener {
+           FuncionesGenerales.GenerarViewCallTelefonos(snombre_completo,item.foto,item.lada,item.telefono)
+
+        })
+
 
         //Cargamos la imagen si el scroll se detuvo
         if(!mBusy){
@@ -79,17 +106,17 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
         }else{
             viewHolder.imgPerfil.setImageResource(R.drawable.spinner_progress_animation)
         }
-        viewHolder.nombre.text = FuncionesGenerales.NormalizerTextNames( items[position].titulo +" "+items[position].nombre_completo)
-        viewHolder.dependencia.text = FuncionesGenerales.NormalizerTextNames(items[position].dependencia)
+        viewHolder.nombre.text = FuncionesGenerales.NormalizerTextNames( sTitulo +" "+snombre_completo)
+        viewHolder.dependencia.text = FuncionesGenerales.NormalizerTextNames(sDependecia)
 
         //Creamos el evento de Favoritos
         //Favoritos
         favorites.InitPreferentImageText(items.get(position).id.toString(),viewHolder.imgFavoritos)
         viewHolder.imgFavoritos.setOnClickListener(View.OnClickListener {
-            favorites.AddDeleteFavoritosYext(viewHolder.imgFavoritos,items[position].id.toString(),FuncionesGenerales.NormalizerTextNames( items[position].nombre_completo),viewHolder.imgFavoritos)
+            favorites.AddDeleteFavoritosYext(viewHolder.imgFavoritos,item.id.toString(),snombre_completo,viewHolder.imgFavoritos)
         })
 
-        //Creamos el evento compartir
+        //Creamos el evento compartir **************************************** pendiente de revision para poner los snombre_completo
         viewHolder.imgCompartir.setOnClickListener(View.OnClickListener {
             try{
                 /*Get the bitmap that we stored in a File*/
@@ -108,7 +135,7 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
                 } else {
                     android.util.Base64.encodeToString(b, android.util.Base64.DEFAULT)
                 }
-                FuncionesGenerales.GenerarVcard(items.get(position),data)
+                FuncionesGenerales.GenerarVcard(item,data)
 
             }catch (e: Exception){
                 print(e.message)
@@ -132,6 +159,7 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
 
 
 
+
     /*Datos que necesito de mi vista*/
     private class ViewHolder(view: View?) {
         val imgPerfil = view?.findViewById(R.id.iImageR) as ImageView
@@ -141,6 +169,8 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
         val imgFavoritos = view?.findViewById(R.id.btnFavorito) as TextView
         val imgCompartir = view?.findViewById(R.id.btnCompartir) as TextView
         val LayoutSwipe = view?.findViewById(R.id.row_swipe_1) as SwipeLayout
+        val btnPhones = view?.findViewById(R.id.Phones) as ImageView
+        val btnEmails = view?.findViewById(R.id.Emails) as ImageView
 
     }
 
