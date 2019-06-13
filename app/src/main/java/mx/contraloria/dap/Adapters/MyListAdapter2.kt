@@ -21,9 +21,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.net.Uri
+import android.os.Build
+import android.os.Environment
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
+import android.support.v4.content.FileProvider
 import android.text.Layout
 import android.view.*
 import android.view.animation.Animation
@@ -33,12 +36,19 @@ import kotlinx.android.synthetic.main.dialog_email.*
 import mx.contraloria.dap.ListaServidoresActivity
 import mx.contraloria.dap.models.Favorites
 import mx.contraloria.dap.models.Servidores
+import java.io.File
+import java.io.FileWriter
+import java.lang.Exception
 import java.security.Permission
+import java.util.*
 import java.util.jar.Manifest
 
 
 class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servidores>)
     :ArrayAdapter<Servidores>(mCtx,resource,items){
+
+     var VCF_DIRECTORY: String  = "/vcf_demonuts"
+     lateinit var vcfFile: File
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         //Infleate Layout
@@ -85,9 +95,10 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
                 val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
                 StrictMode.setThreadPolicy(policy)
                 var url:URL
-                url = URL(mItems.foto)
+                //url = URL(mItems.foto)
+                url = URL("https://www.w3schools.com/howto/img_forest.jpg")
                 var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-                imageView.setImageBitmap(bmp)
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp,90,90,false))
             }catch (e: IOException){
                 print(e)
             }
@@ -163,7 +174,7 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
             favorites.AddDeleteFavoritosYext(view,mItems.id.toString(),mItems.nombre_completo,imgFavorito)
         })
         LayoutSwipe.btnCompartir.setOnClickListener(View.OnClickListener {
-            var intent = Intent(Intent.ACTION_SEND)
+            GenerarVcard(mItems)
         })
 
         return view
@@ -206,9 +217,6 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
         //Efecto del boton para que se vea bien//
         buttonEffect(button)
         constraintLayout.addView(button)
-
-
-
         /**/
     }
     fun CreateBtnEmails(dialog: Dialog, email: String,model: Servidores){
@@ -253,9 +261,6 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
 
         /**/
     }
-
-
-
     fun buttonEffect(button: View) {
         button.setOnTouchListener { v, event ->
             when (event.action) {
@@ -271,9 +276,60 @@ class MyListAdapter2(var mCtx: Context, var resource: Int, var items:List<Servid
             false
         }
     }
+    //Creamos la VCard
+    fun GenerarVcard(item: Servidores){
+
+        try{
+            vcfFile = File(Environment.getExternalStorageDirectory().toString()+VCF_DIRECTORY)
+
+            //Creamos el directorio si no existe
+            if(!vcfFile.exists()){
+                vcfFile.mkdirs()
+            }
+
+            vcfFile = File(vcfFile,"android_"+Calendar.getInstance().timeInMillis+".vcf")
+
+            //instanciamos el FW
+            val fw: FileWriter = FileWriter(vcfFile)
+            fw.write("BEGIN:VCARD\r\n")
+            fw.write("VERSION:3.0\r\n")
+            //Telefono
+            fw.write("FN:" + item.nombre_completo + "\r\n")
+            //Telefono
+            fw.write("TEL;TYPE=WORK,VOICE:6629364310\r\n")
+            //Email
+            fw.write("EMAIL;TYPE=PREF,INTERNET:pablo12_jip3@ohotmail.com\r\n")
+            fw.write("END:VCARD\r\n")
+            fw.close()
+
+            /* Intent i = new Intent(); //this will import vcf in contact list
+                    i.setAction(android.content.Intent.ACTION_VIEW);
+                    i.setDataAndType(Uri.fromFile(vcfFile), "text/x-vcard");
+                    startActivity(i);*/
+            var uri: Uri
+            if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.N) {
+                uri = Uri.parse(vcfFile.path)
+            } else{
+                uri = Uri.fromFile(File(vcfFile.path))
+            }
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.setType("text/x-vcard")
+            intent.putExtra(Intent.EXTRA_STREAM,uri)
+            startActivity(mCtx,intent, null)
 
 
 
+        }catch (e: Exception){
+            Toast.makeText(mCtx,"Error al generar la virtual card del servidor",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    class ViewHolder {
+
+        lateinit var image: ImageView
+        lateinit var text: TextView
+
+    }
 
 }
-

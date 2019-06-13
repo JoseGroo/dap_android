@@ -2,6 +2,8 @@ package mx.contraloria.dap
 
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
+import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,6 +12,7 @@ import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.checkSelfPermission
@@ -32,13 +35,15 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.row.view.*
 import kotlinx.android.synthetic.main.row_swipe.view.*
 import mx.contraloria.dap.Adapters.MyListAdapter2
+import mx.contraloria.dap.Adapters.ServidorAdapter
 import mx.contraloria.dap.models.Servidores
 import java.io.Serializable
 import java.util.jar.Manifest
 import android.util.Pair as UtilPair
 
 
-class ListaServidoresActivity : MyToolBarActivity() {
+
+class ListaServidoresActivity : MyToolBarActivity(){
 
 
     lateinit var listView: ListView
@@ -47,7 +52,10 @@ class ListaServidoresActivity : MyToolBarActivity() {
     var filtro_dependencia_id=""
     var filtro_nombre_servidor =""
     var filtro_poder_id=""
-    var clicks= 1
+    var pages= 1
+    var flag_loading=false
+    lateinit var adaptador: ServidorAdapter
+
 
     private fun setupPermissions() {
         val permission = checkSelfPermission(this,
@@ -56,6 +64,23 @@ class ListaServidoresActivity : MyToolBarActivity() {
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE),REQUEST_PHONE_CALL)
         }
+
+        val permission_extorage = checkSelfPermission(this,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        if (permission_extorage != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+        }
+
+        val permission_read_extorage = checkSelfPermission(this,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE)
+
+        if (permission_read_extorage != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+        }
+
+
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,18 +99,21 @@ class ListaServidoresActivity : MyToolBarActivity() {
     }
 
     fun fetchJason(){
-        //val url = "http://dummy.restapiexample.com/api/v1/employees"
-        //http://dap.sonora.gob.mx/api/v1/servidores?filterrific[c%20on_dependencia_id]=0&filterrific[buscar_por_nombre]=jesus%20soto&page=1
+        var progress = progreessBar()
+        progress.show()
+
+
         val url = getString(R.string.api_lista_servidores) +
                 "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
                 "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
-                "&filterrific[con_detalle]=1&page=1"
+                "&filterrific[con_detalle]=1&page="+pages
 
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 
         client.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
+                progress.dismiss()
                 Toast.makeText(
                     this@ListaServidoresActivity,
                     "Error al conectarse con la API",
@@ -95,27 +123,51 @@ class ListaServidoresActivity : MyToolBarActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 val body = response?.body?.string()
-                ///////cuando es solo un dato//////
-                //val model =  Gson().fromJson(json, mList::class.java)
-
-                //////cuando es mas de un solo los pone en arrays///////
-                ////val gson = Gson()
-                //val founderArray = gson.fromJson(body, Array<mList>::class.java)
-
-                //////cuando es mas de un solo los pone en lista////////
                 val gson = Gson()
-
-                //example
-
-
-
-
                 val listType = object : TypeToken<List<Servidores>>() { }.type
-                val newList = gson.fromJson<List<Servidores>>(body, listType)
-
+                var newList = gson.fromJson<List<Servidores>>(body, listType)
 
                 runOnUiThread {
-                    listView.adapter = MyListAdapter2(this@ListaServidoresActivity, R.layout.row_swipe, newList)
+                    var adapter = ServidorAdapter(this@ListaServidoresActivity, newList)
+                    listView.adapter = adapter
+                    progress.dismiss()
+                    listView.setOnScrollListener(object : AbsListView.OnScrollListener {
+
+                        override fun onScroll(
+                            view: AbsListView?,
+                            firstVisibleItem: Int,
+                            visibleItemCount: Int,
+                            totalItemCount: Int
+                        ) {
+                            if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
+                            {
+
+                                /*pages++
+                                var moreList = addMoreItems(pages,newList)
+                                newList+= moreList
+                                adapter = ServidorAdapter(this@ListaServidoresActivity, newList)
+                                listView.adapter = adapter
+                                adapter.notifyDataSetChanged()*/
+                                Snackbar.make( listView, "Cargando mas registros.", Snackbar.LENGTH_SHORT).show()
+
+
+                            }
+
+                        }
+
+                        override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
+                            when (scrollState) {
+
+                                AbsListView.OnScrollListener.SCROLL_STATE_IDLE -> {
+                                    adapter.mBusy=false
+                                    adapter.notifyDataSetChanged()
+                                }
+                                AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL -> adapter.mBusy = true
+                                AbsListView.OnScrollListener.SCROLL_STATE_FLING -> adapter.mBusy = true
+                            }
+
+                        }
+                    })
 
                     listView.setOnItemClickListener { parent, view, position, id ->
 
@@ -137,8 +189,6 @@ class ListaServidoresActivity : MyToolBarActivity() {
                                 }
 
 
-
-
                         }catch (e:Exception){
                             Toast.makeText(
                                 this@ListaServidoresActivity,
@@ -152,122 +202,63 @@ class ListaServidoresActivity : MyToolBarActivity() {
                 }
 
 
+
             }
 
         })
     }
+    //loadMore
+    fun addMoreItems(page:Int, servidores: List<Servidores>): List<Servidores> {
+
+        var progress = progreessBar()
+        var newList_prob : List<Servidores> = servidores
+        progress.show()
+        val url = getString(R.string.api_lista_servidores) +
+                "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
+                "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
+                "&filterrific[con_detalle]=1&page="+page
+
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object: Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                progress.dismiss()
+                Toast.makeText(
+                    this@ListaServidoresActivity,
+                    "Error al conectarse con la API",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response?.body?.string()
+                val gson = Gson()
+                val listType = object : TypeToken<List<Servidores>>() { }.type
+                var newList_prob = gson.fromJson<List<Servidores>>(body, listType)
+            }
+
+        })
+
+        progress.dismiss()
+        return newList_prob
+
+    }
 
     fun goIndex(view: View){
-        startActivity(Intent(this@ListaServidoresActivity, HomeActivity::class.java))
+        startActivity(Intent(this@ListaServidoresActivity, HomeTabActivity::class.java))
+    }
+    fun progreessBar(): ProgressDialog{
+        var progressDialog = ProgressDialog(this@ListaServidoresActivity)
+        progressDialog.setMessage(getString(R.string.str_cargando))
+        progressDialog.setCancelable(false)
+        return progressDialog
+
     }
 
 
 
-    /*var sample1: SwipeLayout = findViewById(R.id.row_swipe_1)
-       sample1.showMode = SwipeLayout.ShowMode.PullOut
-       val starBottView: View = sample1.findViewById(R.id.starbott)
-       sample1.addDrag(SwipeLayout.DragEdge.Left, sample1.findViewById(R.id.bottom_wrapper))
-       sample1.addDrag(SwipeLayout.DragEdge.Right, sample1.findViewById(R.id.bottom_wrapper_2))
-       sample1.addDrag(SwipeLayout.DragEdge.Top, starBottView)
-       sample1.addDrag(SwipeLayout.DragEdge.Bottom, starBottView)
-       sample1.addRevealListener(
-           R.id.delete
-       ) { child, edge, fraction, distance -> }
-
-       sample1.surfaceView.setOnClickListener {
-           Toast.makeText(this@ListaServidoresActivity, "Click on surface", Toast.LENGTH_SHORT).show()
-           Log.d(ListaServidoresActivity::class.java!!.getName(), "click on surface")
-       }
-       sample1.surfaceView.setOnLongClickListener {
-           Toast.makeText(this@ListaServidoresActivity, "longClick on surface", Toast.LENGTH_SHORT).show()
-           Log.d(ListaServidoresActivity::class.java!!.getName(), "longClick on surface")
-           true
-       }*/
-    /*sample1.findViewById(R.id.star2).setOnClickListener(View.OnClickListener {
-        Toast.makeText(this@ListaServidoresActivity, "Star", Toast.LENGTH_SHORT).show()
-    })
-
-    sample1.findViewById(R.id.trash2).setOnClickListener(View.OnClickListener {
-        Toast.makeText(this@ListaServidoresActivity, "Trash Bin", Toast.LENGTH_SHORT).show()
-    })
-
-    sample1.findViewById(R.id.magnifier2).setOnClickListener(View.OnClickListener {
-        Toast.makeText(this@ListaServidoresActivity, "Magnifier", Toast.LENGTH_SHORT).show()
-    })*/
-
-    /* sample1.addRevealListener(
-         R.id.starbott
-     ) { child, edge, fraction, distance ->
-         val star: View = child.findViewById(R.id.star)
-         val d = (child.height / 2 - star.getHeight() / 2).toFloat()
-         ViewHelper.setTranslationY(star, d * fraction)
-         ViewHelper.setScaleX(star, fraction + 0.6f)
-         ViewHelper.setScaleY(star, fraction + 0.6f)
-     }*/
-
-    /*val list = mutableListOf<mList>()
-
-    list.add(
-        mList(
-            "DR. JOSE FRANCISCO LAM FELIX",
-            "SERVICIOS DE SALUD DE SONORA / DIRECCION GENERAL DE ENSEÑANZA Y CALIDAD",
-            "",
-            R.mipmap.ic_launcher_round
-        )
-    )
-    list.add(
-        mList(
-            "DR. JOSE FRANCISCO LAM FELIX",
-            "SERVICIOS DE SALUD DE SONORA / DIRECCION GENERAL DE ENSEÑANZA Y CALIDAD",
-            "",
-            R.mipmap.ic_launcher_round
-        )
-    )
-    list.add(
-        mList(
-            "DR. JOSE FRANCISCO LAM FELIX",
-            "SERVICIOS DE SALUD DE SONORA / DIRECCION GENERAL DE ENSEÑANZA Y CALIDAD",
-            "",
-            R.mipmap.ic_launcher_round
-        )
-    )
-    list.add(
-        mList(
-            "DR. JOSE FRANCISCO LAM FELIX",
-            "SERVICIOS DE SALUD DE SONORA / DIRECCION GENERAL DE ENSEÑANZA Y CALIDAD",
-            "",
-            R.mipmap.ic_launcher_round
-        )
-    )
-    list.add(
-        mList(
-            "DR. JOSE FRANCISCO LAM FELIX",
-            "SERVICIOS DE SALUD DE SONORA / DIRECCION GENERAL DE ENSEÑANZA Y CALIDAD",
-            "",
-            R.mipmap.ic_launcher_round
-        )
-    )
-    list.add(
-        mList(
-            "DR. JOSE FRANCISCO LAM FELIX",
-            "SERVICIOS DE SALUD DE SONORA / DIRECCION GENERAL DE ENSEÑANZA Y CALIDAD",
-            "",
-            R.mipmap.ic_launcher_round
-        )
-    )
-
-    listView.adapter = MyListAdapter(this, R.layout.row_contrain, list)
-
-    listView.setOnItemClickListener { parent, view, position, id ->
-
-        Toast.makeText(
-            this@ListaServidoresActivity,
-            list[position].nombre + ", posision: " + position,
-            Toast.LENGTH_SHORT
-        ).show()
-
-    }*/
 
 }
+
 
 
