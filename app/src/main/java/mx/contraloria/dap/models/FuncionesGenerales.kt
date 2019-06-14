@@ -28,6 +28,8 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.MotionEvent
 import android.widget.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalle_servidor.*
 import mx.contraloria.dap.Adapters.CircleTransform
@@ -421,5 +423,42 @@ class FuncionesGenerales(cTx: Context) {
 
 
         /**/
+    }
+
+    var V_KEY_BUSQUEDAS = "busquedas"
+    var MY_PREFS = "myPrefs"
+
+    fun saveSearchJson(list: List<Busquedas>): Boolean{
+
+        var sharedPreferences = this.context.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE)
+        try{
+            val gson = Gson()
+            val json = gson.toJson(list)
+            val editor = sharedPreferences.edit()
+            editor.putString(V_KEY_BUSQUEDAS, json)
+            editor.commit()
+
+        }catch (e: Exception){
+
+            return false
+        }
+
+        return true
+    }
+
+    fun getSearchFromSharedPreferences(): List<Busquedas> {
+        var sharedPreferences = this.context.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE)
+        val gson = Gson()
+        var productFromShared: List<Busquedas> = ArrayList()
+        try{
+            val jsonPreferences = sharedPreferences.getString(V_KEY_BUSQUEDAS, "")
+            val listType = object : TypeToken<ArrayList<Busquedas>>() { }.type
+            productFromShared = gson.fromJson(jsonPreferences, listType)
+        }catch (e: Exception){
+
+            print(e)
+        }
+
+        return productFromShared
     }
 }
