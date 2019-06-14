@@ -17,6 +17,8 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.checkSelfPermission
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
@@ -50,6 +52,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
 
     lateinit var listView: ListView
+    lateinit var btnSearch: EditText
     val REQUEST_PHONE_CALL = 1
     lateinit var btnAnimation : Animation
     var filtro_dependencia_id=""
@@ -96,6 +99,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
         setupPermissions()
 
         listView = findViewById(R.id.list)
+        btnSearch =findViewById(R.id.btnSearch)
 
 
 
@@ -134,11 +138,41 @@ class ListaServidoresActivity : MyToolBarActivity(){
                 val gson = Gson()
                 val listType = object : TypeToken<ArrayList<Servidores>>() { }.type
                 var newList = gson.fromJson<ArrayList<Servidores>>(body, listType)
+                var ListaxFiltros = newList
 
                 runOnUiThread {
-                    var adapter = ServidorAdapter(this@ListaServidoresActivity,newList)
+                    var adapter= ServidorAdapter(this@ListaServidoresActivity,newList)
                     listView.adapter = adapter
                     progress.dismiss()
+
+
+                    btnSearch.addTextChangedListener(object : TextWatcher {
+                        override fun afterTextChanged(p0: Editable?) {
+                        }
+
+                        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+
+
+
+                        }
+
+                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                            try{
+
+                                var filtros = ListaxFiltros.filter { s -> s.nombre_completo.contains("k") }
+                                newList = filtros as ArrayList<Servidores>
+                                adapter.notifyDataSetChanged()
+                            }catch (e: Exception){
+                                print(e)
+                            }
+
+
+
+
+                        }
+                    })
                     listView.setOnScrollListener(object : AbsListView.OnScrollListener {
 
                         override fun onScroll(

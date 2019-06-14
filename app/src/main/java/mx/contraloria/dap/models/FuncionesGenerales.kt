@@ -210,7 +210,14 @@ class FuncionesGenerales(cTx: Context) {
 
 
             fw.write("TITLE:${item.titulo}\r\n")
-            fw.write("TEL;TYPE=WORK,VOICE:${item.telefono}\r\n")
+            var listTelefonos = telefonos(item.telefono,item.lada)
+            var telefonos = ""
+
+            for(item in listTelefonos){
+                fw.write("TEL;TYPE=WORK,VOICE:${item}\r\n")
+
+            }
+
             //fw.write("TEL;TYPE=HOME,VOICE:2181859\r\n")
             //fw.write("ADR;TYPE=WORK:;;tepoca;Hermosillo;estado;84000;country\r\n")
             fw.write("EMAIL;TYPE=PREF,INTERNET:${item.correo_electronico}\r\n")
