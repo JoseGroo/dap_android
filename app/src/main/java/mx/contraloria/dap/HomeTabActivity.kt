@@ -1,26 +1,41 @@
 package mx.contraloria.dap
 
+import android.app.ActivityOptions
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.os.AsyncTask
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 
 import android.os.Bundle
+import android.os.StrictMode
+import android.support.design.widget.Snackbar
+import android.support.design.widget.TabLayout
+import android.util.AttributeSet
+import android.util.Pair
 import android.view.View
 import android.widget.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 import kotlinx.android.synthetic.main.activity_home_tab.*
+import kotlinx.android.synthetic.main.row_swipe.view.*
+import mx.contraloria.dap.Adapters.ServidorAdapter
 import mx.contraloria.dap.Adapters.TabHomeAdapter
 import mx.contraloria.dap.fragments.BuscarFragment
 import mx.contraloria.dap.fragments.FavoritosFragment
 import mx.contraloria.dap.models.Dependencias
+import mx.contraloria.dap.models.Favorites
 import mx.contraloria.dap.models.Poderes
+import mx.contraloria.dap.models.Servidores
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
+import java.io.Serializable
+import java.lang.Exception
 import java.util.ArrayList
 
 class HomeTabActivity : MyToolBarActivity() {
@@ -34,14 +49,37 @@ class HomeTabActivity : MyToolBarActivity() {
         setContentView(R.layout.activity_home_tab)
 
 
+
         val adapter = TabHomeAdapter(supportFragmentManager)
         adapter.addFragment(BuscarFragment(), getString(R.string.str_buscar))
         adapter.addFragment(FavoritosFragment(), getString(R.string.str_favoritos))
+
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
 
         val request = Request.Builder().url(getString(R.string.api_poderes_gobierno)).build()
 
+        tabs.addOnTabSelectedListener(object :
+            TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                 when(tab.position){
+
+                     1 -> {
+                         val listView = findViewById<ListView>(R.id.listFavoritos)
+                         fetchJason(listView)
+                     }
+                 }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+
+            }
+
+        })
         var client = OkHttpClient()
         client.newCall(request).enqueue(object: Callback{
 
@@ -61,7 +99,6 @@ class HomeTabActivity : MyToolBarActivity() {
                 val poderesGobiernoJson = gson.fromJson<List<Poderes>>(body, listType)
                 runOnUiThread {
                     LlenarPoderesGobierno(poderesGobiernoJson)
-
                 }
             }
 
@@ -72,7 +109,10 @@ class HomeTabActivity : MyToolBarActivity() {
             }
         })
 
+
     }
+
+
 
     fun LlenarPoderesGobierno(response_json: List<Poderes>)
     {
@@ -136,6 +176,7 @@ class HomeTabActivity : MyToolBarActivity() {
         }
     }
 
+
     fun LlenarDependenciasGobierno(response_json: List<Dependencias>)
     {
         var listItems = ArrayList<String>()
@@ -194,5 +235,77 @@ class HomeTabActivity : MyToolBarActivity() {
         var spDependenciasGobierno = findViewById<Spinner>(R.id.spDependenciasGobierno)
         spDependenciasGobierno.setSelection(0, true)
     }
+
+    //Pablo Fragment
+    fun fetchJason(listView: ListView){
+
+
+            var favoritos = Favorites(this)
+            var lista = favoritos.getFavoritosFromSharedJsonToListServidores()
+            var adapter = ServidorAdapter(this,lista)
+            listView.adapter = adapter
+            listView.setOnScrollListener(object : AbsListView.OnScrollListener {
+
+                override fun onScroll(
+                    view: AbsListView?,
+                    firstVisibleItem: Int,
+                    visibleItemCount: Int,
+                    totalItemCount: Int
+                ) {
+                }
+
+                override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
+                }
+            })
+
+            listView.setOnItemClickListener { parent, view, position, id ->
+
+                try{
+
+                    var intent = Intent(this, DetalleServidorActivity::class.java)
+                    intent.putExtra("servidor", lista.get(position) as Serializable)
+                    // Check if we're running on Android 5.0 or higher
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                        val options = ActivityOptions.makeSceneTransitionAnimation(this,
+                            Pair.create<View,String>(view.iImageR, "imageTransition"),
+                            Pair.create<View,String>(view.txtNombreR, "nombreTransition"))
+
+                        startActivity(intent,options.toBundle())
+                    } else {
+                        // Swap without transition
+                        startActivity(intent)
+                    }
+
+
+                }catch (e: Exception){
+                    Toast.makeText(
+                        this,
+                        "Error al momento de mostrar el detalle del servidor.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+
+            }
+
+
+    }
+    fun progreessBar(): ProgressDialog {
+        var progressDialog = ProgressDialog(this)
+        progressDialog.setMessage(getString(R.string.str_cargando))
+        progressDialog.setCancelable(false)
+        return progressDialog
+
+    }
+
+    class doAsync(val handler: () -> Unit) : AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            handler()
+            return null
+        }
+    }
+
+
 
 }

@@ -113,9 +113,9 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
 
         //Creamos el evento de Favoritos
         //Favoritos
-        favorites.InitPreferentImageText(items.get(position).id.toString(),viewHolder.imgFavoritos)
+        favorites.InitPreferentImage(item,viewHolder.imgFavoritos)
         viewHolder.imgFavoritos.setOnClickListener(View.OnClickListener {
-            favorites.AddDeleteFavoritosYext(viewHolder.imgFavoritos,item.id.toString(),snombre_completo,viewHolder.imgFavoritos)
+            favorites.AddDeleteFavoritosJson(viewHolder.imgFavoritos,item,viewHolder.imgFavoritos)
         })
 
         //Creamos el evento compartir **************************************** pendiente de revision para poner los snombre_completo

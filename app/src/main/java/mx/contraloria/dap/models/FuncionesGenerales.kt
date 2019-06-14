@@ -402,7 +402,7 @@ class FuncionesGenerales(cTx: Context) {
             val intent = Intent(Intent.ACTION_SEND)
             intent.type= "text/html"
             intent.putExtra(Intent.EXTRA_EMAIL, arrayOf<String>(email))
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Enviado desde | DAP MOBIL ANDROID")
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Enviado desde | DAP APP ANDROID")
             intent.putExtra(Intent.EXTRA_TEXT, "Hola "+name )
             startActivity(context,intent,null)
         })

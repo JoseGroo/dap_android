@@ -9,6 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import mx.contraloria.dap.R
 import java.lang.Exception
+import android.R.attr.key
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
+
+
+
+
+
 
 
 class Favorites(cTx: Context) {
@@ -21,7 +30,97 @@ class Favorites(cTx: Context) {
         this.context = cTx
        sharedPreferences = cTx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE)
     }
+
+    // JsonJsonJsonJsonJsonJsonJsonJsonJsonJsonJsonJsonJsonJsonJsonJsonJsonJsonJson
+    fun saveServidoresSharedClass(model: Servidores,key: String): Boolean{
+        try{
+            val gson = Gson()
+            val json = gson.toJson(model)
+            val editor = sharedPreferences.edit()
+            editor.putString(key, json)
+            editor.commit()
+
+        }catch (e: Exception){
+
+            return false
+        }
+
+        return true
+    }
+    private fun getServidoresFromShared(key: String): Servidores {
+        val gson = Gson()
+        var productFromShared: Servidores
+        val jsonPreferences = sharedPreferences.getString(key, "")
+
+        val type = object : TypeToken<Servidores>() {}.type
+        productFromShared = gson.fromJson(jsonPreferences, type)
+
+        return productFromShared
+    }
+    fun saveFavoritosJson(list: List<Servidores>): Boolean{
+        try{
+            val gson = Gson()
+            val json = gson.toJson(list)
+            val editor = sharedPreferences.edit()
+            editor.putString(V_KEY, json)
+            editor.commit()
+
+        }catch (e: Exception){
+
+            return false
+        }
+
+        return true
+    }
+     fun getFavoritosFromSharedJsonToListServidores(): List<Servidores> {
+        val gson = Gson()
+        var productFromShared: List<Servidores> = ArrayList()
+        try{
+            val jsonPreferences = sharedPreferences.getString(V_KEY, "")
+            val listType = object : TypeToken<ArrayList<Servidores>>() { }.type
+            productFromShared = gson.fromJson(jsonPreferences, listType)
+        }catch (e: Exception){
+
+            print(e)
+        }
+
+        return productFromShared
+    }
+    fun AddDeleteFavoritosJson(view: View, servidores: Servidores,  text: TextView){
+
+        var lista = getFavoritosFromSharedJsonToListServidores()
+
+        if(checkInPrefrenceJson(servidores)){
+            lista.dropWhile { s -> s.id == servidores.id }
+            saveFavoritosJson(lista)
+            text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_border_black_24dp,0,0,0)
+            Snackbar.make(view,  servidores.nombre_completo+ " se elimino de favoritos.",Snackbar.LENGTH_LONG).show()
+
+
+        }else{
+            var ArrayLista = lista as ArrayList<Servidores>
+            ArrayLista.add(servidores)
+            saveFavoritosJson(ArrayLista)
+            text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_yellow_24dp,0,0,0)
+            Snackbar.make(view, "Se añadio a favoritos a: "+ servidores.nombre_completo, Snackbar.LENGTH_LONG).show()
+        }
+
+    }
+    fun checkInPrefrenceJson(servidores: Servidores): Boolean {
+        var lista = getFavoritosFromSharedJsonToListServidores()
+        if(lista.filter { s -> s.id ==  servidores.id}.count() > 0){
+
+            return true
+        }
+
+        return false
+    }
+
+
+
     fun AddDeleteFavoritos(view: View, id_servidor: String, nombre_servidor: String, image: ImageView){
+
+
         if(!checkInPrefrence(id_servidor)){
             if(AddFavorite(id_servidor)){
                 image.setImageResource(R.drawable.ic_star_yellow_24dp)
@@ -36,6 +135,8 @@ class Favorites(cTx: Context) {
         }
     }
     fun AddDeleteFavoritosYext(view: View, id_servidor: String, nombre_servidor: String, text: TextView){
+
+
         if(!checkInPrefrence(id_servidor)){
             if(AddFavorite(id_servidor)){
                 text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_yellow_24dp,0,0,0)
@@ -50,6 +151,7 @@ class Favorites(cTx: Context) {
         }
     }
 
+
     fun InitPreferentImage(id: String,image: ImageView) {
         try{
             if(checkInPrefrence(id)){
@@ -62,6 +164,34 @@ class Favorites(cTx: Context) {
         }
 
     }
+    //imageview class
+    fun InitPreferentImage(servidores: Servidores,image: ImageView) {
+        try{
+            if(checkInPrefrenceJson(servidores)){
+                image.setImageResource(R.drawable.ic_star_yellow_24dp)
+            }else{
+                image.setImageResource(R.drawable.ic_star_border_black_24dp)
+            }
+        }catch (e:Exception){
+
+        }
+
+    }
+    //textview class
+    fun InitPreferentImage(servidores: Servidores,text: TextView) {
+        try{
+            if(checkInPrefrenceJson(servidores)){
+                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_yellow_24dp,0,0,0)
+            }else{
+                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_border_black_24dp,0,0,0)
+            }
+        }catch (e:Exception){
+
+        }
+
+    }
+
+
     fun InitPreferentImageText(id: String,text: TextView) {
         try{
             if(checkInPrefrence(id)){
