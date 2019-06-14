@@ -29,7 +29,7 @@ abstract class MyToolBarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_my_tool_bar)
 
         supportActionBar!!.title = getString(R.string.app_name)
-        if(this !is HomeActivity)
+        if(this !is HomeTabActivity)
         {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }else if(this is HomeActivity)

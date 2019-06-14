@@ -33,10 +33,12 @@ import java.net.URL
 import com.google.gson.GsonBuilder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.activity_lista_servidores.*
 import kotlinx.android.synthetic.main.row.view.*
 import kotlinx.android.synthetic.main.row_swipe.view.*
 import mx.contraloria.dap.Adapters.MyListAdapter2
 import mx.contraloria.dap.Adapters.ServidorAdapter
+import mx.contraloria.dap.models.FuncionesGenerales
 import mx.contraloria.dap.models.Servidores
 import java.io.Serializable
 import java.util.jar.Manifest
@@ -57,6 +59,8 @@ class ListaServidoresActivity : MyToolBarActivity(){
     var flag_loading=false
     lateinit var adaptador: ServidorAdapter
     var isLoading: Boolean = false
+
+    var oFuncionesGenerales = FuncionesGenerales(this)
 
 
     private fun setupPermissions() {
@@ -96,6 +100,10 @@ class ListaServidoresActivity : MyToolBarActivity(){
         listView = findViewById(R.id.list)
 
 
+
+        buscarFloating.setOnClickListener {
+            oFuncionesGenerales.goIndex(buscarFloating)
+        }
 
         fetchJason()
     }
@@ -254,9 +262,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
     }
 
-    fun goIndex(view: View){
-        startActivity(Intent(this@ListaServidoresActivity, HomeTabActivity::class.java))
-    }
+
     fun progreessBar(): ProgressDialog{
         var progressDialog = ProgressDialog(this@ListaServidoresActivity)
         progressDialog.setMessage(getString(R.string.str_cargando))

@@ -23,16 +23,14 @@ import android.widget.*
 import mx.contraloria.dap.models.Servidores
 import com.squareup.picasso.Picasso
 import mx.contraloria.dap.Adapters.CircleTransform
-
-
-
-
-
+import mx.contraloria.dap.models.FuncionesGenerales
 
 
 class DetalleServidorActivity : MyToolBarActivity() {
 
     lateinit var vServidor: Servidores
+
+    var oFuncionesGenerales = FuncionesGenerales(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,21 +40,34 @@ class DetalleServidorActivity : MyToolBarActivity() {
 
         vServidor = intent.extras.get("servidor") as Servidores
 
+        menu_buscar.setOnClickListener {
+            oFuncionesGenerales.goIndex(menu_buscar)
+        }
 
-        tvNombreServidor.setText(vServidor.titulo + " " + vServidor.nombre_completo)
-        tvPuestoOficial.setText(vServidor.puesto_oficial)
-        tvFechaAlta.setText(vServidor.fecha_de_alta)
+        menuOptions.setClosedOnTouchOutside(true)
+
+
+        tvNombreServidor.setText(oFuncionesGenerales.NormalizerTextNames("${vServidor.titulo} ${vServidor.nombre_completo}"))
+        tvPuestoOficial.setText(oFuncionesGenerales.NormalizerTextNames(vServidor.puesto_oficial))
+        val sFechaSplit = vServidor.fecha_de_alta.split("-")
+        var iMonth = sFechaSplit[1].toInt()
+        val sMonth = oFuncionesGenerales.months[iMonth - 1]
+        tvFechaAlta.setText("${sMonth} ${sFechaSplit[2]}, ${sFechaSplit[0]}")
         tvNivel.setText(vServidor.nivel)
-        tvResena.setText(vServidor.reseña)
-        tvDependencia.setText(vServidor.dependencia)
-        tvUnidadAdministrativa.setText(vServidor.unidad_administrativa)
-        tvPuestoFuncional.setText(vServidor.puesto_funcional)
+        tvResena.setText(vServidor.reseña.trim())
+        tvDependencia.setText(oFuncionesGenerales.NormalizerTextNames(vServidor.dependencia))
+        tvUnidadAdministrativa.setText(oFuncionesGenerales.NormalizerTextNames(vServidor.unidad_administrativa))
+        tvPuestoFuncional.setText(oFuncionesGenerales.NormalizerTextNames(vServidor.puesto_funcional))
+        tvDomicilio.setText(vServidor.domicilio)
+        tvTelefonos.setText(vServidor.telefono)
+        tvCorreoElectronico.setText(vServidor.correo_electronico)
 
         if(vServidor.foto != ""){
             try
             {
                 Picasso.with(this@DetalleServidorActivity)
                     .load(vServidor.foto)
+                    .fit()
                     .transform(CircleTransform())
                     .into(imagePerfil)
 
@@ -69,12 +80,33 @@ class DetalleServidorActivity : MyToolBarActivity() {
 
         var Favorito = Favorites(this@DetalleServidorActivity)
 
-        Favorito.InitPreferentImage(vServidor.id.toString(), btnFavorito)
+        Favorito.InitPreferentImage(vServidor.id.toString(), menu_favoritos)
     }
 
     fun PutFav(view: View)
     {
         var Favorito = Favorites(this@DetalleServidorActivity)
-        Favorito.AddDeleteFavoritos(view,vServidor.id.toString(), vServidor.titulo + " " + vServidor.nombre_completo, btnFavorito)
+        Favorito.AddDeleteFavoritos(view,vServidor.id.toString(), vServidor.titulo + " " + vServidor.nombre_completo, menu_favoritos)
+        menuOptions.close(true)
+    }
+
+    fun Compartir(view: View)
+    {
+
+    }
+
+    fun Mapa(view: View)
+    {
+
+    }
+
+    fun Telefonos(view: View)
+    {
+
+    }
+
+    fun Correos(view: View)
+    {
+
     }
 }
