@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.StrictMode
+import android.support.design.widget.TabLayout
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
@@ -30,18 +31,21 @@ import mx.contraloria.dap.models.FuncionesGenerales
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapter() {
+class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: Boolean = false) : BaseAdapter() {
     private val layoutInflater = LayoutInflater.from(context)
     private val favorites = Favorites(context)
 
     var mBusy: Boolean = false
     var FuncionesGenerales = FuncionesGenerales(context)
     lateinit var context: Context
+    var favoritos: Boolean = false
 
     init {
 
+        this.favoritos = favorites
         this.context = context
     }
 
@@ -116,6 +120,12 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
         favorites.InitPreferentImage(item,viewHolder.imgFavoritos)
         viewHolder.imgFavoritos.setOnClickListener(View.OnClickListener {
             favorites.AddDeleteFavoritosJson(viewHolder.imgFavoritos,item,viewHolder.imgFavoritos)
+            if(favoritos == true){
+                var itemsArray = items as ArrayList<Servidores>
+                itemsArray.remove(item)
+                this.notifyDataSetChanged()
+
+            }
         })
 
         //Creamos el evento compartir **************************************** pendiente de revision para poner los snombre_completo

@@ -86,13 +86,14 @@ class Favorites(cTx: Context) {
 
         return productFromShared
     }
+
     fun AddDeleteFavoritosJson(view: View, servidores: Servidores,  text: TextView){
 
         var lista = getFavoritosFromSharedJsonToListServidores()
 
         if(checkInPrefrenceJson(servidores)){
-            lista.dropWhile { s -> s.id == servidores.id }
-            saveFavoritosJson(lista)
+            var newLista = lista.dropWhile { s -> s.id == servidores.id }
+            saveFavoritosJson(newLista)
             text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_border_black_24dp,0,0,0)
             Snackbar.make(view,  servidores.nombre_completo+ " se elimino de favoritos.",Snackbar.LENGTH_LONG).show()
 
@@ -103,17 +104,13 @@ class Favorites(cTx: Context) {
             saveFavoritosJson(ArrayLista)
             text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_yellow_24dp,0,0,0)
             Snackbar.make(view, "Se añadio a favoritos a: "+ servidores.nombre_completo, Snackbar.LENGTH_LONG).show()
+
         }
 
     }
     fun checkInPrefrenceJson(servidores: Servidores): Boolean {
         var lista = getFavoritosFromSharedJsonToListServidores()
-        if(lista.filter { s -> s.id ==  servidores.id}.count() > 0){
-
-            return true
-        }
-
-        return false
+        return  (lista.filter { s -> s.id ==  servidores.id}.count() > 0)
     }
 
 

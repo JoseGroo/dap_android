@@ -159,10 +159,17 @@ class FuncionesGenerales(cTx: Context) {
             contador++
 
         }
-        if(tipo == 0 || tipo == 3)
-            telefonos.add(lada+" "+buildTelefono)
-        else
-            telefonos.add(buildTelefono)
+        if(tipo == 0 || tipo == 3){
+            if(buildTelefono!=""){
+                telefonos.add(lada+" "+buildTelefono)
+            }
+        }
+        else{
+            if(buildTelefono!=""){
+                telefonos.add(buildTelefono)
+            }
+        }
+
 
         return telefonos
 

@@ -242,7 +242,7 @@ class HomeTabActivity : MyToolBarActivity() {
 
             var favoritos = Favorites(this)
             var lista = favoritos.getFavoritosFromSharedJsonToListServidores()
-            var adapter = ServidorAdapter(this,lista)
+            var adapter = ServidorAdapter(this,lista,true)
             listView.adapter = adapter
             listView.setOnScrollListener(object : AbsListView.OnScrollListener {
 
@@ -258,9 +258,14 @@ class HomeTabActivity : MyToolBarActivity() {
                 }
             })
 
+
             listView.setOnItemClickListener { parent, view, position, id ->
 
                 try{
+                    //Creamos el evento de Favoritos
+                    //Favoritos
+
+
 
                     var intent = Intent(this, DetalleServidorActivity::class.java)
                     intent.putExtra("servidor", lista.get(position) as Serializable)
