@@ -159,15 +159,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
                         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                            try{
-
-                                var filtros = ListaxFiltros.filter { s -> s.nombre_completo.contains("k") }
-                                newList = filtros as ArrayList<Servidores>
-                                adapter.notifyDataSetChanged()
-                            }catch (e: Exception){
-                                print(e)
-                            }
-
+                         
 
 
 
