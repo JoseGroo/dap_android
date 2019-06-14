@@ -16,7 +16,7 @@
     <string name="api_poderes_gobierno">http://dap.sonora.gob.mx/api/v1/poderes</string>
     <string name="api_dependencias_gobierno">http://dap.sonora.gob.mx/api/v1/dependencias/</string>
     <string name="api_detalles_servidor_publico">https://next.json-generator.com/api/json/get/4JbRFdvRL/</string>
-    <string name="api_lista_servidores"> "http://dap.sonora.gob.mx/api/v1/servidores?</string>
+    <string name="api_lista_servidores">"http://dap.sonora.gob.mx/api/v1/servidores?</string>
 
     <string name="str_resena">Reseña</string>
     <string name="str_dependencia">Dependencia</string>
@@ -36,4 +36,5 @@
     <string name="str_mapa">Mapa</string>
     <string name="enviar_correo_a">Enviar correo a:</string>
     <string name="llammar_a">Llammar a</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
