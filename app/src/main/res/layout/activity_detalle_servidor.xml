@@ -6,7 +6,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".DetalleServidorActivity">
+    <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+    </android.support.design.widget.CollapsingToolbarLayout>
     <RelativeLayout
             android:id="@+id/rellay1"
             android:layout_width="match_parent"
@@ -21,6 +25,7 @@
                 android:layout_centerHorizontal="true"
 
                 android:layout_marginTop="20dp" android:layout_marginEnd="0dp" android:layout_marginStart="0dp">
+
 
             <ImageView
                     android:id="@+id/imagePerfil"
@@ -346,6 +351,8 @@
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/press_detalle_button"
+                        android:onClick="Telefonos"
                         android:orientation="vertical">
 
                     <TextView
@@ -375,6 +382,8 @@
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/press_detalle_button"
+                        android:onClick="Correos"
                         android:orientation="vertical">
 
                     <TextView
@@ -420,7 +429,6 @@
             android:layout_marginLeft="0dp"
             app:menu_labels_position="left"
             app:menu_openDirection="down"
-            app:menu_icon="@drawable/ic_menu_white_24dp"
             app:menu_fab_label="">
 
         <com.github.clans.fab.FloatingActionButton

@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.StrictMode
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.ContextCompat.startActivity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -25,9 +26,11 @@ import java.io.IOException
 import java.net.URL
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_swipe.view.*
+import mx.contraloria.dap.MapsActivity
 import mx.contraloria.dap.models.Favorites
 import mx.contraloria.dap.models.FuncionesGenerales
 import java.io.ByteArrayOutputStream
+import java.io.Serializable
 import java.lang.Exception
 import java.util.*
 
@@ -149,7 +152,9 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
 
 
         viewHolder.btnGeolocalizacion.setOnClickListener(View.OnClickListener {
-            //aqui manuel
+            var vMapaActivity = Intent(context, MapsActivity::class.java)
+            vMapaActivity.putExtra("servidor", item as Serializable)
+            startActivity(context, vMapaActivity, null)
         })
 
 

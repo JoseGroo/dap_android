@@ -1,7 +1,10 @@
 package mx.contraloria.dap
 
 import android.app.ProgressDialog
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
@@ -24,6 +27,11 @@ import mx.contraloria.dap.models.Servidores
 import com.squareup.picasso.Picasso
 import mx.contraloria.dap.Adapters.CircleTransform
 import mx.contraloria.dap.models.FuncionesGenerales
+import java.io.ByteArrayOutputStream
+import java.io.Serializable
+import java.lang.Exception
+import java.net.URL
+import java.util.*
 
 
 class DetalleServidorActivity : MyToolBarActivity() {
@@ -31,6 +39,7 @@ class DetalleServidorActivity : MyToolBarActivity() {
     lateinit var vServidor: Servidores
 
     var oFuncionesGenerales = FuncionesGenerales(this)
+    var bMenuAbierto = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,21 +101,48 @@ class DetalleServidorActivity : MyToolBarActivity() {
 
     fun Compartir(view: View)
     {
+        try{
+            /*Get the bitmap that we stored in a File*/
+            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+            var url = URL(vServidor.foto)
+            var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
 
+            /*Convert bitmap to Base64*/
+            val baos = ByteArrayOutputStream()
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val b = baos.toByteArray()
+            //val image_encoded = Base64.encodeToString(b, Base64.DEFAULT)
+            val data = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Base64.getEncoder().encodeToString(b)
+            } else {
+                android.util.Base64.encodeToString(b, android.util.Base64.DEFAULT)
+            }
+            oFuncionesGenerales.GenerarVcard(vServidor,data)
+
+        }catch (e: Exception){
+            print(e.message)
+        }
+        menuOptions.close(true)
     }
 
     fun Mapa(view: View)
     {
-
+        var vMapaActivity = Intent(this@DetalleServidorActivity, MapsActivity::class.java)
+        vMapaActivity.putExtra("servidor", vServidor as Serializable)
+        startActivity(vMapaActivity)
+        menuOptions.close(true)
     }
 
     fun Telefonos(view: View)
     {
-
+        oFuncionesGenerales.GenerarViewCallTelefonos(tvNombreServidor.text.toString(), vServidor.foto, vServidor.lada, vServidor.telefono)
+        menuOptions.close(true)
     }
 
     fun Correos(view: View)
     {
-
+        oFuncionesGenerales.GenerarviewCallEmail(tvNombreServidor.text.toString(), vServidor.foto, vServidor.correo_electronico)
+        menuOptions.close(true)
     }
 }
