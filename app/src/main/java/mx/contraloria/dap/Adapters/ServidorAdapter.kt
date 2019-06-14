@@ -135,6 +135,9 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
         viewHolder.imgCompartir.setOnClickListener(View.OnClickListener {
             try{
                 /*Get the bitmap that we stored in a File*/
+                item.nombre_completo = snombre_completo
+                item.dependencia = sDependecia
+                item.titulo = sTitulo
                 val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
                 StrictMode.setThreadPolicy(policy)
                 var url = URL(items.get(position).foto)
