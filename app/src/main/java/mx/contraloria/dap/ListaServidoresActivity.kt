@@ -11,6 +11,7 @@ import android.os.AsyncTask
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
@@ -55,6 +56,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
     var pages= 1
     var flag_loading=false
     lateinit var adaptador: ServidorAdapter
+    var isLoading: Boolean = false
 
 
     private fun setupPermissions() {
@@ -106,7 +108,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
         val url = getString(R.string.api_lista_servidores) +
                 "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
                 "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
-                "&filterrific[con_detalle]=1&page="+pages
+                "&filterrific[con_detalle]=1&pagina="+pages
 
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
@@ -124,11 +126,11 @@ class ListaServidoresActivity : MyToolBarActivity(){
             override fun onResponse(call: Call, response: Response) {
                 val body = response?.body?.string()
                 val gson = Gson()
-                val listType = object : TypeToken<List<Servidores>>() { }.type
-                var newList = gson.fromJson<List<Servidores>>(body, listType)
+                val listType = object : TypeToken<ArrayList<Servidores>>() { }.type
+                var newList = gson.fromJson<ArrayList<Servidores>>(body, listType)
 
                 runOnUiThread {
-                    var adapter = ServidorAdapter(this@ListaServidoresActivity, newList)
+                    var adapter = ServidorAdapter(this@ListaServidoresActivity,newList)
                     listView.adapter = adapter
                     progress.dismiss()
                     listView.setOnScrollListener(object : AbsListView.OnScrollListener {
@@ -139,20 +141,6 @@ class ListaServidoresActivity : MyToolBarActivity(){
                             visibleItemCount: Int,
                             totalItemCount: Int
                         ) {
-                            if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
-                            {
-
-                                /*pages++
-                                var moreList = addMoreItems(pages,newList)
-                                newList+= moreList
-                                adapter = ServidorAdapter(this@ListaServidoresActivity, newList)
-                                listView.adapter = adapter
-                                adapter.notifyDataSetChanged()*/
-                                Snackbar.make( listView, "Cargando mas registros.", Snackbar.LENGTH_SHORT).show()
-
-
-                            }
-
                         }
 
                         override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
@@ -164,7 +152,28 @@ class ListaServidoresActivity : MyToolBarActivity(){
                                 }
                                 AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL -> adapter.mBusy = true
                                 AbsListView.OnScrollListener.SCROLL_STATE_FLING -> adapter.mBusy = true
+
+
                             }
+                            //scroooll
+                            if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && listView.getLastVisiblePosition() ==
+                                newList.size - 1 && !isLoading){
+                                isLoading=true
+                                Snackbar.make(listView, "Cargando mas registros.", Snackbar.LENGTH_LONG).show()
+                                doAsync {
+                                    pages = pages + 1
+                                    var new_list = addMoreItems(newList)
+
+                                    this@ListaServidoresActivity.runOnUiThread(java.lang.Runnable {
+                                        newList.addAll(new_list)
+                                        adapter.notifyDataSetChanged()
+                                        isLoading = false
+                                    })
+
+                                }.execute()
+
+                            }
+
 
                         }
                     })
@@ -208,38 +217,39 @@ class ListaServidoresActivity : MyToolBarActivity(){
         })
     }
     //loadMore
-    fun addMoreItems(page:Int, servidores: List<Servidores>): List<Servidores> {
+    fun addMoreItems(servidores: List<Servidores>): List<Servidores> {
 
-        var progress = progreessBar()
+        //var progress = progreessBar()
         var newList_prob : List<Servidores> = servidores
-        progress.show()
+       // progress.show()
         val url = getString(R.string.api_lista_servidores) +
                 "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
                 "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
-                "&filterrific[con_detalle]=1&page="+page
+                "&filterrific[con_detalle]=1&pagina="+pages
+
 
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
-        client.newCall(request).enqueue(object: Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                progress.dismiss()
-                Toast.makeText(
-                    this@ListaServidoresActivity,
-                    "Error al conectarse con la API",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+        try {
+            //mode strict
+            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
 
-            override fun onResponse(call: Call, response: Response) {
-                val body = response?.body?.string()
-                val gson = Gson()
-                val listType = object : TypeToken<List<Servidores>>() { }.type
-                var newList_prob = gson.fromJson<List<Servidores>>(body, listType)
-            }
-
-        })
-
-        progress.dismiss()
+            var response = client.newCall(request).execute()
+            val body = response?.body?.string()
+            val gson = Gson()
+            val listType = object : TypeToken<List<Servidores>>() { }.type
+            var newList_prob = gson.fromJson<List<Servidores>>(body, listType)
+            return newList_prob
+        }catch (e: Exception){
+            //progress.dismiss()
+            Toast.makeText(
+                this@ListaServidoresActivity,
+                "Error al conectarse con la API",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        //progress.dismiss()
         return newList_prob
 
     }
@@ -254,6 +264,14 @@ class ListaServidoresActivity : MyToolBarActivity(){
         return progressDialog
 
     }
+
+    class doAsync(val handler: () -> Unit) : AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            handler()
+            return null
+        }
+    }
+
 
 
 

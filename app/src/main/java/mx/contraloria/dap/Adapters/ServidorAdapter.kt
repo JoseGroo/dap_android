@@ -93,7 +93,9 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
                     /*val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
                     StrictMode.setThreadPolicy(policy)*/
                     var url = items[position].foto
-                    Picasso.with(context).load(url).resize(100, 100)
+                    Picasso.with(context).load(url)
+                        .fit()
+                        .transform(CircleTransform())
                         .centerCrop()
                         .placeholder(R.drawable.spinner_progress_animation)
                         .error(R.mipmap.ic_icon_perfil_round)
@@ -142,6 +144,13 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
             }
 
         })
+        //Creamos el evento de Geolocalizacion
+        //Geolocalizacion
+
+
+        viewHolder.btnGeolocalizacion.setOnClickListener(View.OnClickListener {
+            //aqui manuel
+        })
 
 
 
@@ -171,6 +180,7 @@ class ServidorAdapter(context: Context, val items: List<Servidores>) : BaseAdapt
         val LayoutSwipe = view?.findViewById(R.id.row_swipe_1) as SwipeLayout
         val btnPhones = view?.findViewById(R.id.Phones) as ImageView
         val btnEmails = view?.findViewById(R.id.Emails) as ImageView
+        val btnGeolocalizacion = view?.findViewById(R.id.Geolocalizacion) as ImageView
 
     }
 

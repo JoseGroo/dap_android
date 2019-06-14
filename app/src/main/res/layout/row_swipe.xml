@@ -123,13 +123,11 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4" android:layout_marginTop="5dp"/>-->
-        <com.mikhaellopez.circularimageview.CircularImageView
+        <ImageView
                 android:transitionName="imageTransition"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@mipmap/ic_icon_perfil_round"
-                app:civ_shadow="true"
-                app:civ_shadow_radius="1"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/iImageR"
