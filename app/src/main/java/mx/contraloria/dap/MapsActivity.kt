@@ -130,7 +130,6 @@ class MapsActivity : MyToolBarActivity(), OnMapReadyCallback {
     }
 
 
-
     private fun moveCamera(latLng: LatLng, zoom: Float, title: String) {
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))

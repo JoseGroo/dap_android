@@ -8,7 +8,7 @@
     <string name="str_inicio">Inicio</string>
     <string name="str_acerca_de">Acerca de</string>
     <string name="str_buscar">Buscar</string>
-    <string name="str_limpiar">Limpiar</string>
+    <string name="str_limpiar">Reestablecer</string>
     <string name="str_buscar_por_nombre_o_puesto">Buscar por nombre o puesto</string>
     <string name="str_fecha_alta">Fecha de alta</string>
     <string name="str_nivel">Nivel</string>
