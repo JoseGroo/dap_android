@@ -10,7 +10,24 @@
         android:id="@+id/rootContainer"
         tools:context=".HomeActivity">
 
+    <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/str_buscar_por_nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:inputType="text|textNoSuggestions"
+            android:text=""
+            android:hint="@string/str_buscar_por_nombre_o_puesto"
+            android:ems="10"
+            android:id="@+id/etFiltroNombrePuesto"/>
 
     <TextView
             android:textStyle="bold"
@@ -45,25 +62,6 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"></Spinner>
 
-    <TextView
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="@string/str_buscar_por_nombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:inputType="text|textNoSuggestions"
-            android:text=""
-            android:hint="@string/str_buscar_por_nombre_o_puesto"
-            android:ems="10"
-            android:id="@+id/etFiltroNombrePuesto"/>
-
     <GridLayout
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -75,12 +73,16 @@
                 android:text="@string/str_buscar"
                 android:layout_width="wrap_content"
                 android:onClick="BuscarServidores"
+                android:background="@drawable/button_round_corner_green"
+                android:padding="10sp"
                 android:layout_height="wrap_content"/>
 
         <Button
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:text="@string/str_limpiar"
                 android:onClick="LimpiarFiltros"
+                android:padding="10sp"
+                android:background="@drawable/button_round_corner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </GridLayout>

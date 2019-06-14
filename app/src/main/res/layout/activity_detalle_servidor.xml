@@ -429,6 +429,7 @@
             android:layout_marginLeft="0dp"
             app:menu_labels_position="left"
             app:menu_openDirection="down"
+            app:menu_icon="@drawable/ic_menu_white_24dp"
             app:menu_fab_label="">
 
         <com.github.clans.fab.FloatingActionButton
