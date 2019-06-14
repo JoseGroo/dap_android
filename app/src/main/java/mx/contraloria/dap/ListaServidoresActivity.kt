@@ -159,7 +159,17 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
                         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                         
+                            try{
+                                print(ListaxFiltros)
+
+                                var valor = p0.toString().toLowerCase()
+                                var filtros = ListaxFiltros.filter { s -> s.nombre_completo.toLowerCase().contains(valor) || s.dependencia.toLowerCase().contains(valor)  }
+                                newList = filtros as ArrayList<Servidores>
+                                adapter.notifyDataSetChanged()
+                            }catch (e: Exception){
+                                print(e)
+                            }
+
 
 
 
