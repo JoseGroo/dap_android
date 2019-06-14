@@ -25,10 +25,7 @@ import mx.contraloria.dap.Adapters.ServidorAdapter
 import mx.contraloria.dap.Adapters.TabHomeAdapter
 import mx.contraloria.dap.fragments.BuscarFragment
 import mx.contraloria.dap.fragments.FavoritosFragment
-import mx.contraloria.dap.models.Dependencias
-import mx.contraloria.dap.models.Favorites
-import mx.contraloria.dap.models.Poderes
-import mx.contraloria.dap.models.Servidores
+import mx.contraloria.dap.models.*
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -36,18 +33,28 @@ import okhttp3.Response
 import java.io.IOException
 import java.io.Serializable
 import java.lang.Exception
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeTabActivity : MyToolBarActivity() {
 
     var poder_id = 0
     var dependencia_id = 0
     var nombre_servidor = ""
+    lateinit var vDependencias: ArrayList<Dependencias>
+    lateinit var vPoderes: ArrayList<Poderes>
+
+    lateinit var oFuncionesGenerales: FuncionesGenerales
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_tab)
 
+        oFuncionesGenerales = FuncionesGenerales(this@HomeTabActivity)
 
 
         val adapter = TabHomeAdapter(supportFragmentManager)
@@ -122,6 +129,8 @@ class HomeTabActivity : MyToolBarActivity() {
             listItems.add(response_json.get(i).name)
         }
 
+        vPoderes = response_json as ArrayList<Poderes>
+
         val spPoderesGobierno = findViewById<Spinner>(R.id.spPoderesGobierno)
 
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listItems)
@@ -191,6 +200,7 @@ class HomeTabActivity : MyToolBarActivity() {
         }
 
 
+        vDependencias = response_json as ArrayList<Dependencias>
 
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listItems)
         spDependenciasGobierno.adapter = arrayAdapter
@@ -221,6 +231,34 @@ class HomeTabActivity : MyToolBarActivity() {
         intent.putExtra("filtro_dependencia_id",dependencia_id)
         intent.putExtra("filtro_nombre_servidor", Filtro)
         intent.putExtra("filtro_poder_id",poder_id)
+
+        var vBusquedas = oFuncionesGenerales.getSearchFromSharedPreferences() as ArrayList<Busquedas>
+
+        var vNewBusqueda = Busquedas()
+        vNewBusqueda.Busqueda = Filtro
+        var vCurrentDate = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+
+        var vCompleteDateSplitted = vCurrentDate.format(Date()).split(" ")
+        var vDate = vCompleteDateSplitted.get(0)
+        var vHour = vCompleteDateSplitted.get(1)
+        var vDateSplitted = vDate.split("-")
+        var iMonth = vDateSplitted.get(1).toInt()
+        val sMonth = oFuncionesGenerales.months[iMonth - 1]
+        var vFormattedDate = "${sMonth} ${vDateSplitted.get(2)}, ${vDateSplitted.get(0)}"
+        var vHourSplitted = vHour.split(":")
+        var vHourFormatted = "${vHourSplitted.get(0)}:${vHourSplitted.get(1)} Hrs."
+
+
+        vNewBusqueda.Fecha = "$vFormattedDate | $vHourFormatted"
+        var vDependenciaSeleccionada = vDependencias.filter { r -> r.id.toInt() == dependencia_id }.firstOrNull()
+        var vPoderSeleccionado = vPoderes.filter { r -> r.id == poder_id.toString() }.firstOrNull()
+        vNewBusqueda.Dependencia = if(vDependenciaSeleccionada != null) vDependenciaSeleccionada!!.iniciales else ""
+        vNewBusqueda.Poder = if(vPoderSeleccionado != null) vPoderSeleccionado!!.name else ""
+
+        vBusquedas.add(vNewBusqueda)
+
+        oFuncionesGenerales.saveSearchJson(vBusquedas)
+
         startActivity(intent)
     }
 
