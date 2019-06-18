@@ -39,8 +39,6 @@ class DetalleServidorActivity : MyToolBarActivity() {
     lateinit var vServidor: Servidores
 
     var oFuncionesGenerales = FuncionesGenerales(this)
-    var bMenuAbierto = false
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

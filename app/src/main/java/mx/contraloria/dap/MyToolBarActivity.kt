@@ -4,6 +4,8 @@ import android.app.ActionBar
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,9 +17,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import android.widget.Toolbar
-
-
-
+import kotlinx.android.synthetic.main.toolbar_image.*
 
 
 abstract class MyToolBarActivity : AppCompatActivity() {
@@ -28,16 +28,27 @@ abstract class MyToolBarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_tool_bar)
 
-        supportActionBar!!.title = getString(R.string.app_name)
-        if(this !is HomeTabActivity)
-        {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        }else if(this is HomeActivity)
-        {
-            //supportActionBar!!.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
-            //supportActionBar!!.setCustomView(R.layout.my_toolbar)
 
+        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar!!.setDisplayShowCustomEnabled(true)
+        supportActionBar!!.setCustomView(R.layout.toolbar_image)
+        supportActionBar!!.elevation = 0f
+        val view = supportActionBar!!.customView
+        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#330000ff")));
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        if(this is HomeActivity)
+        {
+            btnBack.visibility = View.INVISIBLE
         }
+
+
+
+    }
+
+    fun BackButtonCustom(view: View)
+    {
+        onBackPressed()
     }
 /*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

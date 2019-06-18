@@ -17,7 +17,9 @@ import java.io.IOException
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.gms.maps.model.Marker
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalle_servidor.*
@@ -76,6 +78,17 @@ class MapsActivity : MyToolBarActivity(), OnMapReadyCallback {
                 print(e)
             }
         }
+
+        /*var vContainerInfoMarker= vCustomLayout.findViewById<RelativeLayout>(R.id.containerInfoMarker)
+
+        vContainerInfoMarker.setOnClickListener {
+            Toast.makeText(
+                this,
+                "el compa dio click en el container del view",
+                Toast.LENGTH_LONG
+            ).show()
+        }*/
+
     }
 
     /**

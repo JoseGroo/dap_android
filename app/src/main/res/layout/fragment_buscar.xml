@@ -11,6 +11,11 @@
         tools:context=".HomeActivity"
         android:focusableInTouchMode="true">
 
+    <!--<AutoCompleteTextView
+            android:id="@+id/autocompleteDependencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>-->
+
     <TextView
             android:textStyle="bold"
             android:layout_marginTop="10dp"
@@ -76,6 +81,7 @@
                 android:onClick="BuscarServidores"
                 android:background="@drawable/button_round_corner_green"
                 android:padding="10sp"
+                android:layout_marginRight="20sp"
                 android:layout_height="wrap_content"/>
 
         <Button
