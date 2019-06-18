@@ -6,6 +6,8 @@
 
     <LinearLayout
             android:layout_marginTop="10dp"
+            android:paddingRight="@dimen/padding_container_app"
+            android:paddingLeft="@dimen/padding_container_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -21,6 +23,8 @@
     </LinearLayout>
 
     <LinearLayout
+            android:paddingRight="@dimen/padding_container_app"
+            android:paddingLeft="@dimen/padding_container_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

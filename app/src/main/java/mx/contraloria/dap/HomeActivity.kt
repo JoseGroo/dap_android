@@ -3,6 +3,7 @@ package mx.contraloria.dap
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : MyToolBarActivity() {
@@ -10,6 +11,7 @@ class HomeActivity : MyToolBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
 
     }
 

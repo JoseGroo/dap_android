@@ -20,10 +20,12 @@
     />
 
     <FrameLayout
-            android:padding="@dimen/padding_container_app"
+            android:paddingRight="@dimen/padding_container_app"
+            android:paddingLeft="@dimen/padding_container_app"
             android:id="@+id/containerBuscador"
             android:layout_below="@+id/inHeaderSonora"
             android:layout_marginTop="20dp"
+            android:paddingBottom="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -35,7 +37,8 @@
                 android:paddingLeft="10dp"
                 android:background="@drawable/edit_text_rounded_buscar"
                 android:hint="@string/str_escribe_texto_buscar"
-                android:singleLine="true" android:textSize="21.33dp"/>
+                android:singleLine="true"
+                android:textSize="18dp"/>
 
         <Button
                 android:id="@+id/btn_clear"
@@ -53,9 +56,10 @@
 
     <LinearLayout
             android:layout_below="@+id/containerBuscador"
-            android:padding="@dimen/padding_container_app"
-            android:layout_marginTop="10dp"
+            android:paddingRight="@dimen/padding_container_app"
+            android:paddingLeft="@dimen/padding_container_app"
             android:layout_alignParentEnd="true"
+            android:paddingTop="0dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

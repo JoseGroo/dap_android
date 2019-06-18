@@ -14,6 +14,7 @@ import kotlin.system.exitProcess
 import android.support.design.widget.FloatingActionButton
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import android.widget.Toolbar
@@ -41,7 +42,17 @@ abstract class MyToolBarActivity : AppCompatActivity() {
         {
             btnBack.visibility = View.INVISIBLE
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        var imagen = findViewById<ImageView>(R.id.bottom_white_background)
+
+        if(imagen != null)
+        {
+            val rnds = (1000..1800).random()
+            imagen.animate().translationY(rnds.toFloat()).setStartDelay(1000).setDuration(1000).start()
+        }
     }
 
     fun BackButtonCustom(view: View)
