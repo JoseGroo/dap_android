@@ -55,7 +55,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
     lateinit var listView: ListView
     lateinit var btnSearch: EditText
-    lateinit var LnLBackground: LinearLayout
+    lateinit var LnLBackground: ImageView
     lateinit var txtFiltrosBusqueda: TextView
     val REQUEST_PHONE_CALL = 1
     lateinit var btnAnimation : Animation
@@ -66,7 +66,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
     var flag_loading=false
     lateinit var adaptador: ServidorAdapter
     var isLoading: Boolean = false
-    var nFloating: Float = 0f
+    var nFloating: Float = 1800f
     var vAntiguo = 0
 
     var oFuncionesGenerales = FuncionesGenerales(this)
@@ -107,7 +107,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
         listView = findViewById(R.id.list)
         btnSearch =findViewById(R.id.btnSearch)
         txtFiltrosBusqueda = findViewById(R.id.txt_filtro_busqueda)
-        /*LnLBackground =  findViewById(R.id.LnLBackground)*/
+        LnLBackground =  findViewById(R.id.bottom_white_background)
 
 
 
@@ -204,9 +204,21 @@ class ListaServidoresActivity : MyToolBarActivity(){
                             visibleItemCount: Int,
                             totalItemCount: Int
                         ) {
+                            vAntiguo++
+                            if(vAntiguo >= 6){
+                                nFloating -=5f
+                                if(nFloating >= 1400f){
+                                    LnLBackground.animate().translationY(nFloating).start()
+                                }
+
+                                Toast.makeText(this@ListaServidoresActivity,vAntiguo.toString(),Toast.LENGTH_SHORT).show()
+
+                            }
+
 
 
                         }
+
 
                         override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
                             when (scrollState) {
@@ -221,20 +233,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
                             }
 
-                           /* if(vAntiguo <= listView.getLastVisiblePosition()){
-                                nFloating+= 100f
-                                vAntiguo  = listView.getLastVisiblePosition()
-                                if(nFloating <= 700f){
-                                    LnLBackground.animate().translationY(-nFloating).start()
-                                }
-                            }else{
-                                nFloating += 100f
-                                vAntiguo  = listView.getLastVisiblePosition()
-                                if(nFloating <= 400f ){
-                                    LnLBackground.animate().translationY(nFloating).start()
-                                }
-                            }
-                            Toast.makeText(this@ListaServidoresActivity,vAntiguo.toString(),Toast.LENGTH_SHORT).show()*/
+
 
 
                             //scroooll

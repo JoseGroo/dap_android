@@ -8,11 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ListaServidoresActivity"
-        android:focusableInTouchMode="true"
-        android:background="@drawable/white">
-<include layout="@layout/pruebas_relatives">
+        android:focusableInTouchMode="true">
+    <include layout="@layout/pruebas_relatives">
 
-</include>
+    </include>
 
 
     <LinearLayout android:layout_width="match_parent"
@@ -26,10 +25,11 @@
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
 
+
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:text="Resultado"
-                      android:textSize="20dp"
+                      android:textSize="21dp"
                       android:textStyle="bold"
                       android:textColor="#2C2B2B"/>
 
@@ -50,7 +50,7 @@
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:text="0"
-                      android:textSize="30dp"
+                      android:textSize="34dp"
                       android:textStyle="bold"
                       android:textAlignment="viewEnd"
                       android:textColor="#1C1B1B"
