@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              xmlns:app = "http://schemas.android.com/apk/res-auto"
+              android:layout_width = "match_parent"
+              android:layout_height = "wrap_content"
+              android:gravity = "center_vertical"
+
+              android:weightSum = "1">
+
+    <!--<LinearLayout
+            android:layout_width = "match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height = "match_parent"
+            android:layout_weight = "0.6">
+        <ImageView
+                android:layout_width = "70dp"
+                android:layout_height = "70dp"
+                android:src = "@drawable/dap_red"/>
+
+        <ImageView
+                android:layout_width = "wrap_content"
+                android:layout_height = "match_parent"
+                android:layout_marginLeft = "20dp"
+                android:layout_gravity="end|center_vertical"
+                android:src = "@drawable/ic_star_yellow_24dp" />
+
+    </LinearLayout>-->
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_width = "32dp"
+                android:layout_height = "32dp"
+                android:layout_marginLeft="0dp"
+                android:onClick="BackButtonCustom"
+                android:id="@+id/btnBack"
+                android:layout_gravity="start|center_vertical"
+                android:src = "@drawable/ic_arrow_back_black_24dp" />
+
+        <ImageView
+                android:layout_width = "wrap_content"
+                android:layout_height = "53.333dp"
+                android:layout_gravity="center"
+                android:src = "@drawable/dap_red"/>
+
+        <ImageView
+                android:layout_width = "32dp"
+                android:layout_height = "32dp"
+                android:layout_marginRight="0dp"
+                android:layout_gravity="end|center_vertical"
+                android:src = "@drawable/ic_star_black_menu_24dp" />
+
+    </FrameLayout>
+</LinearLayout>

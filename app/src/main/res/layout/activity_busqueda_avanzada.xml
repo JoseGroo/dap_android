@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rootContainer"
+        android:layout_margin="20dp"
+        tools:context=".BusquedaAvanzadaActivity"
+        android:focusableInTouchMode="true">
+
+
+
+    <EditText
+            android:id="@+id/etFiltroNombrePuesto"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:background="@drawable/edit_text_rounded_buscar"
+            android:hint="@string/str_buscar_por_nombre_o_puesto"
+            android:singleLine="true"
+            android:textSize="21.33dp"/>
+
+
+    <Spinner
+            android:gravity="top"
+            android:id="@+id/spPoderesGobierno"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:textSize="21.33dp"
+            android:layout_height="60dp"/>
+
+
+    <Spinner
+            android:gravity="top"
+            android:id="@+id/spDependenciasGobierno"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:textSize="21.33dp"
+            android:layout_height="60dp"/>
+
+    <GridLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+
+    </GridLayout>
+
+</LinearLayout>

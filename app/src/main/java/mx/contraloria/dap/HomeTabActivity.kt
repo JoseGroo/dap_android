@@ -57,6 +57,8 @@ class HomeTabActivity : MyToolBarActivity() {
         oFuncionesGenerales = FuncionesGenerales(this@HomeTabActivity)
 
 
+
+
         val adapter = TabHomeAdapter(supportFragmentManager)
         adapter.addFragment(BuscarFragment(), getString(R.string.str_buscar))
         adapter.addFragment(FavoritosFragment(), getString(R.string.str_favoritos))
@@ -200,10 +202,16 @@ class HomeTabActivity : MyToolBarActivity() {
         }
 
 
+
+
         vDependencias = response_json as ArrayList<Dependencias>
 
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listItems)
         spDependenciasGobierno.adapter = arrayAdapter
+
+        /*var actv = findViewById<AutoCompleteTextView>(R.id.autocompleteDependencia);
+        actv.setThreshold(1)
+        actv.setAdapter(arrayAdapter)*/
 
         spDependenciasGobierno.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
