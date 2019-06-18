@@ -42,8 +42,6 @@ abstract class MyToolBarActivity : AppCompatActivity() {
             btnBack.visibility = View.INVISIBLE
         }
 
-
-
     }
 
     fun BackButtonCustom(view: View)
