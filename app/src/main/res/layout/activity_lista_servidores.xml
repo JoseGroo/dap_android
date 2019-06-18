@@ -18,8 +18,9 @@
                   android:layout_height="wrap_content"
                   android:id="@+id/LnLtop"
                   android:orientation="horizontal"
-                  android:layout_marginStart="20dp"
-                  android:layout_marginEnd="20dp">
+                  android:paddingEnd="@dimen/padding_container_app"
+                  android:paddingStart="@dimen/padding_container_app">
+
         <LinearLayout android:layout_width="0dp"
                       android:layout_weight=".70"
                       android:layout_height="wrap_content"
@@ -67,8 +68,8 @@
               android:drawableEnd="@drawable/ic_search_black_24dp_filtros"
               android:id="@+id/btnSearch"
               app:layout_constraintTop_toBottomOf="@+id/LnLtop"
-              android:layout_marginStart="20dp"
-              android:layout_marginEnd="20dp"/>
+              android:layout_marginStart="@dimen/padding_container_app"
+              android:layout_marginEnd="@dimen/padding_container_app"/>
 
     <ListView android:layout_width="match_parent"
               android:layout_height="0dp"
@@ -78,6 +79,8 @@
               android:background="@android:color/transparent"
               android:cacheColorHint="@android:color/transparent"
               android:layout_marginTop="8dp"
+              android:paddingStart="@dimen/padding_container_app"
+              android:paddingEnd="@dimen/padding_container_app"
               app:layout_constraintTop_toBottomOf="@+id/btnSearch"
               app:layout_constraintBottom_toTopOf="@+id/LnLbottom">
     </ListView>
@@ -108,7 +111,9 @@
                   android:cacheColorHint="@android:color/transparent">
 
         <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="wrap_content">
+                      android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_container_app"
+        android:paddingEnd="@dimen/padding_container_app">
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="match_parent"
