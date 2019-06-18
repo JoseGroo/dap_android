@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/background_app_gray" />
+    <item
+            android:insetTop="@dimen/fab_size_mini"
+            android:insetBottom="@dimen/fab_size_mini"
+    >
+
+    </item>
+    <item android:drawable="@drawable/ic_background_white_bottom" />
+</layer-list>

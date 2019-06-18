@@ -43,4 +43,9 @@
     <color name="colorIntroDescription">#656565</color>
     <!--COLORES ARA INTRO-->
     <color name="colorTitleIntro">#000000</color>
+
+    <!--Colores botones list-->
+    <color name="circlular_list_buttons">#555555</color>
+
+
 </resources>

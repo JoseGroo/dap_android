@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+android:gravity="bottom">
+
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@drawable/background_app_gray"
+               android:scaleX="3"/>
+
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:translationY="700dp"
+               android:background="@drawable/ic_background_white_bottom"
+               android:scaleType="fitStart"
+               android:scaleY="2"
+
+    />
+
+
+
+</RelativeLayout>

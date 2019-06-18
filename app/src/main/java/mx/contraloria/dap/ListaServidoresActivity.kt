@@ -1,5 +1,6 @@
 package mx.contraloria.dap
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.ProgressDialog
@@ -18,6 +19,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.text.Editable
+import android.text.Layout
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
@@ -53,6 +55,8 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
     lateinit var listView: ListView
     lateinit var btnSearch: EditText
+    lateinit var LnLBackground: LinearLayout
+    lateinit var txtFiltrosBusqueda: TextView
     val REQUEST_PHONE_CALL = 1
     lateinit var btnAnimation : Animation
     var filtro_dependencia_id=""
@@ -62,6 +66,8 @@ class ListaServidoresActivity : MyToolBarActivity(){
     var flag_loading=false
     lateinit var adaptador: ServidorAdapter
     var isLoading: Boolean = false
+    var nFloating: Float = 0f
+    var vAntiguo = 0
 
     var oFuncionesGenerales = FuncionesGenerales(this)
 
@@ -100,6 +106,8 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
         listView = findViewById(R.id.list)
         btnSearch =findViewById(R.id.btnSearch)
+        txtFiltrosBusqueda = findViewById(R.id.txt_filtro_busqueda)
+        /*LnLBackground =  findViewById(R.id.LnLBackground)*/
 
 
 
@@ -120,6 +128,11 @@ class ListaServidoresActivity : MyToolBarActivity(){
                 "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
                 "&filterrific[con_detalle]=1&pagina="+pages
 
+        //lo ponemos en el titulo aabajo de resultados
+        txtFiltrosBusqueda.text = if ( filtro_nombre_servidor != "" ) filtro_nombre_servidor else "TODOS"
+
+
+
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 
@@ -138,37 +151,45 @@ class ListaServidoresActivity : MyToolBarActivity(){
                 val gson = Gson()
                 val listType = object : TypeToken<ArrayList<Servidores>>() { }.type
                 var newList = gson.fromJson<ArrayList<Servidores>>(body, listType)
-                var ListaxFiltros = newList
+                var ListaxFiltros = ArrayList<Servidores>()
+                ListaxFiltros.addAll(newList)
 
                 runOnUiThread {
                     var adapter= ServidorAdapter(this@ListaServidoresActivity,newList)
                     listView.adapter = adapter
                     progress.dismiss()
-
-
                     btnSearch.addTextChangedListener(object : TextWatcher {
                         override fun afterTextChanged(p0: Editable?) {
+                            doAsync {
+
+                                this@ListaServidoresActivity.runOnUiThread(java.lang.Runnable {
+                                    try{
+
+                                        var valor = p0.toString().toLowerCase()
+                                        var filtros = ListaxFiltros.filter { s ->
+                                            s.nombre_completo.toLowerCase().contains(valor) ||
+                                                    s.dependencia.toLowerCase().contains(valor) ||
+                                            s.puesto_funcional.toLowerCase().contains(valor) ||
+                                            s.puesto_oficial.toLowerCase().contains(valor) ||
+                                            s.titulo.toLowerCase().toLowerCase().contains(valor)}
+                                        newList.removeAll(newList)
+                                        newList.addAll(filtros)
+                                        adapter.notifyDataSetChanged()
+                                    }catch (e: Exception){
+                                        print(e)
+                                    }
+                                })
+                            }.execute()
                         }
 
                         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-
 
 
                         }
 
                         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                            try{
-                                print(ListaxFiltros)
 
-                                var valor = p0.toString().toLowerCase()
-                                var filtros = ListaxFiltros.filter { s -> s.nombre_completo.toLowerCase().contains(valor) || s.dependencia.toLowerCase().contains(valor)  }
-                                newList = filtros as ArrayList<Servidores>
-                                adapter.notifyDataSetChanged()
-                            }catch (e: Exception){
-                                print(e)
-                            }
 
 
 
@@ -183,6 +204,8 @@ class ListaServidoresActivity : MyToolBarActivity(){
                             visibleItemCount: Int,
                             totalItemCount: Int
                         ) {
+
+
                         }
 
                         override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
@@ -197,19 +220,41 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
 
                             }
+
+                           /* if(vAntiguo <= listView.getLastVisiblePosition()){
+                                nFloating+= 100f
+                                vAntiguo  = listView.getLastVisiblePosition()
+                                if(nFloating <= 700f){
+                                    LnLBackground.animate().translationY(-nFloating).start()
+                                }
+                            }else{
+                                nFloating += 100f
+                                vAntiguo  = listView.getLastVisiblePosition()
+                                if(nFloating <= 400f ){
+                                    LnLBackground.animate().translationY(nFloating).start()
+                                }
+                            }
+                            Toast.makeText(this@ListaServidoresActivity,vAntiguo.toString(),Toast.LENGTH_SHORT).show()*/
+
+
                             //scroooll
                             if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && listView.getLastVisiblePosition() ==
                                 newList.size - 1 && !isLoading){
                                 isLoading=true
-                                Snackbar.make(listView, "Cargando mas registros.", Snackbar.LENGTH_LONG).show()
+                                var vSnack = Snackbar.make(listView, "Cargando mas registros.", Snackbar.LENGTH_INDEFINITE)
+                                vSnack.show()
                                 doAsync {
                                     pages = pages + 1
                                     var new_list = addMoreItems(newList)
 
                                     this@ListaServidoresActivity.runOnUiThread(java.lang.Runnable {
                                         newList.addAll(new_list)
+                                        ListaxFiltros.addAll(new_list)
                                         adapter.notifyDataSetChanged()
                                         isLoading = false
+                                        if(vSnack.isShown){
+                                            vSnack.dismiss()
+                                        }
                                     })
 
                                 }.execute()
@@ -220,36 +265,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
                         }
                     })
 
-                    listView.setOnItemClickListener { parent, view, position, id ->
 
-                        try{
-
-                            var intent = Intent(this@ListaServidoresActivity, DetalleServidorActivity::class.java)
-                            intent.putExtra("servidor", newList.get(position) as Serializable)
-                                // Check if we're running on Android 5.0 or higher
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-                                    val options = ActivityOptions.makeSceneTransitionAnimation(this@ListaServidoresActivity,
-                                        UtilPair.create<View,String>(view.iImageR, "imageTransition"),
-                                        UtilPair.create<View,String>(view.txtNombreR, "nombreTransition"))
-
-                                    startActivity(intent,options.toBundle())
-                                } else {
-                                    // Swap without transition
-                                    startActivity(intent)
-                                }
-
-
-                        }catch (e:Exception){
-                            Toast.makeText(
-                                this@ListaServidoresActivity,
-                                "Error al momento de mostrar el detalle del servidor.",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-
-
-                    }
                 }
 
 

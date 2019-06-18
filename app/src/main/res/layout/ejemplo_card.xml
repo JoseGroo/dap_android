@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:clickToClose="true"
+        android:id="@+id/row_swipe_1"
+        >
+    <LinearLayout
+            android:tag="swipeRight"
+            android:id="@+id/bottom_wrapper"
+            android:layout_width="wrap_content"
+            android:weightSum="1"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+        <ImageView
+                android:id="@+id/Phones"
+                android:src="@drawable/ic_phoneicon"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:background="@drawable/circular_button_swipe"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"/>
+
+        <ImageView
+                android:id="@+id/Emails"
+                android:src="@drawable/ic_emailicon_outlet_white"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circular_button_swipe"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_margin="10dp"/>
+
+        <ImageView
+                android:id="@+id/Geolocalizacion"
+                android:src="@drawable/ic_addressicon_white"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circular_button_swipe"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_margin="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:tag="swipeLeft"
+            android:id="@+id/bottom_wrapper_2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/btnFavorito"
+                android:src="@drawable/ic_star_border_white_24dp"
+                android:layout_width="50dp"
+                android:background="@drawable/circular_button_swipe"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_margin="10dp"/>
+        <ImageView
+                android:id="@+id/btnCompartir"
+                android:src="@drawable/ic_share_white_24dp"
+                android:layout_width="50dp"
+                android:background="@drawable/circular_button_swipe"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"/>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+        <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                            android:layout_height="101dp"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginRight="10dp"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_marginBottom="10dp"
+                                            app:cardCornerRadius="8dp"
+                                            android:background="@drawable/white"
+                                            android:id="@+id/ListaCard">
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:gravity="center">
+                <ImageView android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:layout_marginLeft="15dp"
+                           android:layout_marginTop="15dp"
+                           android:layout_marginBottom="15dp"
+                           android:src="@mipmap/ic_icon_perfil_round"
+                           android:transitionName="imageTransition"
+                           android:id="@+id/imgPerfil"/>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="vertical"
+                              android:layout_gravity="center">
+
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_marginStart="10dp"
+                              android:layout_marginEnd="10dp"
+                              android:text="Lic. Silvia Cristina Lomeli Acevedo"
+                              android:textColor="#393A3B"
+                              android:textSize="21dp"
+                              android:id="@+id/txtNombre_servidor"/>
+
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="2dp"
+                              android:layout_marginStart="10dp"
+                              android:layout_marginEnd="30dp"
+                              android:text="Secretaría de la Contraloría General y del estado"
+                              android:drawableLeft="@drawable/ic_business_black_24dp"
+                              android:drawablePadding="5dp"
+                              android:textSize="13dp"
+                              android:gravity="center|left"
+                              android:singleLine="true"
+                              android:textColor="#434648"
+                              android:id="@+id/txtNombre_dependencia"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</com.daimajia.swipe.SwipeLayout>

@@ -104,13 +104,31 @@ class FuncionesGenerales(cTx: Context) {
         var arrayTel = tel.toCharArray()
         var telefonos: ArrayList<String> = ArrayList<String>()
         var buildTelefono=""
-        var dosEscopes = false
         // Normal: 0, lada : 1, 01800 = 2, Lada otro 3
         var tipo= 0
         var contador = 0
+        var validaTipo = true
         for (item: Char in arrayTel) {
+            //verficamos los numeros si los tiene bien
+            when(tipo){
+                0,3 -> {
+                    if(buildTelefono.length == 7){
+                        validaTipo= false
+                    }
+                }
+                1 -> {
+                    if(buildTelefono.length == 10){
+                        validaTipo= false
+                    }
+                }
+                2 -> {
+                    if(buildTelefono.length == 12){
+                        validaTipo= false
+                    }
+                }
+            }
             //verificamos
-            if(item.isDigit()){
+            if(item.isDigit() && validaTipo){
                 //guardamos el item
                 if(buildTelefono != "" && buildTelefono.length > 2){
                     var subNum = buildTelefono.substring(0,1)
@@ -129,8 +147,6 @@ class FuncionesGenerales(cTx: Context) {
                         }
                     }
                 }
-
-                dosEscopes = true
                 buildTelefono+= item
 
             }else{
@@ -138,21 +154,33 @@ class FuncionesGenerales(cTx: Context) {
 
                 when(tipo){
                     0,3 -> {
-                        if(buildTelefono.length == 7){
-                            telefonos.add(lada+" "+buildTelefono)
-                            buildTelefono=""
+                        if(buildTelefono.length == 7 || (item == '/' || item== ',')){
+                            if(buildTelefono != ""){
+                                telefonos.add(lada+" "+buildTelefono)
+                                buildTelefono=""
+                            }
+
+                            validaTipo=true
                         }
                     }
                     1 -> {
-                        if(buildTelefono.length == 10){
-                            telefonos.add(buildTelefono)
-                            buildTelefono=""
+                        if(buildTelefono.length == 10 || (item == '/' || item== ',')){
+
+                            if(buildTelefono != ""){
+                                telefonos.add(buildTelefono)
+                                buildTelefono=""
+                            }
+                            validaTipo=true
                         }
                     }
                     2 -> {
-                        if(buildTelefono.length == 12){
-                            telefonos.add(buildTelefono)
-                            buildTelefono=""
+                        if(buildTelefono.length == 12 || (item == '/' || item== ',')){
+
+                            if(buildTelefono != ""){
+                                telefonos.add(buildTelefono)
+                                buildTelefono=""
+                            }
+                            validaTipo=true
                         }
                     }
                 }

@@ -108,6 +108,27 @@ class Favorites(cTx: Context) {
         }
 
     }
+    fun AddDeleteFavoritosJson(view: View, servidores: Servidores,  text: ImageView){
+
+        var lista = getFavoritosFromSharedJsonToListServidores()
+
+        if(checkInPrefrenceJson(servidores)){
+            var newLista = lista.dropWhile { s -> s.id == servidores.id }
+            saveFavoritosJson(newLista)
+            text.setImageResource(R.drawable.ic_star_border_white_24dp)
+            Snackbar.make(view,  servidores.nombre_completo+ " se elimino de favoritos.",Snackbar.LENGTH_LONG).show()
+
+
+        }else{
+            var ArrayLista = lista as ArrayList<Servidores>
+            ArrayLista.add(servidores)
+            saveFavoritosJson(ArrayLista)
+            text.setImageResource(R.drawable.ic_star_white_24dp)
+            Snackbar.make(view, "Se añadio a favoritos a: "+ servidores.nombre_completo, Snackbar.LENGTH_LONG).show()
+
+        }
+
+    }
     fun checkInPrefrenceJson(servidores: Servidores): Boolean {
         var lista = getFavoritosFromSharedJsonToListServidores()
         return  (lista.filter { s -> s.id ==  servidores.id}.count() > 0)
@@ -152,9 +173,9 @@ class Favorites(cTx: Context) {
     fun InitPreferentImage(id: String,image: ImageView) {
         try{
             if(checkInPrefrence(id)){
-                image.setImageResource(R.drawable.ic_star_yellow_24dp)
+                image.setImageResource(R.drawable.ic_star_white_24dp)
             }else{
-                image.setImageResource(R.drawable.ic_star_border_black_24dp)
+                image.setImageResource(R.drawable.ic_star_border_white_24dp)
             }
         }catch (e:Exception){
 
@@ -165,9 +186,9 @@ class Favorites(cTx: Context) {
     fun InitPreferentImage(servidores: Servidores,image: ImageView) {
         try{
             if(checkInPrefrenceJson(servidores)){
-                image.setImageResource(R.drawable.ic_star_yellow_24dp)
+                image.setImageResource(R.drawable.ic_star_white_24dp)
             }else{
-                image.setImageResource(R.drawable.ic_star_border_black_24dp)
+                image.setImageResource(R.drawable.ic_star_border_white_24dp)
             }
         }catch (e:Exception){
 
@@ -178,9 +199,9 @@ class Favorites(cTx: Context) {
     fun InitPreferentImage(servidores: Servidores,text: TextView) {
         try{
             if(checkInPrefrenceJson(servidores)){
-                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_yellow_24dp,0,0,0)
+                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_white_24dp,0,0,0)
             }else{
-                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_border_black_24dp,0,0,0)
+                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_star_border_white_24dp,0,0,0)
             }
         }catch (e:Exception){
 

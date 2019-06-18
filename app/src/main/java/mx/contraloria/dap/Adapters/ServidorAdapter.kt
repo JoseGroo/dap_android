@@ -1,4 +1,6 @@
 package mx.contraloria.dap.Adapters
+import android.app.Activity
+import android.app.ActivityOptions
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -15,6 +17,8 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
+import android.support.v7.widget.CardView
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -27,6 +31,8 @@ import java.io.IOException
 import java.net.URL
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_swipe.view.*
+import mx.contraloria.dap.DetalleServidorActivity
+import mx.contraloria.dap.ListaServidoresActivity
 import mx.contraloria.dap.MapsActivity
 import mx.contraloria.dap.models.Favorites
 import mx.contraloria.dap.models.FuncionesGenerales
@@ -45,11 +51,13 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
     var FuncionesGenerales = FuncionesGenerales(context)
     lateinit var context: Context
     var favoritos: Boolean = false
+    lateinit var layoutInflaterLista : LayoutInflater
 
     init {
 
         this.favoritos = favorites
         this.context = context
+        this.layoutInflaterLista = LayoutInflater.from(context)
     }
 
     override fun getCount(): Int {
@@ -57,11 +65,13 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
     }
 
     override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View? {
+
+
         val viewHolder: ViewHolder
         val rowView: View?
 
         if (view == null) {
-            rowView = layoutInflater.inflate(R.layout.row_swipe, viewGroup, false)
+            rowView = layoutInflater.inflate(R.layout.ejemplo_card, viewGroup, false)
 
             viewHolder = ViewHolder(rowView)
             rowView.tag = viewHolder
@@ -81,11 +91,11 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
 
 
 
-        /////////// Emails ****
+
         viewHolder.btnEmails.setOnClickListener(View.OnClickListener {
             FuncionesGenerales.GenerarviewCallEmail(snombre_completo,item.foto,item.correo_electronico)
         })
-        ///////////telefonos ***
+
         viewHolder.btnPhones.setOnClickListener(View.OnClickListener {
            FuncionesGenerales.GenerarViewCallTelefonos(snombre_completo,item.foto,item.lada,item.telefono)
 
@@ -169,7 +179,33 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
             vMapaActivity.putExtra("servidor", item as Serializable)
             startActivity(context, vMapaActivity, null)
         })
+        /*Click detalles*/
+        viewHolder.card.setOnClickListener(View.OnClickListener {
+            try{
 
+                var intent = Intent(context, DetalleServidorActivity::class.java)
+                intent.putExtra("servidor", item as Serializable)
+                // Check if we're running on Android 5.0 or higher
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                    val options = ActivityOptions.makeSceneTransitionAnimation(context as Activity,
+                        Pair.create<View,String>(viewHolder.imgPerfil, "imageTransition"))
+
+                    context.startActivity(intent,options.toBundle())
+                } else {
+                    // Swap without transition
+                    context.startActivity(intent)
+                }
+
+
+            }catch (e:Exception){
+                Toast.makeText(
+                    context,
+                    "Error al momento de mostrar el detalle del servidor.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
 
 
         return rowView
@@ -189,16 +225,16 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
 
     /*Datos que necesito de mi vista*/
     private class ViewHolder(view: View?) {
-        val imgPerfil = view?.findViewById(R.id.iImageR) as ImageView
-        val nombre = view?.findViewById(R.id.txtNombreR) as TextView
-        val dependencia = view?.findViewById(R.id.txtPuestoR) as TextView
-        val puesto = view?.findViewById(R.id.txtUnidadR) as TextView
-        val imgFavoritos = view?.findViewById(R.id.btnFavorito) as TextView
-        val imgCompartir = view?.findViewById(R.id.btnCompartir) as TextView
+       val imgPerfil = view?.findViewById(R.id.imgPerfil) as ImageView
+        val nombre = view?.findViewById(R.id.txtNombre_servidor) as TextView
+        val dependencia = view?.findViewById(R.id.txtNombre_dependencia) as TextView
+        val imgFavoritos = view?.findViewById(R.id.btnFavorito) as ImageView
+        val imgCompartir = view?.findViewById(R.id.btnCompartir) as ImageView
         val LayoutSwipe = view?.findViewById(R.id.row_swipe_1) as SwipeLayout
         val btnPhones = view?.findViewById(R.id.Phones) as ImageView
         val btnEmails = view?.findViewById(R.id.Emails) as ImageView
         val btnGeolocalizacion = view?.findViewById(R.id.Geolocalizacion) as ImageView
+        val card = view?.findViewById(R.id.ListaCard) as CardView
 
     }
 

@@ -35,6 +35,6 @@
     <string name="str_compartir">Compartir</string>
     <string name="str_mapa">Mapa</string>
     <string name="enviar_correo_a">Enviar correo a:</string>
-    <string name="llammar_a">Llammar a</string>
+    <string name="llammar_a">Llamar a</string>
     <string name="title_activity_maps">Map</string>
 </resources>
