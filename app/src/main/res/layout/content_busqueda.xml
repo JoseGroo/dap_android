@@ -19,10 +19,15 @@ android:layout_height="match_parent">
 
 <include layout="@layout/pruebas_relatives"/>
 
+    <include layout="@layout/toolbar_image"
+             android:id="@+id/toolbars"/>
+
 <include
         android:id="@+id/inHeaderSonora"
         layout="@layout/header_info_dap"
-/>
+        android:layout_below="@+id/toolbars"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
 
 <FrameLayout
         android:paddingRight="@dimen/padding_container_app"

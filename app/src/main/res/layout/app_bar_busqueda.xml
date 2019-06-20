@@ -7,20 +7,6 @@
         android:layout_height="match_parent"
         tools:context=".BusquedaActivity">
 
-    <android.support.design.widget.AppBarLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="#00000000"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-    </android.support.design.widget.AppBarLayout>
-
     <!-- aqui van los includes de las activities que llevan el menu drawable-->
     <include android:id="@+id/include_busqueda"
              android:visibility="visible"

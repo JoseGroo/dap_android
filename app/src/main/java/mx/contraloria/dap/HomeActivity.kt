@@ -15,9 +15,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import kotlinx.android.synthetic.main.activity_eliminar.*
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.app_bar_eliminar.*
 import kotlinx.android.synthetic.main.row_swipe.view.*
 import mx.contraloria.dap.Adapters.BusquedasAdapter
 import mx.contraloria.dap.Adapters.ServidorAdapter

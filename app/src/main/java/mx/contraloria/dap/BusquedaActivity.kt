@@ -8,9 +8,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.*
-import android.widget.AbsListView
-import android.widget.EditText
-import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_busqueda.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_busqueda.*
@@ -20,7 +17,8 @@ import mx.contraloria.dap.models.FuncionesGenerales
 import java.text.SimpleDateFormat
 import java.util.*
 import android.view.View.OnFocusChangeListener
-import android.widget.Toast
+import android.widget.*
+import kotlinx.android.synthetic.main.toolbar_image.*
 
 
 class BusquedaActivity : MyToolBarActivity() {
@@ -31,7 +29,18 @@ class BusquedaActivity : MyToolBarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_busqueda)
 
+        var viewToolbar = findViewById<View>(R.id.toolbars)
+        var backButton = viewToolbar.findViewById<ImageView>(R.id.btnBack)
+        var menuButton = viewToolbar.findViewById<ImageView>(R.id.btnMenu)
 
+        if(backButton != null && menuButton != null)
+        {
+            if(this is BusquedaActivity)
+            {
+                backButton.visibility = View.INVISIBLE
+                menuButton.visibility = View.VISIBLE
+            }
+        }
 
         //include_busqueda.visibility = View.INVISIBLE
 
