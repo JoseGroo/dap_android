@@ -93,13 +93,13 @@ class DetalleServidorActivity : MyToolBarActivity() {
 
         var Favorito = Favorites(this@DetalleServidorActivity)
 
-        Favorito.InitPreferentImage(vServidor.id.toString(), menu_favoritos)
+        Favorito.InitPreferentImage(vServidor, menu_favoritos)
     }
 
     fun PutFav(view: View)
     {
         var Favorito = Favorites(this@DetalleServidorActivity)
-        Favorito.AddDeleteFavoritos(view,vServidor.id.toString(), vServidor.titulo + " " + vServidor.nombre_completo, menu_favoritos)
+        Favorito.AddDeleteFavoritosJson(view,vServidor, menu_favoritos)
         menuOptions.close(true)
     }
 
