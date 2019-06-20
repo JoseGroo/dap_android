@@ -1,13 +1,21 @@
 package mx.contraloria.dap.Adapters
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import mx.contraloria.dap.R
 import android.widget.*
+import mx.contraloria.dap.DetalleServidorActivity
+import mx.contraloria.dap.ListaServidoresActivity
 import mx.contraloria.dap.models.Busquedas
 import mx.contraloria.dap.models.FuncionesGenerales
+import java.io.Serializable
 import java.lang.Exception
 import kotlin.collections.ArrayList
 
@@ -73,11 +81,12 @@ class BusquedasAdapter(context: Context, var items: List<Busquedas>) : BaseAdapt
         viewHolder.layoutContainer.setOnClickListener(View.OnClickListener {
             try{
 
-                Toast.makeText(
-                    context,
-                    "de aqui mandarlo a buscar. con: " + item.Busqueda,
-                    Toast.LENGTH_LONG
-                ).show()
+                var intent = Intent(context, ListaServidoresActivity::class.java)
+                intent.putExtra("filtro_nombre_servidor", item.Busqueda)
+
+                context.startActivity(intent)
+
+
             }catch (e:Exception){
                 Toast.makeText(
                     context,

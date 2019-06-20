@@ -8,12 +8,12 @@
 
 
     <FrameLayout
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <ImageView
                 android:layout_width = "32dp"
                 android:layout_height = "32dp"
-                android:layout_marginLeft="0dp"
                 android:onClick="BackButtonCustom"
                 android:id="@+id/btnBack"
                 android:layout_gravity="start|center_vertical"
@@ -23,7 +23,6 @@
                 android:layout_width = "32dp"
                 android:layout_height = "32dp"
                 android:visibility="invisible"
-                android:layout_marginLeft="0dp"
                 android:onClick="OpenMenu"
                 android:id="@+id/btnMenu"
                 android:layout_gravity="start|center_vertical"
@@ -38,7 +37,6 @@
         <ImageView
                 android:layout_width = "32dp"
                 android:layout_height = "32dp"
-                android:layout_marginRight="0dp"
                 android:layout_gravity="end|center_vertical"
                 android:src = "@drawable/ic_star_black_menu_24dp"
                 android:onClick="btnFavoritosPress"/>
