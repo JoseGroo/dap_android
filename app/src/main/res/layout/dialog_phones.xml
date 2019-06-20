@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-    
+        android:layout_width="350dp"
+        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_gravity="center">
+
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-    android:background="#232323"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:layout_marginTop="50dp">
-        
-        <TextView
-                android:id="@+id/txtDNombre"
-                android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="ASD ASD SA DSADSAD SADASD ASD"
-                  android:textColor="@color/backgroundColor"
-                  android:textStyle="bold"
-                  android:textSize="18sp"
-                  android:layout_marginTop="90dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="center"/>
+                  android:orientation="vertical"
+                  android:gravity="center_horizontal"
+                  android:layout_marginTop="50dp"
+                  android:background="@drawable/background_app_gray">
+
+            <TextView
+                    android:id="@+id/txtDNombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ASD ASD SA DSADSAD SADASD ASD"
+                    android:textColor="#393A3B"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginTop="90dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"/>
+
 
         <TextView
                 android:id="@+id/txtDSeleccioneOp"
@@ -31,7 +32,7 @@
                   android:layout_height="wrap_content"
                   android:textSize="18sp"
                   android:text="@string/llammar_a"
-                  android:textColor="@color/backgroundColor"
+                  android:textColor="@color/dark_gray"
                   android:layout_marginTop="5dp"
                   android:layout_marginBottom="20dp"
         />
@@ -39,7 +40,9 @@
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:orientation="vertical"
-        android:id="@+id/lyLstBtnPhones">
+                      android:id="@+id/lyLstBtnPhones">
+
+
 
             <!--<Button
 
@@ -66,6 +69,25 @@
                     android:textAlignment="textStart"
             />-->
 
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="right">
+            <ImageView
+                    android:id="@+id/btn_close_dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_gravity="right|top"
+                    android:clickable="true"
+                    android:background="@drawable/circular_buttom_close"
+                    android:src="@drawable/ic_close_black_24dp"
+                    android:tint="@color/colorBlack"/>
         </LinearLayout>
 
 

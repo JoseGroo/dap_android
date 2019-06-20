@@ -55,19 +55,13 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
     lateinit var listView: ListView
     lateinit var btnSearch: EditText
-    lateinit var LnLBackground: ImageView
     lateinit var txtFiltrosBusqueda: TextView
     val REQUEST_PHONE_CALL = 1
-    lateinit var btnAnimation : Animation
     var filtro_dependencia_id=""
     var filtro_nombre_servidor =""
     var filtro_poder_id=""
     var pages= 1
-    var flag_loading=false
-    lateinit var adaptador: ServidorAdapter
     var isLoading: Boolean = false
-    var nFloating: Float = 1800f
-    var vAntiguo = 0
 
     var oFuncionesGenerales = FuncionesGenerales(this)
 
@@ -107,13 +101,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
         listView = findViewById(R.id.list)
         btnSearch =findViewById(R.id.btnSearch)
         txtFiltrosBusqueda = findViewById(R.id.txt_filtro_busqueda)
-        LnLBackground =  findViewById(R.id.bottom_white_background)
 
-
-
-        buscarFloating.setOnClickListener {
-            oFuncionesGenerales.goIndex(buscarFloating)
-        }
 
         fetchJason()
     }
@@ -155,9 +143,11 @@ class ListaServidoresActivity : MyToolBarActivity(){
                 ListaxFiltros.addAll(newList)
 
                 runOnUiThread {
-                    var adapter= ServidorAdapter(this@ListaServidoresActivity,newList)
+                    var adapter= ServidorAdapter(this@ListaServidoresActivity,newList,false,null)
                     listView.adapter = adapter
                     progress.dismiss()
+                    //animacion de fondo
+
                     btnSearch.addTextChangedListener(object : TextWatcher {
                         override fun afterTextChanged(p0: Editable?) {
                             doAsync {
@@ -204,7 +194,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
                             visibleItemCount: Int,
                             totalItemCount: Int
                         ) {
-                            vAntiguo++
+                           /* vAntiguo++
                             if(vAntiguo >= 6){
                                 nFloating -=5f
                                 if(nFloating >= 1400f){
@@ -213,7 +203,8 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
                                 Toast.makeText(this@ListaServidoresActivity,vAntiguo.toString(),Toast.LENGTH_SHORT).show()
 
-                            }
+                            }*/
+
 
 
 

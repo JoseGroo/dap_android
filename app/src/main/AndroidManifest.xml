@@ -27,13 +27,12 @@
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".EliminarActivity"
-                android:label="@string/title_activity_eliminar"
-                android:theme="@style/Theme.AppCompat.Light">
-        </activity>
-        <activity
                 android:name=".BusquedaAvanzadaActivity"
                 android:theme="@style/Theme.AppCompat.Light">
+        <activity android:name=".prueba_toolbar"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".BusquedaAvanzadaActivity">
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -67,7 +66,11 @@
         </activity>
         <activity
                 android:name=".ListaServidoresActivity"
-                android:theme="@style/Theme.AppCompat.Light">
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".FavoritosActivity"
+                android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
         <activity
                 android:name=".DetalleServidorActivity"

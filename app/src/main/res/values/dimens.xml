@@ -13,4 +13,11 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">8dp</dimen>
     <dimen name="padding_container_app">21dp</dimen>
+    <dimen name="corners">8dp</dimen>
+    <dimen name="corners_dialog">20dp</dimen>
+    <dimen name="margin_dialog">10dp</dimen>
+    <dimen name="nombres">21dp</dimen>
+    <dimen name="dependencia">13dp</dimen>
+    <dimen name="nombres_detalles">25dp</dimen>
+    <dimen name="dependencia_detalles">17dp</dimen>
 </resources>

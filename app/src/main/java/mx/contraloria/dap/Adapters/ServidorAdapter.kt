@@ -36,6 +36,7 @@ import mx.contraloria.dap.ListaServidoresActivity
 import mx.contraloria.dap.MapsActivity
 import mx.contraloria.dap.models.Favorites
 import mx.contraloria.dap.models.FuncionesGenerales
+import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 import java.io.Serializable
 import java.lang.Exception
@@ -43,7 +44,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: Boolean = false) : BaseAdapter() {
+class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: Boolean = false, textCountFavoritos: TextView?) : BaseAdapter() {
     private val layoutInflater = LayoutInflater.from(context)
     private val favorites = Favorites(context)
 
@@ -51,13 +52,17 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
     var FuncionesGenerales = FuncionesGenerales(context)
     lateinit var context: Context
     var favoritos: Boolean = false
-    lateinit var layoutInflaterLista : LayoutInflater
+    lateinit var layoutInflaterFavoritos : LayoutInflater
+    lateinit var textCountFavoritos : TextView
 
     init {
 
         this.favoritos = favorites
         this.context = context
-        this.layoutInflaterLista = LayoutInflater.from(context)
+        this.layoutInflaterFavoritos = LayoutInflater.from(context)
+        if(textCountFavoritos != null){
+            this.textCountFavoritos = textCountFavoritos
+        }
     }
 
     override fun getCount(): Int {
@@ -110,10 +115,19 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
                     /*val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
                     StrictMode.setThreadPolicy(policy)*/
                     var url = items[position].foto
-                    Picasso.with(context).load(url)
+                    //creamos la url correcta
+                    /*var lastIndexOf = url.lastIndexOf('.')
+                    var sin_extension = url.substring(0,url.lastIndexOf('.'))
+                    var extension = url.substring(lastIndexOf,url.length)
+                    url = sin_extension+extension.toLowerCase()*/
+                    /*
                         .fit()
                         .transform(CircleTransform())
                         .centerCrop()
+                        .placeholder(R.drawable.spinner_progress_animation)
+                        .error(R.mipmap.ic_icon_perfil_round)*/
+                    Picasso.get().load(url)
+                        .transform(CircleTransform())
                         .placeholder(R.drawable.spinner_progress_animation)
                         .error(R.mipmap.ic_icon_perfil_round)
                         .into(viewHolder.imgPerfil)
@@ -132,12 +146,25 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
         //Favoritos
         favorites.InitPreferentImage(item,viewHolder.imgFavoritos)
         viewHolder.imgFavoritos.setOnClickListener(View.OnClickListener {
-            favorites.AddDeleteFavoritosJson(viewHolder.imgFavoritos,item,viewHolder.imgFavoritos)
-            if(favoritos == true){
-                var itemsArray = items as ArrayList<Servidores>
-                itemsArray.remove(item)
-                this.notifyDataSetChanged()
+            try{
+
+                favorites.AddDeleteFavoritosJson(viewHolder.imgFavoritos,item,viewHolder.imgFavoritos)
+                if(favoritos == true){
+
+                    var itemsArray = items as ArrayList<Servidores>
+                    itemsArray.remove(item)
+                    //buscamos el txt De favoritos
+                    var tFavoritos = if(itemsArray.count() > 1 || itemsArray.count() == 0 ) itemsArray.count().toString()+" Favoritos" else itemsArray.count().toString()+" Favorito"
+                    if(textCountFavoritos != null){
+                        textCountFavoritos.setText(tFavoritos)
+                    }
+                    this.notifyDataSetChanged()
+
+                }
+            }catch (e:Exception){
+                Toast.makeText(context,"Error al gestionar favorito",Toast.LENGTH_SHORT).show()
             }
+
         })
 
         //Creamos el evento compartir **************************************** pendiente de revision para poner los snombre_completo

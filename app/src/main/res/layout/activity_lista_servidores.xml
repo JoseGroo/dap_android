@@ -9,17 +9,23 @@
         android:layout_height="match_parent"
         tools:context=".ListaServidoresActivity"
         android:focusableInTouchMode="true">
+
+
     <include layout="@layout/pruebas_relatives">
 
     </include>
+    <include layout="@layout/toolbar_image"
+    android:id="@+id/toolbars"></include>
 
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:id="@+id/LnLtop"
                   android:orientation="horizontal"
-                  android:layout_marginStart="20dp"
-                  android:layout_marginEnd="20dp">
+                  android:paddingEnd="@dimen/padding_container_app"
+                  android:paddingStart="@dimen/padding_container_app"
+                  app:layout_constraintTop_toBottomOf="@+id/toolbars">
+
         <LinearLayout android:layout_width="0dp"
                       android:layout_weight=".70"
                       android:layout_height="wrap_content"
@@ -67,8 +73,9 @@
               android:drawableEnd="@drawable/ic_search_black_24dp_filtros"
               android:id="@+id/btnSearch"
               app:layout_constraintTop_toBottomOf="@+id/LnLtop"
-              android:layout_marginStart="20dp"
-              android:layout_marginEnd="20dp"/>
+              android:layout_marginStart="@dimen/padding_container_app"
+              android:layout_marginEnd="@dimen/padding_container_app"
+              android:hint="@string/str_filtrar_en_lista"/>
 
     <ListView android:layout_width="match_parent"
               android:layout_height="0dp"
@@ -78,37 +85,29 @@
               android:background="@android:color/transparent"
               android:cacheColorHint="@android:color/transparent"
               android:layout_marginTop="8dp"
+              android:paddingStart="@dimen/padding_container_app"
+              android:paddingEnd="@dimen/padding_container_app"
               app:layout_constraintTop_toBottomOf="@+id/btnSearch"
               app:layout_constraintBottom_toTopOf="@+id/LnLbottom">
     </ListView>
 
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/buscarFloating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:src="@drawable/ic_search_black_24dp"
-            android:layout_margin="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/list"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-           />
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal"
                   app:layout_constraintBottom_toBottomOf="parent"
-                  android:paddingStart="20dp"
-                  android:paddingEnd="20dp"
+                  android:paddingStart="@dimen/padding_container_app"
+                  android:paddingEnd="@dimen/padding_container_app"
                   android:paddingTop="6dp"
                   android:paddingBottom="6dp"
                   android:id="@+id/LnLbottom"
                   android:background="@android:color/transparent"
-                  android:cacheColorHint="@android:color/transparent">
+                  android:cacheColorHint="@android:color/transparent"
+    >
 
         <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="wrap_content">
+                      android:layout_height="wrap_content"
+        >
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="match_parent"

@@ -60,4 +60,5 @@
     <string name="str_telefono_gob">01-800-HONESTO (466-37-86)</string>
     <string name="str_correo_gob">respuestadecides@sonora.gob.mx</string>
     <string name="title_activity_busqueda">BusquedaActivity</string>
+    <string name="str_filtrar_en_lista">Filtrar en lista</string>
 </resources>

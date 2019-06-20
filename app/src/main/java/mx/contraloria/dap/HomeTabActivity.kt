@@ -288,7 +288,7 @@ class HomeTabActivity : MyToolBarActivity() {
 
             var favoritos = Favorites(this)
             var lista = favoritos.getFavoritosFromSharedJsonToListServidores()
-            var adapter = ServidorAdapter(this,lista,true)
+            var adapter = ServidorAdapter(this,lista,true,null)
             listView.adapter = adapter
             listView.setOnScrollListener(object : AbsListView.OnScrollListener {
 
