@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:gravity="top|end"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/rootContainer"
         android:focusableInTouchMode="true"
-        tools:context=".HomeActivity">
+        tools:context=".HomeActivity"
+        android:background="@layout/pruebas_relatives"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 
     <include layout="@layout/pruebas_relatives"/>
-    <include layout="@layout/toolbar_image"
-             android:id="@+id/toolbars"></include>
-    <!--app:layout_constraintTop_toBottomOf="@+id/toolbars"-->
 
     <include
             android:id="@+id/inHeaderSonora"
             layout="@layout/header_info_dap"
-            app:layout_constraintTop_toBottomOf="@+id/toolbars"
     />
 
     <FrameLayout
@@ -57,26 +57,54 @@
                 android:background="@drawable/ic_search_black_24dp" />
     </FrameLayout>
 
+
+
+    <TextView android:id="@+id/tvBusquedaAvanzada"
+              android:paddingRight="@dimen/padding_container_app"
+              android:paddingLeft="@dimen/padding_container_app"
+              android:layout_below="@+id/containerBuscador"
+              android:text="@string/str_busqueda_avanzada"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:gravity="end"
+
+              android:onClick="BusquedaAvanzada"
+              android:textSize="18.66sp"/>
+
+
+    <TextView android:id="@+id/tvTextUltimasBusquedas"
+              android:layout_below="@+id/tvBusquedaAvanzada"
+              android:paddingRight="@dimen/padding_container_app"
+              android:paddingLeft="@dimen/padding_container_app"
+              android:text="@string/str_ultimas_busquedas"
+              android:layout_width="match_parent"
+              android:paddingTop="50dp"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:textSize="18.66sp"/>
+
+
+
     <LinearLayout
-            android:layout_below="@+id/containerBuscador"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTextUltimasBusquedas"
             android:paddingRight="@dimen/padding_container_app"
             android:paddingLeft="@dimen/padding_container_app"
-            android:layout_alignParentEnd="true"
-            android:paddingTop="0dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="vertical" >
 
-        <TextView
-                android:text="@string/str_busqueda_avanzada"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:id="@+id/tvBusquedaAvanzada"
-                android:onClick="BusquedaAvanzada"
-                android:textSize="18.66sp"/>
+        <ListView
+                android:orientation="vertical"
+                android:id="@+id/listUltimasBusquedas"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:background="@android:color/transparent"
+                android:cacheColorHint="@android:color/transparent"
+                android:layout_marginTop="8dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-    <include layout="@layout/footer_sonora"  />
-
+    <include android:id="@+id/footer" layout="@layout/footer_sonora"/>
 </RelativeLayout>

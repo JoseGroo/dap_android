@@ -43,5 +43,22 @@
     <string name="str_busqueda_avanzada">Búsqueda avanzada</string>
     <string name="str_dap_long_name">Directorio de la \n Administración Pública</string>
     <string name="str_gobierno_del_estado_de_sonora">Gobierno del Estado de Sonora</string>
+    <string name="str_ultimas_busquedas">Últimas búsquedas</string>
+    <string name="title_activity_eliminar">EliminarActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="str_desarrollado_por">Desarrollado por:</string>
+    <string name="str_desarrollado_por_descripcion">Gobierno del Estado de Sonora | Secretaría de la Contraloría General
+        | Subsecretaría de Desarrollo Administrativo y Técnologico
+    </string>
+    <string name="str_direccion_gob">Centro de Gobierno, Blvd. Paseo Río Sonora y Comonfort. C.P. 83280, Col. Villa de
+        Seris. Hermosillo, Sonora, México.
+    </string>
+    <string name="str_telefono_gob">01-800-HONESTO (466-37-86)</string>
+    <string name="str_correo_gob">respuestadecides@sonora.gob.mx</string>
+    <string name="title_activity_busqueda">BusquedaActivity</string>
     <string name="str_filtrar_en_lista">Filtrar en lista</string>
 </resources>

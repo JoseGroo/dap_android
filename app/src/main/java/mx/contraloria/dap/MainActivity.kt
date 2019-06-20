@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intro_activity)
                 finish()
             }else{
-                startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+                startActivity(Intent(this@MainActivity, BusquedaActivity::class.java))
                 finish()
             }
 
