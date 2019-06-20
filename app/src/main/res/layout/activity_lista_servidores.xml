@@ -11,9 +11,12 @@
         android:focusableInTouchMode="true">
 
 
-    <include layout="@layout/pruebas_relatives"/>
+    <include layout="@layout/pruebas_relatives">
+
+    </include>
     <include layout="@layout/toolbar_image"
-             android:id="@+id/toolbars"/>
+    android:id="@+id/toolbars"></include>
+    <!--app:layout_constraintTop_toBottomOf="@+id/toolbars"-->
 
 
     <LinearLayout android:layout_width="match_parent"
