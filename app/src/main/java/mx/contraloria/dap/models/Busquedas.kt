@@ -1,9 +1,8 @@
 package mx.contraloria.dap.models
 
-class Busquedas {
+import java.io.Serializable
 
-    lateinit var Busqueda: String
-    lateinit var Poder: String
-    lateinit var Dependencia: String
-    lateinit var Fecha: String
-}
+data class Busquedas(
+                    var Busqueda: String,
+                    var Fecha: String,
+                    var Id: Int): Serializable

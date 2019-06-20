@@ -239,7 +239,7 @@ class HomeTabActivity : MyToolBarActivity() {
         intent.putExtra("filtro_dependencia_id",dependencia_id)
         intent.putExtra("filtro_nombre_servidor", Filtro)
         intent.putExtra("filtro_poder_id",poder_id)
-
+/*
         var vBusquedas = oFuncionesGenerales.getSearchFromSharedPreferences() as ArrayList<Busquedas>
 
         var vNewBusqueda = Busquedas()
@@ -260,13 +260,13 @@ class HomeTabActivity : MyToolBarActivity() {
         vNewBusqueda.Fecha = "$vFormattedDate | $vHourFormatted"
         var vDependenciaSeleccionada = vDependencias.filter { r -> r.id.toInt() == dependencia_id }.firstOrNull()
         var vPoderSeleccionado = vPoderes.filter { r -> r.id == poder_id.toString() }.firstOrNull()
-        vNewBusqueda.Dependencia = if(vDependenciaSeleccionada != null) vDependenciaSeleccionada!!.iniciales else ""
-        vNewBusqueda.Poder = if(vPoderSeleccionado != null) vPoderSeleccionado!!.name else ""
+        //vNewBusqueda.Dependencia = if(vDependenciaSeleccionada != null) vDependenciaSeleccionada!!.iniciales else ""
+        //vNewBusqueda.Poder = if(vPoderSeleccionado != null) vPoderSeleccionado!!.name else ""
 
         vBusquedas.add(vNewBusqueda)
 
         oFuncionesGenerales.saveSearchJson(vBusquedas)
-
+*/
         startActivity(intent)
     }
 

@@ -5,42 +5,61 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import kotlin.system.exitProcess
 import android.support.design.widget.FloatingActionButton
-import android.view.View
-import android.view.ViewGroup
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+import android.view.*
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
-import android.widget.Toolbar
-import kotlinx.android.synthetic.main.toolbar_image.*
+import kotlinx.android.synthetic.main.activity_busqueda.*
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.app_bar_busqueda.*
 
 
-abstract class MyToolBarActivity : AppCompatActivity() {
-
+abstract class MyToolBarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+lateinit var drawer_layout: DrawerLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_tool_bar)
+
+        when(this){
+            BusquedaActivity::class.java ->{
+                setContentView(R.layout.activity_busqueda)
+            }
+            else -> {
+                setContentView(R.layout.activity_busqueda)
+            }
+        }
 
 
-        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar!!.setDisplayShowCustomEnabled(true)
-        supportActionBar!!.setCustomView(R.layout.toolbar_image)
-        supportActionBar!!.elevation = 0f
-        val view = supportActionBar!!.customView
-        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#330000ff")));
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        drawer_layout = findViewById(R.id.drawer_layout)
 
-        if(this is HomeActivity)
-        {
-            btnBack.visibility = View.INVISIBLE
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        nav_view.setNavigationItemSelectedListener(this)
+
+
+        val rootView: ViewGroup = findViewById(android.R.id.content)
+        rootView.viewTreeObserver.addOnGlobalLayoutListener {
+            val r = Rect()
+            rootView.getWindowVisibleDisplayFrame(r);
+
+            val heightDiff = rootView.rootView.height - (r.bottom - r.top);
+
+            footer.visibility = if (heightDiff > rootView.rootView.height / 4) View.INVISIBLE else View.VISIBLE
         }
     }
 
@@ -58,6 +77,16 @@ abstract class MyToolBarActivity : AppCompatActivity() {
     fun BackButtonCustom(view: View)
     {
         onBackPressed()
+    }
+
+    fun OpenMenu(view: View){
+        var drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+
+        if(drawer != null)
+        {
+            drawer.openDrawer(Gravity.LEFT)
+
+        }
     }
 /*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -91,6 +120,82 @@ abstract class MyToolBarActivity : AppCompatActivity() {
 */
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
+        return true
+    }
+
+
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.busqueda, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        when (item.itemId) {
+            R.id.action_settings -> return true
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.nav_camera -> {
+                Toast.makeText(
+                    this,
+                    "Camara...",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.nav_gallery -> {
+                Toast.makeText(
+                    this,
+                    "nav gallery...",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.nav_slideshow -> {
+                Toast.makeText(
+                    this,
+                    "nav slideshow...",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.nav_manage -> {
+                Toast.makeText(
+                    this,
+                    "nav manage...",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.nav_share -> {
+                Toast.makeText(
+                    this,
+                    "nav share...",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.nav_send -> {
+                Toast.makeText(
+                    this,
+                    "nav send...",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+        drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 }

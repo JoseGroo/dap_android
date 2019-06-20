@@ -17,7 +17,7 @@
                 android:layout_height="match_parent"
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:textSize="21.33sp" />
+                android:textSize="18sp" />
 
 
     </LinearLayout>
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textAlignment="center"
-                android:textSize="13.33dp"/>
+                android:textSize="13dp"/>
     </LinearLayout>
 
 </LinearLayout>

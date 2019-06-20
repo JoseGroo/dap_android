@@ -21,7 +21,19 @@
             android:roundIcon="@mipmap/ic_launcher_dap_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".BusquedaAvanzadaActivity">
+        <activity
+                android:name=".BusquedaActivity"
+                android:label="@string/title_activity_busqueda"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".EliminarActivity"
+                android:label="@string/title_activity_eliminar"
+                android:theme="@style/Theme.AppCompat.Light">
+        </activity>
+        <activity
+                android:name=".BusquedaAvanzadaActivity"
+                android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -43,27 +55,27 @@
         <activity
                 android:name=".HomeTabActivity"
                 android:label="@string/title_activity_home_tab"
-                android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+                android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
                 android:name=".MyToolBarActivity"
-                android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+                android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
                 android:name=".IntroActivity"
-                android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+                android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
                 android:name=".ListaServidoresActivity"
-                android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+                android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
                 android:name=".DetalleServidorActivity"
-                android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+                android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
                 android:name=".HomeActivity"
-                android:theme="@style/Theme.AppCompat.Light">
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity
                 android:name=".MainActivity"

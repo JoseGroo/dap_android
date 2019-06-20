@@ -137,7 +137,6 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
                 var itemsArray = items as ArrayList<Servidores>
                 itemsArray.remove(item)
                 this.notifyDataSetChanged()
-
             }
         })
 
