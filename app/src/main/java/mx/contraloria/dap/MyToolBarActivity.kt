@@ -37,7 +37,7 @@ abstract class MyToolBarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_my_tool_bar)
 
 
-        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        /*this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar!!.setDisplayShowCustomEnabled(true)
         supportActionBar!!.setCustomView(R.layout.toolbar_image)
         supportActionBar!!.elevation = 0f
@@ -48,7 +48,7 @@ abstract class MyToolBarActivity : AppCompatActivity() {
         if(this is HomeActivity)
         {
             btnBack.visibility = View.INVISIBLE
-        }
+        }*//**/
     }
 
     override fun onResume() {

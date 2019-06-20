@@ -9,9 +9,13 @@
         android:layout_height="match_parent"
         tools:context=".ListaServidoresActivity"
         android:focusableInTouchMode="true">
+
+
     <include layout="@layout/pruebas_relatives">
 
     </include>
+    <include layout="@layout/toolbar_image"
+    android:id="@+id/toolbars"></include>
 
 
     <LinearLayout android:layout_width="match_parent"
@@ -19,7 +23,8 @@
                   android:id="@+id/LnLtop"
                   android:orientation="horizontal"
                   android:paddingEnd="@dimen/padding_container_app"
-                  android:paddingStart="@dimen/padding_container_app">
+                  android:paddingStart="@dimen/padding_container_app"
+                  app:layout_constraintTop_toBottomOf="@+id/toolbars">
 
         <LinearLayout android:layout_width="0dp"
                       android:layout_weight=".70"
