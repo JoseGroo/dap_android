@@ -9,14 +9,17 @@
         android:layout_height="match_parent"
         android:id="@+id/rootContainer"
         android:focusableInTouchMode="true"
-
         tools:context=".HomeActivity">
 
     <include layout="@layout/pruebas_relatives"/>
+    <include layout="@layout/toolbar_image"
+             android:id="@+id/toolbars"></include>
+    <!--app:layout_constraintTop_toBottomOf="@+id/toolbars"-->
 
     <include
             android:id="@+id/inHeaderSonora"
             layout="@layout/header_info_dap"
+            app:layout_constraintTop_toBottomOf="@+id/toolbars"
     />
 
     <FrameLayout
