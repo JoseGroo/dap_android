@@ -7,6 +7,8 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Point
+import android.media.Image
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
@@ -38,13 +40,16 @@ import com.google.gson.GsonBuilder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_lista_servidores.*
+import kotlinx.android.synthetic.main.pruebas_relatives.*
 import kotlinx.android.synthetic.main.row.view.*
 import kotlinx.android.synthetic.main.row_swipe.view.*
 import mx.contraloria.dap.Adapters.MyListAdapter2
 import mx.contraloria.dap.Adapters.ServidorAdapter
 import mx.contraloria.dap.models.FuncionesGenerales
+import mx.contraloria.dap.models.ResultadosServidores
 import mx.contraloria.dap.models.Servidores
 import java.io.Serializable
+import java.text.DecimalFormat
 import java.util.jar.Manifest
 import android.util.Pair as UtilPair
 
@@ -62,6 +67,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
     var filtro_poder_id=""
     var pages= 1
     var isLoading: Boolean = false
+
 
     var oFuncionesGenerales = FuncionesGenerales(this)
 
@@ -101,6 +107,11 @@ class ListaServidoresActivity : MyToolBarActivity(){
         listView = findViewById(R.id.list)
         btnSearch =findViewById(R.id.btnSearch)
         txtFiltrosBusqueda = findViewById(R.id.txt_filtro_busqueda)
+        /*val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        val screenHeight = size.y
+        bottom_white_background.translationY = 4000f*/
 
 
         fetchJason()
@@ -111,14 +122,22 @@ class ListaServidoresActivity : MyToolBarActivity(){
         progress.show()
 
 
-        val url = getString(R.string.api_lista_servidores) +
+        /*val url = getString(R.string.api_lista_servidores) +
                 "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
                 "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
-                "&filterrific[con_detalle]=1&pagina="+pages
+                "&filterrific[con_detalle]=1&pagina="+pages*/
+        val url = getString(R.string.api_lista_servidores) +
+                "&filterrific[buscar_por_todo]="+ filtro_nombre_servidor+
+                "&filterrific[con_detalle]=1"+
+                "&con_totales=1"+
+                "&pagina="+pages
 
         //lo ponemos en el titulo aabajo de resultados
         txtFiltrosBusqueda.text = if ( filtro_nombre_servidor != "" ) filtro_nombre_servidor else "TODOS"
 
+        //damos formato a los totatles
+        val formatoDecimales = DecimalFormat("#,###,###")
+        var mostrando=""
 
 
         val request = Request.Builder().url(url).build()
@@ -137,14 +156,19 @@ class ListaServidoresActivity : MyToolBarActivity(){
             override fun onResponse(call: Call, response: Response) {
                 val body = response?.body?.string()
                 val gson = Gson()
-                val listType = object : TypeToken<ArrayList<Servidores>>() { }.type
-                var newList = gson.fromJson<ArrayList<Servidores>>(body, listType)
+                val listType = object : TypeToken<ResultadosServidores>() { }.type
+                var newList = gson.fromJson<ResultadosServidores>(body, listType)
                 var ListaxFiltros = ArrayList<Servidores>()
-                ListaxFiltros.addAll(newList)
+                ListaxFiltros.addAll(newList.resultados)
 
                 runOnUiThread {
-                    var adapter= ServidorAdapter(this@ListaServidoresActivity,newList,false,null)
+                    var adapter= ServidorAdapter(this@ListaServidoresActivity,newList.resultados,false,null)
                     listView.adapter = adapter
+
+
+                    txt_numero_busqueda.setText(formatoDecimales.format(newList.total))
+                    mostrando = " "+formatoDecimales.format(newList.resultados.count()) + " - " + formatoDecimales.format(newList.total) +" resultados."
+                    txt_mostrando_resultados.setText(mostrando)
                     progress.dismiss()
                     //animacion de fondo
 
@@ -162,8 +186,8 @@ class ListaServidoresActivity : MyToolBarActivity(){
                                             s.puesto_funcional.toLowerCase().contains(valor) ||
                                             s.puesto_oficial.toLowerCase().contains(valor) ||
                                             s.titulo.toLowerCase().toLowerCase().contains(valor)}
-                                        newList.removeAll(newList)
-                                        newList.addAll(filtros)
+                                        newList.resultados.removeAll(newList.resultados)
+                                        newList.resultados.addAll(filtros)
                                         adapter.notifyDataSetChanged()
                                     }catch (e: Exception){
                                         print(e)
@@ -229,18 +253,20 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
                             //scroooll
                             if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && listView.getLastVisiblePosition() ==
-                                newList.size - 1 && !isLoading){
+                                newList.resultados.size - 1 && !isLoading){
                                 isLoading=true
                                 var vSnack = Snackbar.make(listView, "Cargando mas registros.", Snackbar.LENGTH_INDEFINITE)
                                 vSnack.show()
                                 doAsync {
                                     pages = pages + 1
-                                    var new_list = addMoreItems(newList)
+                                    var new_list = addMoreItems(newList.resultados)
 
                                     this@ListaServidoresActivity.runOnUiThread(java.lang.Runnable {
-                                        newList.addAll(new_list)
+                                        newList.resultados.addAll(new_list)
                                         ListaxFiltros.addAll(new_list)
                                         adapter.notifyDataSetChanged()
+                                        mostrando = " "+newList.resultados.count().toString() + " - " + newList.total.toString()+" resultados."
+                                        txt_mostrando_resultados.setText(mostrando)
                                         isLoading = false
                                         if(vSnack.isShown){
                                             vSnack.dismiss()

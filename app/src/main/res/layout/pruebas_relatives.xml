@@ -11,7 +11,7 @@ android:gravity="bottom">
 
     <ImageView android:layout_width="match_parent"
                android:layout_height="match_parent"
-               android:translationY="1800dp"
+               android:translationY="1100dp"
                android:background="@drawable/ic_background_white_bottom"
                android:scaleType="fitStart"
                android:scaleY="2"

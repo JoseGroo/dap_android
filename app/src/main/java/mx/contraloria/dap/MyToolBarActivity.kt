@@ -8,6 +8,11 @@ import android.support.animation.SpringAnimation
 import android.view.View
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.toolbar_image.*
+import android.R.attr.y
+import android.graphics.Point
+import android.view.Display
+
+
 
 
 abstract class MyToolBarActivity : AppCompatActivity() {
@@ -27,6 +32,7 @@ abstract class MyToolBarActivity : AppCompatActivity() {
 
         if(imagen != null && this !is DetalleServidorActivity)
         {
+
             val rnds = (2000..2800).random()
             //imagen.animate().translationY(rnds.toFloat()).setDuration(1000).start()
             /*var animacion : Animation = TranslateAnimation(0f,0f,0f,rnds.toFloat())
@@ -39,7 +45,7 @@ abstract class MyToolBarActivity : AppCompatActivity() {
 
 
         }else if(imagen != null){
-            SpringAnimation(imagen, DynamicAnimation.TRANSLATION_Y,1550f).apply {
+            SpringAnimation(imagen, DynamicAnimation.TRANSLATION_Y,2000f).apply {
                 spring.stiffness = 70f
                 spring.dampingRatio = 0.5f
             }.start()
