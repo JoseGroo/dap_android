@@ -61,10 +61,13 @@ class BusquedaActivity : MyToolBarActivity() {
 
 
 
-        etFiltroNombrePuesto.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+        val rootView: ViewGroup = findViewById(android.R.id.content)
+        rootView.viewTreeObserver.addOnGlobalLayoutListener {
+            val r = Rect()
+            rootView.getWindowVisibleDisplayFrame(r);
 
-            footer.visibility = if (hasFocus) View.INVISIBLE else View.VISIBLE
-
+            val heightDiff = rootView.rootView.height - (r.bottom - r.top);
+            footer.visibility = if (heightDiff > rootView.rootView.height / 4) View.INVISIBLE else View.VISIBLE
         }
 
         oFuncionesGenerales = FuncionesGenerales(this@BusquedaActivity)
@@ -149,7 +152,7 @@ class BusquedaActivity : MyToolBarActivity() {
             val sMonth = oFuncionesGenerales.months[iMonth - 1]
             var vFormattedDate = "${sMonth} ${vDateSplitted.get(2)}, ${vDateSplitted.get(0)}"
             var vHourSplitted = vHour.split(":")
-            var vHourFormatted = "${vHourSplitted.get(0)}:${vHourSplitted.get(1)} Hrs."
+            var vHourFormatted = "${vHourSplitted.get(0)}:${vHourSplitted.get(1)}:${vHourSplitted.get(2).split(".").get(0)} Hrs."
 
 
             var vNewBusqueda = Busquedas(Filtro, "$vFormattedDate | $vHourFormatted", GetIdBusqueda())

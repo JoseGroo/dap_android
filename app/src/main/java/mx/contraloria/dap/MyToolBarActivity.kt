@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.animation.DynamicAnimation
 import android.support.animation.SpringAnimation
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import kotlinx.android.synthetic.main.activity_busqueda.*
 import kotlinx.android.synthetic.main.toolbar_image.*
 import android.R.attr.y
 import android.graphics.Point
@@ -59,7 +61,7 @@ abstract class MyToolBarActivity : AppCompatActivity() {
 
     fun OpenMenu(view: View)
     {
-
+        drawer_layout_acerca_de.openDrawer(Gravity.LEFT)
     }
 
     fun btnFavoritosPress(view: View){
