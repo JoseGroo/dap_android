@@ -11,6 +11,9 @@
             android:layout_height="wrap_content">
 
     </android.support.design.widget.CollapsingToolbarLayout>
+    <include layout="@layout/pruebas_relatives">
+
+    </include>
     <RelativeLayout
             android:id="@+id/rellay1"
             android:layout_width="match_parent"
@@ -31,7 +34,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerInside"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/sin_imagen_perfil"
                     android:transitionName="imageTransition"/>
 
@@ -75,8 +78,8 @@
                 android:textAlignment="center"
                 android:text=""
                 android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textColor="@color/color_nombres"
+                android:textSize="@dimen/nombres_detalles" />
 
 
         <TextView
@@ -88,8 +91,11 @@
                 android:fontFamily="sans-serif"
                 android:textAlignment="center"
                 android:text=""
-                android:textColor="@color/colorWhite"
-                android:textSize="14sp" />
+                android:textColor="@color/color_puesto_oficial"
+                android:textSize="@dimen/dependencia_detalles" />
+
+
+
 
 
     </RelativeLayout>
@@ -206,10 +212,14 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:drawableLeft="@drawable/ic_business_black_24dp"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/color_nombres"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_dependencia"
-                            android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                     <TextView
@@ -236,10 +246,15 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:drawableLeft="@drawable/ic_business_center_black_24dp"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/color_nombres"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_unidad_administrativa"
-                            android:textColor="@color/headings"
+
                             android:textSize="13sp" />
 
                     <TextView
@@ -266,10 +281,14 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:drawableLeft="@drawable/ic_work_black_24dp"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/color_nombres"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_puesto_funcional"
-                            android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                     <TextView
@@ -295,10 +314,14 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:drawableLeft="@drawable/ic_import_contacts_black_24dp"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/color_nombres"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_resena"
-                            android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                     <TextView
@@ -326,10 +349,14 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:drawableLeft="@drawable/ic_addressicon"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/color_nombres"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_domicilio"
-                            android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                     <TextView
@@ -357,10 +384,14 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:drawableLeft="@drawable/dialog_phone_icon"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/color_nombres"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_telefonos"
-                            android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                     <TextView
@@ -388,10 +419,14 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:drawableLeft="@drawable/ic_emailicon_outlet"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/color_nombres"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_correo_electronico"
-                            android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                     <TextView
@@ -418,10 +453,14 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/color_nombres"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_fecha_alta"
-                            android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                     <TextView
@@ -448,10 +487,14 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:drawableLeft="@drawable/ic_bookmark_black_24dp"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/color_nombres"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_nivel"
-                            android:textColor="@color/headings"
                             android:textSize="13sp" />
 
                     <TextView

@@ -1,19 +1,26 @@
 package mx.contraloria.dap
 
+import android.animation.ObjectAnimator
 import android.app.ActionBar
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.animation.DynamicAnimation
+import android.support.animation.SpringAnimation
 import android.view.Menu
 import android.view.MenuItem
 import kotlin.system.exitProcess
 import android.support.design.widget.FloatingActionButton
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -48,16 +55,35 @@ abstract class MyToolBarActivity : AppCompatActivity() {
         super.onResume()
         var imagen = findViewById<ImageView>(R.id.bottom_white_background)
 
-        if(imagen != null)
+        if(imagen != null && this !is DetalleServidorActivity)
         {
-            val rnds = (1000..1800).random()
-            imagen.animate().translationY(rnds.toFloat()).setStartDelay(1000).setDuration(1000).start()
+            val rnds = (2000..2800).random()
+            //imagen.animate().translationY(rnds.toFloat()).setDuration(1000).start()
+            /*var animacion : Animation = TranslateAnimation(0f,0f,0f,rnds.toFloat())
+            animacion.setDuration(1000)
+            imagen.startAnimation(animacion)*/
+            SpringAnimation(imagen, DynamicAnimation.TRANSLATION_Y, rnds.toFloat()).apply {
+                spring.stiffness = 70f
+                spring.dampingRatio = 0.5f
+            }.start()
+
+
+        }else if(imagen != null){
+            SpringAnimation(imagen, DynamicAnimation.TRANSLATION_Y,1550f).apply {
+                spring.stiffness = 70f
+                spring.dampingRatio = 0.5f
+            }.start()
         }
     }
 
     fun BackButtonCustom(view: View)
     {
         onBackPressed()
+    }
+    fun btnFavoritosPress(view: View){
+        var intent = Intent(this, FavoritosActivity::class.java)
+        startActivity(intent)
+
     }
 /*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -2,10 +2,18 @@ package mx.contraloria.dap.Adapters
 
 import android.graphics.*
 import com.squareup.picasso.Transformation
-class CircleTransform : Transformation {
+
+
+
+
+class CircleTransform(val border: Boolean = false) : Transformation {
 
     private var x: Int = 0
     private var y: Int = 0
+    private val BORDER_COLOR = Color.WHITE
+    private val BORDER_RADIUS = 20
+
+
 
     override fun transform(source: Bitmap): Bitmap {
         val size = Math.min(source.width, source.height)
@@ -24,11 +32,23 @@ class CircleTransform : Transformation {
         paint.isAntiAlias = true
 
         val r = size / 2f
-        canvas.drawCircle(r, r, r, paint)
+
+
+        //border
+        // Prepare the background
+            val vpaintBg = Paint()
+            vpaintBg.color = BORDER_COLOR
+            vpaintBg.isAntiAlias = true
+            // Draw the background circle
+            canvas.drawCircle(r, r, r, vpaintBg)
+            // Draw the image smaller than the background so a little border will be seen
+            canvas.drawCircle(r, r, r - BORDER_RADIUS, paint)
+
 
         squaredBitmap.recycle()
         return bitmap
     }
+
 
     override fun key() = "circle(x=$x,y=$y)"
 }

@@ -21,7 +21,7 @@
                 android:src="@drawable/ic_phoneicon"
                 android:layout_width="53dp"
                 android:layout_height="53dp"
-                android:background="@drawable/circular_button_swipe"
+                android:background="@drawable/circular_buttom_high"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:layout_marginStart="20dp"
@@ -32,7 +32,7 @@
                 android:src="@drawable/ic_emailicon_outlet_white"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/circular_button_swipe"
+                android:background="@drawable/circular_buttom_medium"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:layout_margin="10dp"/>
@@ -42,7 +42,7 @@
                 android:src="@drawable/ic_addressicon_white"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/circular_button_swipe"
+                android:background="@drawable/circular_buttom_normal"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:layout_marginStart="10dp"
@@ -58,7 +58,7 @@
                 android:id="@+id/btnFavorito"
                 android:src="@drawable/ic_star_border_white_24dp"
                 android:layout_width="50dp"
-                android:background="@drawable/circular_button_swipe"
+                android:background="@drawable/circular_buttom_normal"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:layout_height="match_parent"
@@ -68,7 +68,7 @@
                 android:id="@+id/btnCompartir"
                 android:src="@drawable/ic_share_white_24dp"
                 android:layout_width="50dp"
-                android:background="@drawable/circular_button_swipe"
+                android:background="@drawable/circular_buttom_medium"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:layout_height="match_parent"
@@ -85,7 +85,7 @@
                                             android:layout_height="101dp"
                                             android:layout_marginTop="10dp"
                                             android:layout_marginBottom="10dp"
-                                            app:cardCornerRadius="8dp"
+                                            app:cardCornerRadius="@dimen/corners"
                                             android:background="@drawable/white"
                                             android:id="@+id/ListaCard">
             <LinearLayout android:layout_width="match_parent"
@@ -110,8 +110,8 @@
                               android:layout_marginStart="10dp"
                               android:layout_marginEnd="10dp"
                               android:text="Lic. Silvia Cristina Lomeli Acevedo"
-                              android:textColor="#393A3B"
-                              android:textSize="21dp"
+                              android:textColor="@color/color_nombres"
+                              android:textSize="@dimen/nombres"
                               android:id="@+id/txtNombre_servidor"/>
 
                     <TextView android:layout_width="match_parent"
@@ -122,10 +122,10 @@
                               android:text="Secretaría de la Contraloría General y del estado"
                               android:drawableLeft="@drawable/ic_business_black_24dp"
                               android:drawablePadding="5dp"
-                              android:textSize="13dp"
+                              android:textSize="@dimen/dependencia"
                               android:gravity="center|left"
                               android:singleLine="true"
-                              android:textColor="#434648"
+                              android:textColor="@color/color_dependencias"
                               android:id="@+id/txtNombre_dependencia"/>
 
                 </LinearLayout>

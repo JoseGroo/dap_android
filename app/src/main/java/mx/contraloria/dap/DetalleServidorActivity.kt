@@ -72,10 +72,16 @@ class DetalleServidorActivity : MyToolBarActivity() {
         if(vServidor.foto != ""){
             try
             {
-                Picasso.with(this@DetalleServidorActivity)
+                /*Picasso.with(this@DetalleServidorActivity)
                     .load(vServidor.foto)
                     .fit()
                     .transform(CircleTransform())
+                    .into(imagePerfil)*/
+                Picasso.get()
+                    .load(vServidor.foto)
+                    .transform(CircleTransform())
+                    .placeholder(R.drawable.spinner_progress_animation)
+                    .error(R.mipmap.ic_icon_perfil_round)
                     .into(imagePerfil)
 
             }

@@ -4,20 +4,25 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
+
+
+
     
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-    android:background="#232323"
+                  android:background="@drawable/background_app_gray"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:layout_marginTop="50dp">
+
+
         
         <TextView
                 android:id="@+id/txtDNombre"
                 android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="Dr. Juan Navarrete"
-                  android:textColor="@color/backgroundColor"
+                  android:textColor="#393A3B"
                   android:textStyle="bold"
                   android:textSize="20sp"
                   android:layout_marginTop="90dp"
@@ -31,7 +36,7 @@
                   android:layout_height="wrap_content"
                   android:textSize="18sp"
                   android:text="@string/enviar_correo_a"
-                  android:textColor="@color/backgroundColor"
+                  android:textColor="@color/dark_gray"
                   android:layout_marginTop="5dp"
                   android:layout_marginBottom="10dp"
         />
@@ -40,6 +45,44 @@
                       android:layout_height="match_parent"
                       android:orientation="vertical"
                       android:id="@+id/lyLstBtnEmails">
+
+         <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+
+                <Button
+
+                        android:id="@+id/btnEmail1"
+                        android:padding="20dp"
+                        android:drawablePadding="20dp"
+                        android:drawableLeft="@drawable/dialog_email_icon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".90"
+                        android:background="@drawable/white"
+                        android:text="pablo12jip3@gmail.com"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="textStart"
+                />
+                <ImageView
+
+                        android:id="@+id/btnCopy"
+                        android:src="@drawable/ic_content_copy_black_24dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".16"
+                        android:padding="15dp"
+                        android:background="@drawable/white"
+                        android:layout_marginTop="10dp"
+                />
+
+
+            </LinearLayout>
+
+
+
+
+
 
             <!--<Button
 
@@ -70,6 +113,26 @@
 
 
     </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="right">
+            <ImageView
+                    android:id="@+id/btn_close_dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_gravity="right|top"
+                    android:clickable="true"
+                    android:background="@drawable/circular_buttom_close"
+                    android:src="@drawable/ic_close_black_24dp"
+                    android:tint="@color/colorBlack"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
     <ImageView
             android:id="@+id/iDImage"

@@ -57,12 +57,10 @@ class ListaServidoresActivity : MyToolBarActivity(){
     lateinit var btnSearch: EditText
     lateinit var txtFiltrosBusqueda: TextView
     val REQUEST_PHONE_CALL = 1
-    lateinit var btnAnimation : Animation
     var filtro_dependencia_id=""
     var filtro_nombre_servidor =""
     var filtro_poder_id=""
     var pages= 1
-    var flag_loading=false
     var isLoading: Boolean = false
 
     var oFuncionesGenerales = FuncionesGenerales(this)
@@ -105,11 +103,6 @@ class ListaServidoresActivity : MyToolBarActivity(){
         txtFiltrosBusqueda = findViewById(R.id.txt_filtro_busqueda)
 
 
-
-        buscarFloating.setOnClickListener {
-            oFuncionesGenerales.goIndex(buscarFloating)
-        }
-
         fetchJason()
     }
 
@@ -150,7 +143,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
                 ListaxFiltros.addAll(newList)
 
                 runOnUiThread {
-                    var adapter= ServidorAdapter(this@ListaServidoresActivity,newList)
+                    var adapter= ServidorAdapter(this@ListaServidoresActivity,newList,false,null)
                     listView.adapter = adapter
                     progress.dismiss()
                     //animacion de fondo

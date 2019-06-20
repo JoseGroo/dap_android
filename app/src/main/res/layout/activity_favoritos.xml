@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ListaServidoresActivity"
+        android:focusableInTouchMode="true">
+    <include layout="@layout/pruebas_relatives">
+
+    </include>
+
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/LnLtop"
+                  android:orientation="horizontal"
+                  android:paddingEnd="@dimen/padding_container_app"
+                  android:paddingStart="@dimen/padding_container_app">
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="0 Favoritos"
+                      android:textSize="34dp"
+                      android:textStyle="bold"
+                      android:textAlignment="viewStart"
+                      android:textColor="#1C1B1B"
+                      android:id="@+id/txt_numero_busqueda_favoritos"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <EditText android:layout_width="match_parent"
+              android:layout_height="50dp"
+              android:drawableEnd="@drawable/ic_search_black_24dp_filtros"
+              android:id="@+id/btnSearch_favoritos"
+              app:layout_constraintTop_toBottomOf="@+id/LnLtop"
+              android:layout_marginStart="@dimen/padding_container_app"
+              android:layout_marginEnd="@dimen/padding_container_app"
+              android:hint="@string/str_filtrar_en_lista"/>
+
+    <ListView android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:id="@+id/listFavoritos"
+              android:divider="@null"
+              android:dividerHeight="0dp"
+              android:background="@android:color/transparent"
+              android:cacheColorHint="@android:color/transparent"
+              android:layout_marginTop="8dp"
+              android:paddingStart="@dimen/padding_container_app"
+              android:paddingEnd="@dimen/padding_container_app"
+              app:layout_constraintTop_toBottomOf="@+id/btnSearch_favoritos">
+    </ListView>
+
+
+</android.support.constraint.ConstraintLayout>

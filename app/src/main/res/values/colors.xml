@@ -9,6 +9,7 @@
     <!--Colores para detalles-->
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorRed">#7F2A2A</color>
+    <color name="colorBlack">#000000</color>
 
     <color name="address">#2F7092</color>
     <color name="followers">#0D5D98</color>
@@ -46,6 +47,15 @@
 
     <!--Colores botones list-->
     <color name="circlular_list_buttons">#555555</color>
+    <color name="circular_list_buttons_high">#46484a</color>
+    <color name="circular_list_buttons_medium">#6c6e71</color>
+    <color name="circular_list_buttons_normal">#929497</color>
+    <color name="circular_buttom_light">#ffffff</color>
+    <!--Letras colores-->
+    <color name="color_nombres">#393A3B</color>
+    <color name="color_dependencias">#434648</color>
+    <color name="color_puesto_oficial">#434648</color>
+    <color name="red_line_detalle">#dd2222</color>
 
 
 </resources>

@@ -48,7 +48,8 @@
                 android:layout_height = "32dp"
                 android:layout_marginRight="0dp"
                 android:layout_gravity="end|center_vertical"
-                android:src = "@drawable/ic_star_black_menu_24dp" />
+                android:src = "@drawable/ic_star_black_menu_24dp"
+                android:onClick="btnFavoritosPress"/>
 
     </FrameLayout>
 </LinearLayout>

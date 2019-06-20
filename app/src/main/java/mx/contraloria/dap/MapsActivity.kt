@@ -66,7 +66,7 @@ class MapsActivity : MyToolBarActivity(), OnMapReadyCallback {
             try
             {
                 val ivImagePerfil = vCustomLayout.findViewById(R.id.info_window_imagen) as ImageView
-                Picasso.with(this@MapsActivity)
+                Picasso.get()
                     .load(vServidor.foto)
 
                     .transform(CircleTransform())

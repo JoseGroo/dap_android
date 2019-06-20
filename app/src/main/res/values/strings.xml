@@ -43,4 +43,5 @@
     <string name="str_busqueda_avanzada">Búsqueda avanzada</string>
     <string name="str_dap_long_name">Directorio de la \n Administración Pública</string>
     <string name="str_gobierno_del_estado_de_sonora">Gobierno del Estado de Sonora</string>
+    <string name="str_filtrar_en_lista">Filtrar en lista</string>
 </resources>

@@ -110,11 +110,12 @@ class Favorites(cTx: Context) {
     }
     fun AddDeleteFavoritosJson(view: View, servidores: Servidores,  text: ImageView){
 
-        var lista = getFavoritosFromSharedJsonToListServidores()
+        var lista = getFavoritosFromSharedJsonToListServidores() as ArrayList<Servidores>
 
         if(checkInPrefrenceJson(servidores)){
-            var newLista = lista.dropWhile { s -> s.id == servidores.id }
-            saveFavoritosJson(newLista)
+            lista.remove(servidores)
+            //var newLista = lista.dropWhile { s -> s.id == servidores.id }
+            saveFavoritosJson(lista)
             text.setImageResource(R.drawable.ic_star_border_white_24dp)
             Snackbar.make(view,  servidores.nombre_completo+ " se elimino de favoritos.",Snackbar.LENGTH_LONG).show()
 

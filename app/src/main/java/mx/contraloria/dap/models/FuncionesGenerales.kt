@@ -1,9 +1,7 @@
 package mx.contraloria.dap.models
 
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -26,6 +24,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.ContextCompat.getSystemService
 import android.view.MotionEvent
 import android.widget.*
 import com.google.gson.Gson
@@ -310,10 +309,11 @@ class FuncionesGenerales(cTx: Context) {
 
         val phoneDtxtName: TextView = phonesDialog.findViewById(R.id.txtDNombre)
         val phoneDiImage: ImageView = phonesDialog.findViewById(R.id.iDImage)
+        val btn_close: ImageView = phonesDialog.findViewById(R.id.btn_close_dialog)
         try{
 
             phoneDtxtName.text =name
-            Picasso.with(context)
+            Picasso.get()
                 .load(foto)
                 .transform(CircleTransform())
                 .into(phoneDiImage)
@@ -321,6 +321,12 @@ class FuncionesGenerales(cTx: Context) {
             var telefonos  = telefonos(tel,lad)
             for (item in telefonos) {
                 CreateBtnPhones(phonesDialog,item)
+            }
+            if(btn_close != null){
+                btn_close.setOnClickListener(View.OnClickListener {
+                    phonesDialog.dismiss()
+
+                })
             }
         }catch (e: IOException){
             print(e)
@@ -330,14 +336,29 @@ class FuncionesGenerales(cTx: Context) {
     fun CreateBtnPhones(dialog: Dialog, tel: String){
         /* Aqui empieza el buttones dinaamoscs */
         val constraintLayout = dialog.findViewById(R.id.lyLstBtnPhones) as LinearLayout
-        val button = Button(dialog.context)
-        /*Parametros*/
-        var params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+
+        //creamos el linear layoutcontenedor
+        val linearLayout = LinearLayout(dialog.context)
+        /*Parametros para Linear Layout*/
+        var Lparams : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, // This will define text view width
             LinearLayout.LayoutParams.WRAP_CONTENT // This will define text view height
         )
+        linearLayout.layoutParams = Lparams
+        linearLayout.orientation = LinearLayout.HORIZONTAL
+
+
+
+
+        val button = Button(dialog.context)
+        /*Parametros*/
+        var params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+            0, // This will define text view width
+            LinearLayout.LayoutParams.WRAP_CONTENT, // This will define text view height
+            .80f
+        )
         /*Margin para poner borders*/
-        //params.setMargins(0,0,0,0)
+        //params.setMargins(0,10,0,10)
 
         button.layoutParams = params
 
@@ -348,8 +369,9 @@ class FuncionesGenerales(cTx: Context) {
         button.setBackgroundColor(Color.WHITE)
         button.setTextColor(Color.BLACK)
         button.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dialog_phone_icon, 0, 0, 0)
-        button.setCompoundDrawablePadding(90)
+        button.setCompoundDrawablePadding(70)
         button.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
+        button.textSize = 15f
         //Evento para llamar
         button.setOnClickListener(View.OnClickListener {
             if(ActivityCompat.checkSelfPermission(context,android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
@@ -363,8 +385,47 @@ class FuncionesGenerales(cTx: Context) {
 
         //Efecto del boton para que se vea bien//
         buttonEffect(button)
-        constraintLayout.addView(button)
+        linearLayout.addView(button)
         /**/
+
+
+
+
+
+        //Creamos el Cpy Button
+        val button_coppy = ImageView(dialog.context)
+        /*Parametros*/
+        var copy_params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+            0, // This will define text view width
+            LinearLayout.LayoutParams.MATCH_PARENT, // This will define text view height
+            .16f
+        )
+        /*Margin para poner borders*/
+        //params.setMargins(0,0,0,0)
+
+        button_coppy.layoutParams = copy_params
+
+
+        /*Padding*/
+        button_coppy.setPadding(45,45,45,45)
+
+        button_coppy.setBackgroundColor(Color.WHITE)
+        button_coppy.setImageResource( R.drawable.ic_content_copy_black_24dp)
+        //Evento para llamar
+        button_coppy.setOnClickListener(View.OnClickListener {
+            var myClipboard =  context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+            var myClip = ClipData.newPlainText("text", tel)
+            myClipboard?.setPrimaryClip(myClip);
+
+            Toast.makeText(context, "Email fue copiado en el portapapeles", Toast.LENGTH_SHORT).show();
+        })
+
+        //Efecto del boton para que se vea bien//
+        buttonEffect(button_coppy)
+        linearLayout.addView(button_coppy)
+
+        //Agreamos el linear layout al otro LinearLayout
+        constraintLayout.addView(linearLayout)
     }
 
     //efecto de botones
@@ -399,9 +460,10 @@ class FuncionesGenerales(cTx: Context) {
 
         val emailDtxtName: TextView = emailDialog.findViewById(R.id.txtDNombre)
         val emailDiImage: ImageView = emailDialog.findViewById(R.id.iDImage)
+        val btn_close: ImageView = emailDialog.findViewById(R.id.btn_close_dialog)
         try{
             emailDtxtName.text = name
-            Picasso.with(context)
+            Picasso.get()
                 .load(foto)
                 .transform(CircleTransform())
                 .into(emailDiImage)
@@ -410,6 +472,12 @@ class FuncionesGenerales(cTx: Context) {
             var emails  = emails(email)
             for (item in emails) {
                 CreateBtnEmails(emailDialog,item,name)
+            }
+            if(btn_close != null){
+                btn_close.setOnClickListener(View.OnClickListener {
+                    emailDialog.dismiss()
+
+                })
             }
         }catch (e: IOException){
             print(e)
@@ -421,25 +489,39 @@ class FuncionesGenerales(cTx: Context) {
         /* Aqui empieza el buttones dinaamoscs */
         val constraintLayout = dialog.findViewById(R.id.lyLstBtnEmails) as LinearLayout
 
+        //creamos el linear layoutcontenedor
+        val linearLayout = LinearLayout(dialog.context)
+        /*Parametros para Linear Layout*/
+        var Lparams : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, // This will define text view width
+            LinearLayout.LayoutParams.WRAP_CONTENT // This will define text view height
+        )
+        linearLayout.layoutParams = Lparams
+        linearLayout.orientation = LinearLayout.HORIZONTAL
+
+
+        //Creamos el botones
         val button = Button(dialog.context)
         /*Parametros*/
         var params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, // This will define text view width
-            LinearLayout.LayoutParams.WRAP_CONTENT // This will define text view height
+            0, // This will define text view width
+            LinearLayout.LayoutParams.WRAP_CONTENT, // This will define text view height
+        .80f
         )
         /*Margin para poner borders*/
         //params.setMargins(0,0,0,0)
 
         button.layoutParams = params
 
+
         /*Padding*/
-        button.setPadding(70,70,70,70)
+        button.setPadding(30,30,30,30)
 
         button.text = email
         button.setBackgroundColor(Color.WHITE)
         button.setTextColor(Color.BLACK)
         button.setCompoundDrawablesWithIntrinsicBounds( R.drawable.dialog_email_icon, 0, 0, 0)
-        button.setCompoundDrawablePadding(90)
+        button.setCompoundDrawablePadding(70)
         button.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
         //Evento para llamar
         button.setOnClickListener(View.OnClickListener {
@@ -453,9 +535,42 @@ class FuncionesGenerales(cTx: Context) {
 
         //Efecto del boton para que se vea bien//
         buttonEffect(button)
-        constraintLayout.addView(button)
+        linearLayout.addView(button)
+
+        //Creamos el Cpy Button
+        val button_coppy = ImageView(dialog.context)
+        /*Parametros*/
+        var copy_params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+            0, // This will define text view width
+            LinearLayout.LayoutParams.MATCH_PARENT, // This will define text view height
+            .16f
+        )
+        /*Margin para poner borders*/
+        //params.setMargins(0,0,0,0)
+
+        button_coppy.layoutParams = copy_params
 
 
+        /*Padding*/
+        button_coppy.setPadding(45,45,45,45)
+
+        button_coppy.setBackgroundColor(Color.WHITE)
+        button_coppy.setImageResource( R.drawable.ic_content_copy_black_24dp)
+        //Evento para llamar
+        button_coppy.setOnClickListener(View.OnClickListener {
+            var myClipboard =  context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+            var myClip = ClipData.newPlainText("text", email)
+            myClipboard?.setPrimaryClip(myClip);
+
+            Toast.makeText(context, "Email fue copiado en el portapapeles", Toast.LENGTH_SHORT).show();
+        })
+
+        //Efecto del boton para que se vea bien//
+        buttonEffect(button_coppy)
+        linearLayout.addView(button_coppy)
+
+        //Agreamos el linear layout al otro LinearLayout
+        constraintLayout.addView(linearLayout)
 
         /**/
     }
