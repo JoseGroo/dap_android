@@ -110,10 +110,12 @@
                               android:layout_height="wrap_content"
                               android:layout_marginStart="10dp"
                               android:layout_marginEnd="10dp"
-                              android:text="Lic. Silvia Cristina Lomeli Acevedo"
+                              android:text="Lic. Silvia Cristina Lomeli Acevedo asd asd a dsa asd asdasda ad"
                               android:textColor="@color/color_nombres"
                               android:textSize="@dimen/nombres"
-                              android:id="@+id/txtNombre_servidor"/>
+                              android:id="@+id/txtNombre_servidor"
+                              android:lines="2"
+                    />
 
                     <TextView android:layout_width="match_parent"
                               android:layout_height="wrap_content"
