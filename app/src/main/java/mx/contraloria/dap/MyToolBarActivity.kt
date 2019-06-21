@@ -65,9 +65,10 @@ abstract class MyToolBarActivity : AppCompatActivity() {
     }
 
     fun btnFavoritosPress(view: View){
-        var intent = Intent(this, FavoritosActivity::class.java)
-        startActivity(intent)
-
+        if(this !is FavoritosActivity){
+            var intent = Intent(this, FavoritosActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
