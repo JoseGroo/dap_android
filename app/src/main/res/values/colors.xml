@@ -37,8 +37,8 @@
     <color name="colorPrimaryDarkForIntro">#ffffff</color>
     <color name="colorAccentForIntro">#ffffff</color>
     <!-- COLRES PARA BOTONES INTRO  -->
-    <color name="colorGradientStart">#4c84ff</color>
-    <color name="colorGradientEnd">#18a3fe</color>
+    <color name="colorGradientStart">#dd2222</color>
+    <color name="colorGradientEnd">#eb7a7a</color>
     <!-- COLORES PARA TAB Y SCREEN TEXT  -->
     <color name="colorTabIndicationGray">#c0c0c0</color>
     <color name="colorIntroDescription">#656565</color>

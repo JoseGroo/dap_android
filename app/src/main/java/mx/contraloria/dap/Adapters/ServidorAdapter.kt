@@ -129,7 +129,7 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
                     Picasso.get().load(url)
                         .transform(CircleTransform())
                         .placeholder(R.drawable.spinner_progress_animation)
-                        .error(R.mipmap.ic_icon_perfil_round)
+                        .error(R.drawable.profile_gray)
                         .into(viewHolder.imgPerfil)
                 }catch (e: IOException){
                     print(e)

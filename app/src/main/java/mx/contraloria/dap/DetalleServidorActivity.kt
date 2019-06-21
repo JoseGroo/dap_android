@@ -81,7 +81,7 @@ class DetalleServidorActivity : MyToolBarActivity() {
                     .load(vServidor.foto)
                     .transform(CircleTransform())
                     .placeholder(R.drawable.spinner_progress_animation)
-                    .error(R.mipmap.ic_icon_perfil_round)
+                    .error(R.drawable.profile_gray)
                     .into(imagePerfil)
 
             }

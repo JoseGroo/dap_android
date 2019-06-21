@@ -64,46 +64,37 @@ class IntroActivity : AppCompatActivity() {
         val mList = ArrayList<ScreenItem>()
         mList.add(
             ScreenItem(
-                "PRIMER TITULO",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "Busqueda",
+                "La aplicación DAP, cuenta con un solo buscador, optimizando la busqueda y experiencia del usuario," +
+                        " cada palabra que se escriba en el buscador el sistema buscará las coincidencias en cada información de cada servidor",
                 R.drawable.sin_imagen_perfil
             )
         )
         mList.add(
             ScreenItem(
-                "SEGUNDO TITULO",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "Opciones Swipe",
+                "La aplicación DAP nos permite llamar, mandar correo, ver dirección en mapa, guardar en favoritos " +
+                        "y compartir usuario y su información a otras personas, solo haciendo swipe izquierdo o derecho sobre cada registro.",
                 R.drawable.sin_imagen_perfil
             )
         )
         mList.add(
             ScreenItem(
-                "TERCERO TITULO",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "Favoritos",
+                "Cuando guardas un favoritos estos siempre se mostraran en la opcion \"favoritos\" " +
+                        "que se encuentra en la esquina superior derecha de la aplicación, siendo accesible en todo momento.",
                 R.drawable.sin_imagen_perfil
             )
         )
         mList.add(
             ScreenItem(
-                "TERCERO TITULO",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "Detalles del contacto",
+                "Caundo accedemos al detalle, aparte de tener todas las opciónes antes mensionadas, tambien contamos con " +
+                        "información adicional del contacto asi como su reseña.",
                 R.drawable.sin_imagen_perfil
             )
         )
-        mList.add(
-            ScreenItem(
-                "TERCERO TITULO",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                R.drawable.sin_imagen_perfil
-            )
-        )
-        mList.add(
-            ScreenItem(
-                "TERCERO TITULO",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                R.drawable.sin_imagen_perfil
-            )
-        )
+
 
 
 
@@ -151,7 +142,7 @@ class IntroActivity : AppCompatActivity() {
         //Botton comenzar click
         btnGetStarted.setOnClickListener(View.OnClickListener {
 
-           val main_activity: Intent = Intent(applicationContext,HomeActivity::class.java)
+           val main_activity: Intent = Intent(applicationContext,MainActivity::class.java)
             startActivity(main_activity)
 
             savePrefData()

@@ -2,7 +2,8 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/holo_red_dark</item>
         <item name="android:windowActivityTransitions">true</item>
+        <item name="android:navigationBarColor">@color/colorRed</item>
     </style>
 </resources>

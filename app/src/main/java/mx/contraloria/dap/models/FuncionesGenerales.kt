@@ -316,6 +316,7 @@ class FuncionesGenerales(cTx: Context) {
             Picasso.get()
                 .load(foto)
                 .transform(CircleTransform())
+                .error(R.drawable.profile_gray)
                 .into(phoneDiImage)
             //creamos los telefonos
             var telefonos  = telefonos(tel,lad)
@@ -466,6 +467,7 @@ class FuncionesGenerales(cTx: Context) {
             Picasso.get()
                 .load(foto)
                 .transform(CircleTransform())
+                .error(R.drawable.profile_gray)
                 .into(emailDiImage)
 
             //creamos los emails
@@ -556,6 +558,7 @@ class FuncionesGenerales(cTx: Context) {
 
         button_coppy.setBackgroundColor(Color.WHITE)
         button_coppy.setImageResource( R.drawable.ic_content_copy_black_24dp)
+
         //Evento para llamar
         button_coppy.setOnClickListener(View.OnClickListener {
             var myClipboard =  context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?

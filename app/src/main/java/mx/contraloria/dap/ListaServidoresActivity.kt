@@ -296,10 +296,15 @@ class ListaServidoresActivity : MyToolBarActivity(){
         //var progress = progreessBar()
         var newList_prob : List<Servidores> = servidores
        // progress.show()
-        val url = getString(R.string.api_lista_servidores) +
+        /*val url = getString(R.string.api_lista_servidores) +
                 "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
                 "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
-                "&filterrific[con_detalle]=1&pagina="+pages
+                "&filterrific[con_detalle]=1&pagina="+pages*/
+        val url = getString(R.string.api_lista_servidores) +
+                "&filterrific[buscar_por_todo]="+ filtro_nombre_servidor+
+                "&filterrific[con_detalle]=1"+
+                "&con_totales=1"+
+                "&pagina="+pages
 
 
         val request = Request.Builder().url(url).build()
@@ -312,9 +317,9 @@ class ListaServidoresActivity : MyToolBarActivity(){
             var response = client.newCall(request).execute()
             val body = response?.body?.string()
             val gson = Gson()
-            val listType = object : TypeToken<List<Servidores>>() { }.type
-            var newList_prob = gson.fromJson<List<Servidores>>(body, listType)
-            return newList_prob
+            val listType = object : TypeToken<ResultadosServidores>() { }.type
+            var newList_prob = gson.fromJson<ResultadosServidores>(body, listType)
+            return newList_prob.resultados
         }catch (e: Exception){
             //progress.dismiss()
             Toast.makeText(
