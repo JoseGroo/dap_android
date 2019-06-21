@@ -32,6 +32,7 @@ import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalle_servidor.*
 import mx.contraloria.dap.Adapters.CircleTransform
+import mx.contraloria.dap.BusquedaActivity
 import java.io.*
 import java.net.URL
 import kotlin.collections.ArrayList
@@ -53,7 +54,7 @@ class FuncionesGenerales(cTx: Context) {
     }
 
     fun goIndex(view: View){
-        var intent = Intent(context, HomeTabActivity::class.java)
+        var intent = Intent(context, BusquedaActivity::class.java)
         startActivity(context, intent, null)
     }
 
