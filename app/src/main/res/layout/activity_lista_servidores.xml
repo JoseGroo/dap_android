@@ -27,41 +27,41 @@
                   android:paddingStart="@dimen/padding_container_app"
                   app:layout_constraintTop_toBottomOf="@+id/toolbars">
 
-        <LinearLayout android:layout_width="0dp"
-                      android:layout_weight=".70"
+        <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
 
 
-            <TextView android:layout_width="match_parent"
+            <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="Resultado"
-                      android:textSize="21dp"
+                      android:text="Resultado: "
+                      android:textSize="17dp"
                       android:textStyle="bold"
                       android:textColor="#2C2B2B"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
 
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:text="TODOS"
-                      android:textSize="15dp"
+                      android:textSize="17dp"
                       android:textColor="#2C2B2B"
-                      android:id="@+id/txt_filtro_busqueda"/>
-
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="0dp"
-                      android:layout_weight=".30"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical">
-
-            <TextView android:layout_width="match_parent"
+                      android:id="@+id/txt_filtro_busqueda"
+                      android:singleLine="true"/>
+           <!-- <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:text="0"
                       android:textSize="34dp"
                       android:textStyle="bold"
                       android:textAlignment="viewEnd"
                       android:textColor="#1C1B1B"
-                      android:id="@+id/txt_numero_busqueda"/>
+                      android:id="@+id/txt_numero_busqueda"/>-->
 
         </LinearLayout>
 

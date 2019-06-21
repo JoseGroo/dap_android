@@ -166,7 +166,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
                     listView.adapter = adapter
 
 
-                    txt_numero_busqueda.setText(formatoDecimales.format(newList.total))
+                    //txt_numero_busqueda.setText(formatoDecimales.format(newList.total))
                     mostrando = " "+formatoDecimales.format(newList.resultados.count()) + " - " + formatoDecimales.format(newList.total) +" resultados."
                     txt_mostrando_resultados.setText(mostrando)
                     progress.dismiss()
