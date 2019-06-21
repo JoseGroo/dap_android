@@ -12,9 +12,10 @@
 
 
     <ImageView
+            android:layout_marginTop="50dp"
             android:src="@drawable/dap_red"
             android:layout_width="352dp"
-            android:layout_height="250dp"/>
+            android:layout_height="150dp"/>
 
     <include layout="@layout/header_info_dap"/>
 

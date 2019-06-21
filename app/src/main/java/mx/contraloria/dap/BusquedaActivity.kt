@@ -25,6 +25,8 @@ class BusquedaActivity : MyToolBarActivity() {
 
     lateinit var oFuncionesGenerales: FuncionesGenerales
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_busqueda)
@@ -88,7 +90,7 @@ class BusquedaActivity : MyToolBarActivity() {
         var lista = oFuncionesGenerales.getSearchFromSharedPreferences()
         if(lista != null && lista.size > 0)
         {
-            var vUltimoElemento = if (lista.size > 5)  5 else lista.size
+            var vUltimoElemento = if (lista.size > oFuncionesGenerales.CantidadMostrarBusquedas) oFuncionesGenerales.CantidadMostrarBusquedas  else lista.size
 
             lista = lista.sortedByDescending { r -> r.Fecha }.subList(0, vUltimoElemento)
             var adapter = BusquedasAdapter(this, lista)

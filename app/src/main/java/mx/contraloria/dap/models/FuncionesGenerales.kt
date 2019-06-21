@@ -39,6 +39,7 @@ import kotlin.collections.ArrayList
 
 class FuncionesGenerales(cTx: Context) {
 
+    var CantidadMostrarBusquedas: Int = 10
     val months = arrayOf("Ene.", "Feb.", "Mar.", "Abr.", "May.", "Jun.", "Jul.", "Ago.", "Sep.", "Oct.", "Nov.", "Dic.")
 
 
