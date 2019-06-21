@@ -29,7 +29,7 @@
 
         <ImageView
                 android:id="@+id/Emails"
-                android:src="@drawable/ic_emailicon_outlet_white"
+                android:src="@drawable/ic_email_white_24dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/circular_buttom_medium"
@@ -39,7 +39,8 @@
 
         <ImageView
                 android:id="@+id/Geolocalizacion"
-                android:src="@drawable/ic_addressicon_white"
+                android:src="@drawable/ic_addressicon"
+                android:tint="@color/white"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/circular_buttom_normal"
@@ -97,7 +98,7 @@
                            android:layout_marginLeft="15dp"
                            android:layout_marginTop="15dp"
                            android:layout_marginBottom="15dp"
-                           android:src="@mipmap/ic_icon_perfil_round"
+                           android:src="@drawable/dap_red"
                            android:transitionName="imageTransition"
                            android:id="@+id/imgPerfil"/>
                 <LinearLayout android:layout_width="match_parent"
