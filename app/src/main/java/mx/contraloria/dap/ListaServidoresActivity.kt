@@ -120,17 +120,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
     fun fetchJason(){
         var progress = progreessBar()
         progress.show()
-
-
-        /*val url = getString(R.string.api_lista_servidores) +
-                "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
-                "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
-                "&filterrific[con_detalle]=1&pagina="+pages*/
-        val url = getString(R.string.api_lista_servidores) +
-                "&filterrific[buscar_por_todo]="+ filtro_nombre_servidor+
-                "&filterrific[con_detalle]=1"+
-                "&con_totales=1"+
-                "&pagina="+pages
+        val url =GetUrl()
 
         //lo ponemos en el titulo aabajo de resultados
         txtFiltrosBusqueda.text = if ( filtro_nombre_servidor != "" ) filtro_nombre_servidor else "TODOS"
@@ -300,11 +290,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
                 "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
                 "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
                 "&filterrific[con_detalle]=1&pagina="+pages*/
-        val url = getString(R.string.api_lista_servidores) +
-                "&filterrific[buscar_por_todo]="+ filtro_nombre_servidor+
-                "&filterrific[con_detalle]=1"+
-                "&con_totales=1"+
-                "&pagina="+pages
+        val url =GetUrl()
 
 
         val request = Request.Builder().url(url).build()
@@ -347,6 +333,10 @@ class ListaServidoresActivity : MyToolBarActivity(){
             handler()
             return null
         }
+    }
+
+    private fun GetUrl(): String{
+        return "https://next.json-generator.com/api/json/get/NybF3nF-P"
     }
 
 
