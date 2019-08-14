@@ -420,7 +420,7 @@ class FuncionesGenerales(cTx: Context) {
             var myClip = ClipData.newPlainText("text", tel)
             myClipboard?.setPrimaryClip(myClip);
 
-            Toast.makeText(context, "Email fue copiado en el portapapeles", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "El telefono fue copiado en el portapapeles", Toast.LENGTH_SHORT).show();
         })
 
         //Efecto del boton para que se vea bien//
