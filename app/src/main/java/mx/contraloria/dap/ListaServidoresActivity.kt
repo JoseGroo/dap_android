@@ -336,7 +336,11 @@ class ListaServidoresActivity : MyToolBarActivity(){
     }
 
     private fun GetUrl(): String{
-        return "https://next.json-generator.com/api/json/get/NybF3nF-P"
+        val url = getString(R.string.api_lista_servidores) +
+                "filterrific[con_dependencia_id]="+ filtro_dependencia_id+
+                "&filterrific[buscar_por_nombre]="+ filtro_nombre_servidor+
+                "&filterrific[con_detalle]=1&pagina="+pages
+        return url
     }
 
 
