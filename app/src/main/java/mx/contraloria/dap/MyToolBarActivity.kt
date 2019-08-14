@@ -47,10 +47,10 @@ abstract class MyToolBarActivity : AppCompatActivity() {
 
 
         }else if(imagen != null){
-            SpringAnimation(imagen, DynamicAnimation.TRANSLATION_Y,2000f).apply {
+            /*SpringAnimation(imagen, DynamicAnimation.TRANSLATION_Y,20000f).apply {
                 spring.stiffness = 70f
                 spring.dampingRatio = 0.5f
-            }.start()
+            }.start()*/
         }
     }
 
