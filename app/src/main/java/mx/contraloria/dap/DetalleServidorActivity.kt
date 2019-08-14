@@ -1,9 +1,12 @@
 package mx.contraloria.dap
 
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +25,7 @@ import okhttp3.Response
 import java.io.IOException
 import android.support.v4.view.ViewCompat.canScrollVertically
 import android.support.v7.widget.RecyclerView
+import android.util.DisplayMetrics
 import android.widget.*
 import mx.contraloria.dap.models.Servidores
 import com.squareup.picasso.Picasso
@@ -37,12 +41,19 @@ import java.util.*
 class DetalleServidorActivity : MyToolBarActivity() {
 
     lateinit var vServidor: Servidores
+    var widthScreen: Int = 0
 
     var oFuncionesGenerales = FuncionesGenerales(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle_servidor)
+
+        // get device dimensions
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        widthScreen = displayMetrics.widthPixels
 
 
         vServidor = intent.extras.get("servidor") as Servidores
@@ -148,5 +159,31 @@ class DetalleServidorActivity : MyToolBarActivity() {
     {
         oFuncionesGenerales.GenerarviewCallEmail(tvNombreServidor.text.toString(), vServidor.foto, vServidor.correo_electronico)
         menuOptions.close(true)
+    }
+
+    fun ShowImage(view: View){
+
+        val ImageDialog: Dialog = Dialog(this)
+        ImageDialog.setContentView(R.layout.dialog_image_profile)
+
+        ImageDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val ImageViewProfile: ImageView = ImageDialog.findViewById(R.id.ivProfileImage)
+        val btn_close: ImageView = ImageDialog.findViewById(R.id.btn_close_dialog)
+
+
+        Picasso.get()
+            .load(vServidor.foto)
+            .error(R.drawable.profile_gray)
+            .into(ImageViewProfile)
+
+        //creamos los telefonos
+
+        if(btn_close != null){
+            btn_close.setOnClickListener(View.OnClickListener {
+                ImageDialog.dismiss()
+            })
+        }
+        ImageDialog.show()
     }
 }

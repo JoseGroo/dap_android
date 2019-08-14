@@ -34,9 +34,10 @@
                     android:layout_height="150dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
+                    android:onClick="ShowImage"
                     android:src="@drawable/sin_imagen_perfil"
                     android:transitionName="imageTransition"/>
-
+                    <!--android:onClick="ShowImage"-->
         </RelativeLayout>
 
        <!-- <RelativeLayout

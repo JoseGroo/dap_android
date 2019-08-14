@@ -336,6 +336,7 @@ class FuncionesGenerales(cTx: Context) {
         }
         phonesDialog.show()
     }
+
     fun CreateBtnPhones(dialog: Dialog, tel: String){
         /* Aqui empieza el buttones dinaamoscs */
         val constraintLayout = dialog.findViewById(R.id.lyLstBtnPhones) as LinearLayout
