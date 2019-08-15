@@ -8,7 +8,6 @@
         tools:context=".IntroActivity"
         android:background="#ffffff">
 
-
     <android.support.v4.view.ViewPager
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -16,6 +15,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tabIntro"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/screen_viewpager"/>
+
     <Button
 
             android:textColor="@color/colorGradientStart"

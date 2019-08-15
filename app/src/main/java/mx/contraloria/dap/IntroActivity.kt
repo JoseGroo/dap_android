@@ -67,7 +67,7 @@ class IntroActivity : AppCompatActivity() {
                 "Busqueda",
                 "La aplicación DAP, cuenta con un solo buscador, optimizando la busqueda y experiencia del usuario," +
                         " cada palabra que se escriba en el buscador el sistema buscará las coincidencias en cada información de cada servidor",
-                R.drawable.sin_imagen_perfil
+                R.drawable.dap_buscador
             )
         )
         mList.add(
@@ -75,15 +75,7 @@ class IntroActivity : AppCompatActivity() {
                 "Opciones Swipe",
                 "La aplicación DAP nos permite llamar, mandar correo, ver dirección en mapa, guardar en favoritos " +
                         "y compartir usuario y su información a otras personas, solo haciendo swipe izquierdo o derecho sobre cada registro.",
-                R.drawable.sin_imagen_perfil
-            )
-        )
-        mList.add(
-            ScreenItem(
-                "Favoritos",
-                "Cuando guardas un favoritos estos siempre se mostraran en la opcion \"favoritos\" " +
-                        "que se encuentra en la esquina superior derecha de la aplicación, siendo accesible en todo momento.",
-                R.drawable.sin_imagen_perfil
+                R.drawable.dap_swipe
             )
         )
         mList.add(
@@ -91,7 +83,7 @@ class IntroActivity : AppCompatActivity() {
                 "Detalles del contacto",
                 "Caundo accedemos al detalle, aparte de tener todas las opciónes antes mensionadas, tambien contamos con " +
                         "información adicional del contacto asi como su reseña.",
-                R.drawable.sin_imagen_perfil
+                R.drawable.dap_detalles
             )
         )
 
