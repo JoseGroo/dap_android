@@ -81,7 +81,7 @@ class IntroActivity : AppCompatActivity() {
         mList.add(
             ScreenItem(
                 "Detalles del contacto",
-                "Caundo accedemos al detalle, aparte de tener todas las opciónes antes mensionadas, tambien contamos con " +
+                "Cuando accedemos al detalle, aparte de tener todas las opciónes antes mensionadas, tambien contamos con " +
                         "información adicional del contacto asi como su reseña.",
                 R.drawable.dap_detalles
             )
