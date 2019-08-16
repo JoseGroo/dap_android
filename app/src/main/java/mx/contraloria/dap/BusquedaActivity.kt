@@ -7,6 +7,8 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import kotlinx.android.synthetic.main.activity_busqueda.*
 import kotlinx.android.synthetic.main.activity_home.*
@@ -19,6 +21,7 @@ import java.util.*
 import android.view.View.OnFocusChangeListener
 import android.widget.*
 import kotlinx.android.synthetic.main.toolbar_image.*
+import java.lang.Exception
 
 
 class BusquedaActivity : MyToolBarActivity() {
@@ -50,7 +53,8 @@ class BusquedaActivity : MyToolBarActivity() {
         // Evento cuando dan enter al edit text de buscar
         // ==================================================
         etFiltroNombrePuesto.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+
+            if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
                 BuscarServidores(etFiltroNombrePuesto)
                 return@OnKeyListener true
             }
@@ -61,7 +65,27 @@ class BusquedaActivity : MyToolBarActivity() {
         // Fin evento cuando dan enter al edit text de buscar
         // ==================================================
 
+        etFiltroNombrePuesto.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if(etFiltroNombrePuesto.text.toString() != "")
+                    btn_clear.visibility = View.VISIBLE
+                else
+                    btn_clear.visibility = View.INVISIBLE
+            }
 
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+
+
+
+
+
+            }
+        })
 
         val rootView: ViewGroup = findViewById(android.R.id.content)
         rootView.viewTreeObserver.addOnGlobalLayoutListener {
@@ -80,7 +104,7 @@ class BusquedaActivity : MyToolBarActivity() {
     override fun onResume() {
         super.onResume()
         FillSearch(listUltimasBusquedas)
-        etFiltroNombrePuesto.setText("")
+        //etFiltroNombrePuesto.setText("")
     }
 
 
@@ -171,5 +195,9 @@ class BusquedaActivity : MyToolBarActivity() {
         startActivity(intent)
     }
 
-
+    fun ClearFilter(view: View)
+    {
+        etFiltroNombrePuesto.setText("")
+        btn_clear.visibility = View.INVISIBLE
+    }
 }

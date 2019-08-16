@@ -57,8 +57,8 @@
     <string name="str_direccion_gob">Centro de Gobierno, Blvd. Paseo Río Sonora y Comonfort. C.P. 83280, Col. Villa de
         Seris. Hermosillo, Sonora, México.
     </string>
-    <string name="str_telefono_gob">01-800-HONESTO (466-37-86)</string>
-    <string name="str_correo_gob">respuestadecides@sonora.gob.mx</string>
+    <string name="str_telefono_gob">(662) 217 5198-93</string>
+    <string name="str_correo_gob">tramites@sonora.gob.mx</string>
     <string name="title_activity_busqueda">BusquedaActivity</string>
     <string name="str_filtrar_en_lista">Filtrar en lista</string>
 </resources>
