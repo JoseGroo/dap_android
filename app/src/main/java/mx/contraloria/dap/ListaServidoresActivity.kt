@@ -70,31 +70,45 @@ class ListaServidoresActivity : MyToolBarActivity(){
 
 
     var oFuncionesGenerales = FuncionesGenerales(this)
+    var REQUEST_ID_MULTIPLE_PERMISSIONS = 1
+    var PERMISSIONS = arrayOf(
+        android.Manifest.permission.CALL_PHONE,
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        android.Manifest.permission.READ_EXTERNAL_STORAGE
+    )
 
 
     private fun setupPermissions() {
+
+        val listPermissionsNeeded = ArrayList<String>()
+
         val permission = checkSelfPermission(this,
             android.Manifest.permission.CALL_PHONE)
 
         if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE),REQUEST_PHONE_CALL)
+            listPermissionsNeeded.add(android.Manifest.permission.CALL_PHONE)
         }
 
         val permission_extorage = checkSelfPermission(this,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
         if (permission_extorage != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+            listPermissionsNeeded.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
 
         val permission_read_extorage = checkSelfPermission(this,
             android.Manifest.permission.READ_EXTERNAL_STORAGE)
 
         if (permission_read_extorage != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+            listPermissionsNeeded.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toTypedArray(), REQUEST_ID_MULTIPLE_PERMISSIONS)
         }
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_servidores)
