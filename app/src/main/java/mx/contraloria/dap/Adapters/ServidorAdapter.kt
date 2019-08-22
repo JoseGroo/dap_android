@@ -93,6 +93,7 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
         var snombre_completo = FuncionesGenerales.NormalizerTextNames( item.nombre_completo)
         var sTitulo = FuncionesGenerales.NormalizerTextNames( item.titulo)
         var sDependecia = FuncionesGenerales.NormalizerTextNames( item.dependencia)
+        var sPuesto = FuncionesGenerales.NormalizerTextNames( item.puesto_funcional)
 
 
 
@@ -140,7 +141,8 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
             viewHolder.imgPerfil.setImageResource(R.drawable.spinner_progress_animation)
         }
         viewHolder.nombre.text = FuncionesGenerales.NormalizerTextNames( sTitulo +" "+snombre_completo)
-        viewHolder.dependencia.text = FuncionesGenerales.NormalizerTextNames(sDependecia)
+        viewHolder.dependencia.text = sDependecia
+        viewHolder.puesto.text = sPuesto
 
         //Creamos el evento de Favoritos
         //Favoritos
@@ -261,6 +263,7 @@ class ServidorAdapter(context: Context, val items: List<Servidores>,favorites: B
         val btnEmails = view?.findViewById(R.id.Emails) as ImageView
         val btnGeolocalizacion = view?.findViewById(R.id.Geolocalizacion) as ImageView
         val card = view?.findViewById(R.id.ListaCard) as CardView
+        val puesto = view?.findViewById(R.id.txtNombre_puesto) as TextView
 
     }
 
