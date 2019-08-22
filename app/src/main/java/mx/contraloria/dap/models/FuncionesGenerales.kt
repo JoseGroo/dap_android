@@ -12,7 +12,6 @@ import android.view.View
 import mx.contraloria.dap.R
 import java.lang.Exception
 import java.util.*
-import android.support.v4.content.ContextCompat.startActivity
 import java.net.URLConnection
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -24,7 +23,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.ContextCompat.getSystemService
+import android.support.v4.content.ContextCompat.*
 import android.view.MotionEvent
 import android.widget.*
 import com.google.gson.Gson
@@ -273,7 +272,16 @@ class FuncionesGenerales(cTx: Context) {
 
 
         }catch (e: Exception){
-            Toast.makeText(context,"Error al generar la virtual card del servidor",Toast.LENGTH_SHORT).show();
+            val permission_extorage = checkSelfPermission(context,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val permission_read_extorage = checkSelfPermission(context,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            var vMensaje = context.getString(R.string.str_version_android_no_compatible)
+
+            if (permission_read_extorage != PackageManager.PERMISSION_GRANTED || permission_read_extorage != PackageManager.PERMISSION_GRANTED)
+                vMensaje = context.getString(R.string.str_sin_permisos_otorgados)
+
+            Toast.makeText(context,vMensaje,Toast.LENGTH_SHORT).show()
         }
 
 

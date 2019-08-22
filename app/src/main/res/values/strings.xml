@@ -61,4 +61,6 @@
     <string name="str_correo_gob">tramites@sonora.gob.mx</string>
     <string name="title_activity_busqueda">BusquedaActivity</string>
     <string name="str_filtrar_en_lista">Filtrar en lista</string>
+    <string name="str_version_android_no_compatible">La versión de android no es compatible con esta acción</string>
+    <string name="str_sin_permisos_otorgados">No ha otorgado los permisos para realizar esta acción</string>
 </resources>
