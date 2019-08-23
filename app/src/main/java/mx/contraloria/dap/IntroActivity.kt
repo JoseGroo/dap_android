@@ -64,8 +64,8 @@ class IntroActivity : AppCompatActivity() {
         val mList = ArrayList<ScreenItem>()
         mList.add(
             ScreenItem(
-                "Busqueda",
-                "La aplicación DAP, cuenta con un solo buscador, optimizando la busqueda y experiencia del usuario," +
+                "Búsqueda",
+                "La aplicación DAP, cuenta con un solo buscador, optimizando la búsqueda y experiencia del usuario," +
                         " cada palabra que se escriba en el buscador el sistema buscará las coincidencias en cada información de cada servidor",
                 R.drawable.dap_buscador
             )
@@ -81,8 +81,8 @@ class IntroActivity : AppCompatActivity() {
         mList.add(
             ScreenItem(
                 "Detalles del contacto",
-                "Cuando accedemos al detalle, aparte de tener todas las opciónes antes mensionadas, tambien contamos con " +
-                        "información adicional del contacto asi como su reseña.",
+                "Cuando accedemos al detalle, aparte de tener todas las opciones antes mencionadas, también contamos con " +
+                        "información adicional del contacto así como su reseña.",
                 R.drawable.dap_detalles
             )
         )

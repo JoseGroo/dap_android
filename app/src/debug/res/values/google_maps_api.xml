@@ -20,5 +20,10 @@
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
     -->
-    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyB2QmhcoQeX40EMFcKex-JT1kp205XJbJo</string>
+    <!--Esta es la api key anterior, que no sabemos a que cuenta esta ligada-->
+    <!--<string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyB2QmhcoQeX40EMFcKex-JT1kp205XJbJo</string>-->
+
+    <!--Esta api key esta ligada a la cuenta de scg.sdat@sonora.gob.mx-->
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyBuzxyNS8Xvrv6fgB289hTRJKNlW4jhMww</string>
+
 </resources>
