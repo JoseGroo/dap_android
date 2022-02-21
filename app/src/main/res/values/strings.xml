@@ -41,7 +41,7 @@
     <string name="add_widget">Add widget</string>
     <string name="str_escribe_texto_buscar">Escribe un texto para buscar</string>
     <string name="str_busqueda_avanzada">Búsqueda avanzada</string>
-    <string name="str_dap_long_name">Directorio de la \n Administración Pública</string>
+    <string name="str_dap_long_name">Directorio de la \n Administración Pública Estatal</string>
     <string name="str_gobierno_del_estado_de_sonora">Gobierno del Estado de Sonora</string>
     <string name="str_ultimas_busquedas">Últimas búsquedas</string>
     <string name="title_activity_eliminar">EliminarActivity</string>

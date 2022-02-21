@@ -114,7 +114,7 @@ class ListaServidoresActivity : MyToolBarActivity(){
         setContentView(R.layout.activity_lista_servidores)
 
         filtro_dependencia_id = if(intent.getIntExtra("filtro_dependencia_id",0) == 0) "" else intent.getIntExtra("filtro_dependencia_id",0).toString()
-        filtro_nombre_servidor = intent.getStringExtra("filtro_nombre_servidor")
+        filtro_nombre_servidor = intent.getStringExtra("filtro_nombre_servidor").toString()
         filtro_poder_id = if(intent.getIntExtra("filtro_poder_id",0) == 0) "" else intent.getIntExtra("filtro_poder_id",0).toString()
         setupPermissions()
 
